@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\LeagueController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Auth\AdminLoginController;
 
@@ -35,4 +36,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/home/datatables/ssd', [AdminUserController::class,'ssd']);
     Route::resource('users', UserController::class);
     Route::get('/users/datatables/ssd', [UserController::class,'ssd']);
+    Route::resource('/leagues', LeagueController::class);
+    Route::get('/leagues/datatables/ssd', [LeagueController::class,'ssd']);
 });

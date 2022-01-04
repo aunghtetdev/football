@@ -38,14 +38,12 @@
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-cog"></i>
-            <p>
-                Management
-                <i class="right fas fa-angle-left"></i>
-            </p>
+            <a href="{{url('/admin/leagues')}}" class="nav-link @yield('league')" >
+            <i class="nav-icon text-light fas fa-futbol"></i>
+            <p>League</p>
             </a>
         </li>
+
         <li class="nav-item">
             <a class="nav-link" href="#"
                 onclick="
