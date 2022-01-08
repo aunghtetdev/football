@@ -22,6 +22,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
     
+    {{-- switch bootstrap --}}
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+
+    {{-- Select 2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/path/to/select2.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
+    
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     @yield('extra_css')
 </head>
@@ -133,16 +142,22 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+    
         {{-- Datatables --}}
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
 
+        {{-- Switch bootstrap --}}
+        <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+        
         {{-- Sweet alert --}}
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         
         {{-- js validation --}}
         <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
         @yield('scripts')
         
@@ -158,13 +173,46 @@
             }
 
             
-            document.addEventListener('click',function(event){
-                if(document.getElementById('show-sidebar').contains(event.target)){
-                    $("#show-sidebar").addClass("sidebar-closed");
-                    $("#show-sidebar").addClass("sidebar-collapse");
-                }
-            })
+            // document.addEventListener('click',function(event){
+            //     if(document.getElementById('show-sidebar').contains(event.target)){
+            //         $("#show-sidebar").addClass("sidebar-closed");
+            //         $("#show-sidebar").addClass("sidebar-collapse");
+            //     }
+            // })
 
+            //select 2
+            $('.select-role').select2({
+                theme: 'bootstrap4',
+            });
+
+            //Datatables
+            $.extend(true, $.fn.dataTable.defaults, {
+                                        processing: true,
+                                        serverSide: true,
+                                        responsive: true,
+                                        mark: true,
+                                        "columnDefs": [
+                                    {
+                                        "targets": "hidden",
+                                        "visible": false,
+                                    },
+                                    {
+                                        "targets": 'no-sort',
+                                        "orderable": false,
+                                    },
+                                    {
+                                        "targets": 'no-search',
+                                        "searchable": false,
+                                    }
+                                ],
+                            "language": {
+                                "paginate" :{
+                                    "next": "<i class='fas fa-arrow-alt-circle-right'></i>",
+                                    "previous": "<i class='fas fa-arrow-alt-circle-left'></i>",
+                                },
+                                "processing":     "<img src='/image/giphy.gif' width='90px' /><p class='my-2'>Loading ...</p> "
+                            }
+                        });     
 
             const Toast = Swal.mixin({
                 toast: true,

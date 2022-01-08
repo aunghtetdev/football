@@ -1,27 +1,31 @@
  @extends('backend.layouts.app')
- @section('admin','active')
+ @section('team','active')
  @section('content')
     <div class="container pt-3">
         <div class="card">
             <div class="card-header">
                 <div class="">
-                    @can('create_admin')
-                    <a href="{{url('admin/home/create')}}" class="btn btn-theme "><i class="fas fa-user-plus"></i></a>
+                    @can('create_team')
+                    <a href="{{url('admin/teams/create')}}" class="btn btn-theme "><i class="fas fa-circle-plus"></i></a>
                     @endcan
-                    <h5 class="float-right pt-1" style="font-weight: 700">Admin Dashboard</h5>
+                    <h5 class="float-right pt-1" style="font-weight: 700">Team Dashboard</h5>
                 </div>
             </div>
+
+
             <div class="card-body">
                 <div class="col-md-12">
-                    <table class="table table-bordered table-hover" id="admin-table" style="width: 100%">
+                    <table class="table table-bordered table-hover" id="team-table" style="width: 100%">
                         <thead>
-                            <th>Username</th>
-                            <th>Role</th>
+                            <th>League</th>
+                            <th>Name MM</th>
+                            <th>Name EN</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
@@ -30,17 +34,19 @@
  @section('scripts')
      <script>
          $(document).ready(function(){
-             let table = $('#admin-table').DataTable({
+             let table = $('#team-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "/admin/home/datatables/ssd",
+                ajax: "/admin/teams/datatables/ssd",
                 columns : [
-                    {  data : 'username' , name : 'username' },
-                    {  data : 'role' , name : 'role' },
+                    {  data : 'league_id' , name : 'league_id' },
+                    {  data : 'name_mm' , name : 'name_mm' },
+                    {  data : 'name_en' , name : 'name_en' },
                     {  data : 'action' , name : 'action' }
                 ]
              });
-
+            
+            
              $(document).on('click','#delete',function(e){
                 e.preventDefault();
 
@@ -64,7 +70,7 @@
                                 }).then((result) => {
                                 if (result.isConfirmed) {
                                     $.ajax({
-                                        url : "/admin/home/"+id,
+                                        url : "/admin/teams/"+id,
                                         type : "DELETE",
                                         success : function(){
                                             table.ajax.reload();

@@ -1,6 +1,7 @@
 @extends('backend.layouts.app')
 @section('user','active')
 @section('content')
+    @include('backend.layouts.flash')
     <div class="container pt-3">
         <div class="col-md-12">
             <div class="card">
@@ -12,17 +13,17 @@
                     @method('PATCH')
                     <div class="card-body">
                         <div class="form-group">
-                            <div class="label">Username</div>
+                            <label for="">Username</label>
                             <input type="text" class="form-control" name="username" value="{{ $user->username }}">
                         </div>
     
                         <div class="form-group">
-                            <div class="label">Password</div>
+                            <label for="">Password</label>
                             <input type="text" class="form-control" name="password" >
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-theme" type="submit">Submit</button>
                     </div>
                 </form>
             </div>

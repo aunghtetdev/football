@@ -9,6 +9,13 @@ class League extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+    
+    public function teams()
+    {
+        return $this->hasMany('App\Team', 'league_id');
+    }
+
     public function leagueImage()
     {
         if ($this->image) {

@@ -1,23 +1,18 @@
 @extends('backend.layouts.app')
-@section('user','active')
+@section('permission','active')
 @section('content')
     <div class="container pt-3">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    User Create Page
+                    Permission Create Page
                 </div>
-                <form action="{{route('users.store')}}" method="POST" id="user-create">
+                <form action="{{route('permissions.store')}}" method="POST" id="user-create">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="">Username</label>
-                            <input type="text" class="form-control" name="username">
-                        </div>
-    
-                        <div class="form-group">
-                            <label for="">Password</label>
-                            <input type="text" class="form-control" name="password">
+                            <label for="">Name</label>
+                            <input type="text" class="form-control" name="name">
                         </div>
                     </div>
                     <div class="card-footer">
@@ -29,7 +24,7 @@
     </div>
 @endsection
 @section('scripts')
-{!! JsValidator::formRequest('App\Http\Requests\UserCreate', '#user-create'); !!}
+{!! JsValidator::formRequest('App\Http\Requests\PermissionCreate', '#permission-create'); !!}
 
     
 @endsection

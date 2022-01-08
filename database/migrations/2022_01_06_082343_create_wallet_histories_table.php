@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLeaguesTable extends Migration
+class CreateWalletHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateLeaguesTable extends Migration
      */
     public function up()
     {
-        Schema::create('leagues', function (Blueprint $table) {
+        Schema::create('wallet_histories', function (Blueprint $table) {
             $table->id();
-            $table->string('name_mm');
-            $table->string('name_en');
-            $table->string('order')->nullable();
-            $table->string('image')->nullable();
-            $table->boolean('active')->default(1);
+            $table->bigInteger('user_id');
+            $table->string('trx_id');
+            $table->boolean('is_deposit')->comment('1=>income,0=>expense');
+            $table->string('amount');
+            $table->date('date');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateLeaguesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leagues');
+        Schema::dropIfExists('wallet_histories');
     }
 }

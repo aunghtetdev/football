@@ -26,7 +26,11 @@ class LeagueController extends Controller
      */
     public function index()
     {
-        return view('backend.leagues.index');
+        if (Auth()->user()->can('view_league')) {
+            return view('backend.leagues.index');
+        } else {
+            return abort(404);
+        }
     }
 
     public function ssd()
@@ -34,14 +38,24 @@ class LeagueController extends Controller
         $league = League::query();
         return Datatables::of($league)
         ->addColumn('action', function ($each) {
-            $edit_icon = '<a href="'.url('admin/leagues/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
-            $delete_icon = '<a href="'.url('admin/leagues/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
+            $edit_icon = "";
+            $delete_icon = "";
+
+            if (Auth()->user()->can('update_league')) {
+                $edit_icon = '<a href="'.url('admin/leagues/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
+            }
+            if (Auth()->user()->can('delete_league')) {
+                $delete_icon = '<a href="'.url('admin/leagues/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
+            }
             return '<div class="action-icon">'.$edit_icon . $delete_icon.'</div>';
         })
         ->editColumn('image', function ($each) {
             return '<img src="'.$each->leagueImage().'" style="width: 30px; height:30px; border-radius:100%;" >';
         })
-        ->rawColumns(['image','action'])
+        ->editColumn('active', function ($each) {
+            return '<input type="checkbox" checked data-toggle="toggle" data-size="xs" id="toggle-event" data-id="'.$each->id.'" data-active="'.$each->active.'">';
+        })
+        ->rawColumns(['image','active','action'])
         ->make(true);
     }
     /**
@@ -51,7 +65,11 @@ class LeagueController extends Controller
      */
     public function create()
     {
-        return view('backend.leagues.create');
+        if (Auth()->user()->can('create_league')) {
+            return view('backend.leagues.create');
+        } else {
+            return abort(404);
+        }
     }
 
     /**
@@ -91,6 +109,22 @@ class LeagueController extends Controller
         //
     }
 
+    public function toggle($id)
+    {
+        $toggle = League::findOrFail($id);
+        if ($toggle->active == 1) {
+            $toggle->update([
+                'active'=>'0'
+            ]);
+        } else {
+            $toggle->update([
+                'active'=>'1'
+            ]);
+        }
+        return response([
+            'status' => 'success'
+        ]);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -99,8 +133,12 @@ class LeagueController extends Controller
      */
     public function edit($id)
     {
-        $league = League::findOrFail($id);
-        return view('backend.leagues.edit', compact('league'));
+        if (Auth()->user()->can('update_league')) {
+            $league = League::findOrFail($id);
+            return view('backend.leagues.edit', compact('league'));
+        } else {
+            return abort(404);
+        }
     }
 
     /**
@@ -113,7 +151,7 @@ class LeagueController extends Controller
     public function update(LeagueEdit $request, $id)
     {
         $league = League::findOrFail($id);
-        
+
         $image_name = $league->image;
 
         if ($request->hasFile('image')) {

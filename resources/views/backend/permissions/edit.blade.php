@@ -1,32 +1,28 @@
 @extends('backend.layouts.app')
-@section('admin','active')
+@section('permission','active')
 @section('content')
+    @include('backend.layouts.flash')
     <div class="container pt-3">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Admin Edit Page
+                    Permission Edit Page
                 </div>
-                <form action="{{route('home.update',$adminuser->id)}}" method="POST" id="admin-edit">
+                <form action="{{route('permissions.update',$permission->id)}}" method="POST" id="permission-edit">
                     @csrf
                     @method('PATCH')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="">Username</label>
-                            <input type="text" class="form-control" name="username" value="{{ $adminuser->username }}">
-                        </div>
-    
-                        <div class="form-group">
-                            <label for="">Password</label>
-                            <input type="text" class="form-control" name="password" >
+                            <label for="">Name</label>
+                            <input type="text" class="form-control" name="name" value="{{ $permission->name }}">
                         </div>
 
                         <div class="form-group">
                             <label for="">ရာထူး</label>
-                            <select name="roles" class="form-control select-role">
+                            <select name="roles[]" class="form-control select-role" multiple>
                                 <option value="">Select Role</option>
                                 @foreach ($roles as $role)
-                                <option value="{{$role->name}}" @if($role->name == $adminuser->role) selected @endif>{{$role->name}} 
+                                <option value="{{$role->name}}" @if(in_array($role->name,$old_roles)) selected @endif>{{$role->name}} 
                                 </option>
                                 @endforeach
                             </select>
@@ -41,5 +37,5 @@
     </div>
 @endsection
 @section('scripts')
-{!! JsValidator::formRequest('App\Http\Requests\AdminEdit', '#admin-edit'); !!}
+{!! JsValidator::formRequest('App\Http\Requests\PermissionEdit', '#permission-edit'); !!}
 @endsection

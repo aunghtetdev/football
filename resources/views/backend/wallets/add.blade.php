@@ -1,23 +1,25 @@
 @extends('backend.layouts.app')
-@section('user','active')
+@section('wallet','active')
 @section('content')
     <div class="container pt-3">
+        @include('backend.layouts.flash')
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    User Create Page
+                    Balance Add Page
                 </div>
-                <form action="{{route('users.store')}}" method="POST" id="user-create">
+                <form action="{{url('admin/wallets/'.$wallet->id.'/store')}}" method="POST" id="wallet-add">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <label for="">Username</label>
-                            <input type="text" class="form-control" name="username">
+                            <input type="text" class="form-control" value="{{$wallet->user ? $wallet->user->username : '-'}}">
+                            <input type="hidden" name="user_id" value="{{$wallet->user_id}}">
                         </div>
     
                         <div class="form-group">
-                            <label for="">Password</label>
-                            <input type="text" class="form-control" name="password">
+                            <label for="">Amount</label>
+                            <input type="text" class="form-control" name="amount">
                         </div>
                     </div>
                     <div class="card-footer">
@@ -29,7 +31,7 @@
     </div>
 @endsection
 @section('scripts')
-{!! JsValidator::formRequest('App\Http\Requests\UserCreate', '#user-create'); !!}
+{!! JsValidator::formRequest('App\Http\Requests\WalletAdd', '#wallet-add'); !!}
 
     
 @endsection

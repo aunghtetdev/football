@@ -1,11 +1,18 @@
 <?php
 
+use App\Models\WalletHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\LeagueController;
+use App\Http\Controllers\Admin\WalletController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Auth\AdminLoginController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\WalletHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,8 +41,30 @@ Route::post('/admin/logout', [AdminLoginController::class,'logout'])->name('admi
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::resource('home', AdminUserController::class);
     Route::get('/home/datatables/ssd', [AdminUserController::class,'ssd']);
-    Route::resource('users', UserController::class);
+
+    Route::resource('/users', UserController::class);
     Route::get('/users/datatables/ssd', [UserController::class,'ssd']);
+
     Route::resource('/leagues', LeagueController::class);
+    Route::post('/leagues/toggle/{toggle}', [LeagueController::class, 'toggle']);
     Route::get('/leagues/datatables/ssd', [LeagueController::class,'ssd']);
+
+    Route::resource('/teams', TeamController::class);
+    Route::get('/teams/datatables/ssd', [TeamController::class,'ssd']);
+
+    Route::get('/wallets', [WalletController::class,'index']);
+    Route::get('/wallets/datatables/ssd', [WalletController::class,'ssd']);
+    Route::get('/wallets/{id}/add', [WalletController::class,'add']);
+    Route::post('/wallets/{id}/store', [WalletController::class,'store']);
+    Route::get('/wallets/{id}/substract', [WalletController::class,'substract']);
+    Route::post('/wallets/{id}/extract', [WalletController::class,'extract']);
+
+    Route::get('/wallets/history', [WalletHistoryController::class , 'index']);
+    Route::get('/wallets/history/datatables/ssd', [WalletHistoryController::class , 'ssd']);
+
+    Route::resource('/permissions', PermissionController::class);
+    Route::get('/permissions/datatables/ssd', [PermissionController::class,'ssd']);
+
+    Route::resource('/roles', RoleController::class);
+    Route::get('/roles/datatables/ssd', [RoleController::class,'ssd']);
 });
