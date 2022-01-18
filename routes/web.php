@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\OddController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\MatchController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Auth\AdminLoginController;
 
@@ -35,4 +37,11 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/home/datatables/ssd', [AdminUserController::class,'ssd']);
     Route::resource('users', UserController::class);
     Route::get('/users/datatables/ssd', [UserController::class,'ssd']);
+
+    Route::resource('matches', MatchController::class);
+    Route::get('/matches/datatables/ssd', [MatchController::class,'ssd']);
+
+    Route::resource('odds', OddController::class);
+    Route::get('/odds/datatables/ssd', [OddController::class,'ssd']);
+    Route::post('/match/teams', [OddController::class,'getAjaxMatchTeam']);
 });

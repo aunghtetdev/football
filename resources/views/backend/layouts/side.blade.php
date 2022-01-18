@@ -38,6 +38,20 @@
         </li>
 
         <li class="nav-item">
+            <a href="{{url('/admin/matches')}}" class="nav-link @yield('match')" >
+            <i class="nav-icon text-white fas fa-futbol"></i>
+            <p>Match</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{url('/admin/odds')}}" class="nav-link @yield('odds')" >
+            <i class="nav-icon text-white fas fa-money-bill-alt"></i>
+            <p>Odds</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a href="#" class="nav-link">
             <i class="nav-icon fas fa-cog"></i>
             <p>

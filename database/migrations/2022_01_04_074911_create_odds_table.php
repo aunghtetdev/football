@@ -16,11 +16,11 @@ class CreateOddsTable extends Migration
         Schema::create('odds', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('match_id');
-            $table->bigInteger('over_team_id');
-            $table->bigInteger('underteam_id');
-            $table->string('body_value');
-            $table->string('goal_total_value');
-            $table->string('type');
+            $table->bigInteger('over_team_id')->nullable();
+            $table->bigInteger('underteam_id')->nullable();
+            $table->string('body_value')->nullable();
+            $table->string('goal_total_value')->nullable();
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }
