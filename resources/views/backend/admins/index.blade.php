@@ -5,7 +5,9 @@
         <div class="card">
             <div class="card-header">
                 <div class="">
-                    <a href="{{url('admin/home/create')}}" class="btn btn-primary "><i class="fas fa-user-plus"></i></a>
+                    @can('create_admin')
+                    <a href="{{url('admin/home/create')}}" class="btn btn-theme "><i class="fas fa-user-plus"></i></a>
+                    @endcan
                     <h5 class="float-right pt-1" style="font-weight: 700">Admin Dashboard</h5>
                 </div>
             </div>
@@ -14,6 +16,7 @@
                     <table class="table table-bordered table-hover" id="admin-table" style="width: 100%">
                         <thead>
                             <th>Username</th>
+                            <th>Role</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
@@ -33,6 +36,7 @@
                 ajax: "/admin/home/datatables/ssd",
                 columns : [
                     {  data : 'username' , name : 'username' },
+                    {  data : 'role' , name : 'role' },
                     {  data : 'action' , name : 'action' }
                 ]
              });

@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Wallet;
 use App\Models\AdminUser;
 use Illuminate\Http\Request;
+use App\Helper\UUIDGenerator;
 use App\Http\Requests\UserEdit;
 use App\Http\Requests\AdminEdit;
 use Yajra\Datatables\Datatables;
 use App\Http\Requests\UserCreate;
 use App\Http\Requests\AdminCreate;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,7 +25,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('backend.users.index');
+        if (Auth()->user()->can('view_user')) {
+            return view('backend.users.index');
+        } else {
+            return abort(404);
+        }
     }
 
     public function ssd()
@@ -30,8 +37,15 @@ class UserController extends Controller
         $user = User::query();
         return Datatables::of($user)
         ->addColumn('action', function ($each) {
-            $edit_icon = '<a href="'.url('admin/users/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
-            $delete_icon = '<a href="'.url('admin/users/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
+            $edit_icon = "";
+            $delete_icon = "";
+            if (Auth()->user()->can('update_user')) {
+                $edit_icon = '<a href="'.url('admin/users/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
+            }
+
+            if (Auth()->user()->can('delete_user')) {
+                $delete_icon = '<a href="'.url('admin/users/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
+            }
             return '<div class="action-icon">'.$edit_icon . $delete_icon.'</div>';
         })
         ->make(true);
@@ -43,7 +57,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('backend.users.create');
+        if (Auth()->user()->can('create_user')) {
+            return view('backend.users.create');
+        } else {
+            return abort(404);
+        }
     }
 
     /**
@@ -54,11 +72,28 @@ class UserController extends Controller
      */
     public function store(UserCreate $request)
     {
-        $user = new User();
-        $user->username = $request->username;
-        $user->password = Hash::make($request->password);
-        $user->save();
-        return redirect('/admin/users')->with('create', 'Created Successfully');
+        DB::beginTransaction();
+        try {
+            $user = new User();
+            $user->username = $request->username;
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            Wallet::firstOrCreate(
+                [
+                'user_id' => $user->id
+                ],
+                [
+                'user_code' => UUIDGenerator::UserCode(),
+                'amount' => 0
+                ]
+            );
+            DB::commit();
+            return redirect('/admin/users')->with('create', 'Created Successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect('/admin/users/create')->withErrors(['fail' => 'something wrong'.$e->getMessage()]);
+        }
     }
 
     /**
@@ -80,8 +115,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return view('backend.users.edit', compact('user'));
+        if (Auth()->user()->can('update_user')) {
+            $user = User::findOrFail($id);
+            return view('backend.users.edit', compact('user'));
+        } else {
+            return abort(404);
+        }
     }
 
     /**
@@ -93,11 +132,29 @@ class UserController extends Controller
      */
     public function update(UserEdit $request, $id)
     {
-        $user = User::findOrFail($id);
-        $user->username = $request->username;
-        $user->password = $user->password ?? Hash::make($request->password);
-        $user->update();
-        return redirect('/admin/users')->with('update', 'Updated Successfully');
+        DB::beginTransaction();
+        try {
+            $user = User::findOrFail($id);
+            $user->username = $request->username;
+            $user->password = $user->password ?? Hash::make($request->password);
+            $user->update();
+
+            Wallet::firstOrCreate(
+                [
+                'user_id' => $user->id
+                ],
+                [
+                'user_code' => UUIDGenerator::UserCode(),
+                'amount' => 0
+                ]
+            );
+            DB::commit();
+
+            return redirect('/admin/users')->with('update', 'Updated Successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect('/admin/users/'.$user->id.'/edit')->withErrors(['fail' => 'something wrong'.$e->getMessage()]);
+        }
     }
 
     /**
@@ -108,9 +165,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
+        if (Auth()->user()->can('delete_user')) {
+            $user = User::findOrFail($id);
+            $user->delete();
 
-        return 'success';
+            return 'success';
+        }
     }
 }

@@ -11,17 +11,17 @@
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <div class="label">Username</div>
+                            <label for="">Username</label>
                             <input type="text" class="form-control" name="username">
                         </div>
     
                         <div class="form-group">
-                            <div class="label">Password</div>
+                            <label for="">Password</label>
                             <input type="text" class="form-control" name="password">
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-theme" type="submit">Submit</button>
                     </div>
                 </form>
             </div>

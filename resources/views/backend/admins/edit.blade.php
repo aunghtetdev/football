@@ -12,17 +12,28 @@
                     @method('PATCH')
                     <div class="card-body">
                         <div class="form-group">
-                            <div class="label">Username</div>
+                            <label for="">Username</label>
                             <input type="text" class="form-control" name="username" value="{{ $adminuser->username }}">
                         </div>
     
                         <div class="form-group">
-                            <div class="label">Password</div>
+                            <label for="">Password</label>
                             <input type="text" class="form-control" name="password" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">ရာထူး</label>
+                            <select name="roles" class="form-control select-role">
+                                <option value="">Select Role</option>
+                                @foreach ($roles as $role)
+                                <option value="{{$role->name}}" @if($role->name == $adminuser->role) selected @endif>{{$role->name}} 
+                                </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-theme" type="submit">Submit</button>
                     </div>
                 </form>
             </div>

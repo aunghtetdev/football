@@ -19,6 +19,7 @@ class CreateLeaguesTable extends Migration
             $table->string('name_en');
             $table->string('order')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }

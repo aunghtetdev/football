@@ -1,3 +1,31 @@
+.btn-theme {
+    background-color: #0eb53e !important;
+    color: #fefefe;
+}
+/* ==========================  Datatables ================================= */
+
+.page-item.active .page-link {
+    z-index: 3 !important;
+    color: #fff !important;
+    background-color: #0eb53e !important;
+    border-color: #0eb53e !important;
+}
+
+.page-item.disabled .page-link {
+    color: #0eb53e !important;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #0eb53e;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
 /* ==========================  general ================================= */
 .action-icon a i {
     font-size: 20px;

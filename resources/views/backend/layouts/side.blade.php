@@ -58,8 +58,49 @@
                 Management
                 <i class="right fas fa-angle-left"></i>
             </p>
+            <a href="{{url('/admin/roles')}}" class="nav-link @yield('role')" >
+            <i class="nav-icon text-light fab fa-shirtsinbulk"></i>
+            <p>Role</p>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a href="{{url('/admin/permissions')}}" class="nav-link @yield('permission')" >
+            <i class="nav-icon text-light fas fa-user-lock"></i>
+            <p>Permission</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{url('/admin/leagues')}}" class="nav-link @yield('league')" >
+            <i class="nav-icon text-light fas fa-futbol"></i>
+            <p>League</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{url('/admin/teams')}}" class="nav-link @yield('team')" >
+            <i class="nav-icon text-light fas fa-toolbox"></i>
+            <p>Team</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{url('/admin/wallets')}}" class="nav-link @yield('wallet')" >
+            <i class="nav-icon text-light fas fa-wallet"></i>
+            <p>Balance</p>
+            </a>
+        </li>
+
+        @can('view_balance_history')
+        <li class="nav-item">
+            <a href="{{url('/admin/wallets/history')}}" class="nav-link @yield('history')" >
+            <i class="nav-icon text-light fas fa-history"></i>
+            <p>Balance History</p>
+            </a>
+        </li>
+        @endcan
+        
         <li class="nav-item">
             <a class="nav-link" href="#"
                 onclick="
