@@ -31,6 +31,7 @@ class AdminRoleSeeder extends Seeder
         Permission::create(['name' => 'league', 'guard_name' => 'admin']);
         Permission::create(['name' => 'team', 'guard_name' => 'admin']);
         Permission::create(['name' => 'balance', 'guard_name' => 'admin']);
+        Permission::create(['name' => 'balance_history', 'guard_name' => 'admin']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'Admin', 'guard_name' => 'admin']);
@@ -43,6 +44,7 @@ class AdminRoleSeeder extends Seeder
         $role1->givePermissionTo('league');
         $role1->givePermissionTo('team');
         $role1->givePermissionTo('balance');
+        $role1->givePermissionTo('balance_history');
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
