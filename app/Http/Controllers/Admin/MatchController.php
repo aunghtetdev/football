@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\Match;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use App\Helper\PermissionChecker;
 use App\Http\Requests\MatchCreate;
 use App\Http\Requests\MatchUpdate;
 use App\Http\Controllers\Controller;
@@ -24,6 +25,7 @@ class MatchController extends Controller
 
     public function index()
     {
+        PermissionChecker::CheckPermission('match');
         return view($this->rView.'index');
     }
 
@@ -65,6 +67,7 @@ class MatchController extends Controller
      */
     public function create()
     {
+        PermissionChecker::CheckPermission('match');
         $teams = Team::select('name_mm', 'id')->get();
         
         return view($this->rView . 'create', compact('teams'));
@@ -101,6 +104,7 @@ class MatchController extends Controller
      */
     public function edit($id)
     {
+        PermissionChecker::CheckPermission('match');
         $match = Match::findOrFail($id);
         $teams = Team::select('name_mm', 'id')->get();
         return view($this->rView.'edit', compact('match', 'teams'));

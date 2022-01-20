@@ -10,6 +10,7 @@ use App\Http\Requests\AdminCreate;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Helper\PermissionChecker;
 
 class AdminUserController extends Controller
 {
@@ -18,13 +19,11 @@ class AdminUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        if (Auth()->user()->can('view_admin')) {
-            return view('backend.admins.index');
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('admin');
+        return view('backend.admins.index');
     }
 
     public function ssd()
@@ -41,14 +40,11 @@ class AdminUserController extends Controller
         ->addColumn('action', function ($each) {
             $edit_icon = "";
             $delete_icon = "";
-
-            if (Auth()->user()->can('update_admin')) {
-                $edit_icon = '<a href="'.url('admin/home/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
-            }
-
-            if (Auth()->user()->can('delete_admin')) {
-                $delete_icon = '<a href="'.url('admin/home/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
-            }
+            
+            $edit_icon = '<a href="'.url('admin/home/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
+            
+            $delete_icon = '<a href="'.url('admin/home/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
+            
             return '<div class="action-icon">'.$edit_icon . $delete_icon.'</div>';
         })
         ->rawColumns(['role','action'])
@@ -61,12 +57,9 @@ class AdminUserController extends Controller
      */
     public function create()
     {
-        if (Auth()->user()->can('create_admin')) {
-            $roles = Role::all();
-            return view('backend.admins.create', compact('roles'));
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('admin');
+        $roles = Role::all();
+        return view('backend.admins.create', compact('roles'));
     }
 
     /**
@@ -106,14 +99,11 @@ class AdminUserController extends Controller
      */
     public function edit($id)
     {
-        if (Auth()->user()->can('update_admin')) {
-            $adminuser = AdminUser::findOrFail($id);
-            $roles = Role::all();
-            $old_roles = $adminuser->roles->pluck('name')->toArray();
-            return view('backend.admins.edit', compact('adminuser', 'roles', 'old_roles'));
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('admin');// to check user can edit or not
+        $adminuser = AdminUser::findOrFail($id);
+        $roles = Role::all();
+        $old_roles = $adminuser->roles->pluck('name')->toArray();
+        return view('backend.admins.edit', compact('adminuser', 'roles', 'old_roles'));
     }
 
     /**

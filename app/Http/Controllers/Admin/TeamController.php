@@ -11,6 +11,7 @@ use App\Http\Requests\TeamEdit;
 use App\Http\Requests\UserEdit;
 use App\Http\Requests\AdminEdit;
 use Yajra\Datatables\Datatables;
+use App\Helper\PermissionChecker;
 use App\Http\Requests\LeagueEdit;
 use App\Http\Requests\TeamCreate;
 use App\Http\Requests\UserCreate;
@@ -29,11 +30,8 @@ class TeamController extends Controller
      */
     public function index()
     {
-        if (Auth()->user()->can('view_team')) {
-            return view('backend.teams.index');
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('team');
+        return view('backend.teams.index');
     }
 
     public function ssd()
@@ -44,12 +42,10 @@ class TeamController extends Controller
             $edit_icon = "";
             $delete_icon = "";
 
-            if (Auth()->user()->can('update_team')) {
-                $edit_icon = '<a href="'.url('admin/teams/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
-            }
-            if (Auth()->user()->can('delete_team')) {
-                $delete_icon = '<a href="'.url('admin/teams/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
-            }
+            $edit_icon = '<a href="'.url('admin/teams/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
+            
+            $delete_icon = '<a href="'.url('admin/teams/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
+            
             return '<div class="action-icon">'.$edit_icon . $delete_icon.'</div>';
         })
         ->editColumn('image', function ($each) {
@@ -65,11 +61,8 @@ class TeamController extends Controller
      */
     public function create()
     {
-        if (Auth()->user()->can('create_team')) {
-            return view('backend.teams.create');
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('team');
+        return view('backend.teams.create');
     }
 
     /**
@@ -117,12 +110,9 @@ class TeamController extends Controller
      */
     public function edit($id)
     {
-        if (Auth()->user()->can('update_team')) {
-            $team = Team::findOrFail($id);
-            return view('backend.teams.edit', compact('team'));
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('team');
+        $team = Team::findOrFail($id);
+        return view('backend.teams.edit', compact('team'));
     }
 
     /**

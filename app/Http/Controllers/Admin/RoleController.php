@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RoleEdit;
 use App\Http\Requests\StoreRole;
 use Yajra\Datatables\Datatables;
+use App\Helper\PermissionChecker;
 use App\Http\Requests\RoleCreate;
 use App\Http\Requests\UpdateRole;
 use Illuminate\Support\Facades\DB;
@@ -17,12 +18,9 @@ class RoleController extends Controller
 {
     public function index()
     {
-        if (Auth()->user()->can('view_role')) {
-            $roles = Role::all();
-            return view('backend.roles.index', compact('roles'));
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('role');
+        $roles = Role::all();
+        return view('backend.roles.index', compact('roles'));
     }
 
     public function ssd()
@@ -41,12 +39,11 @@ class RoleController extends Controller
         ->addColumn('action', function ($each) {
             $edit_icon = "";
             $delete_icon = "";
-            if (Auth()->user()->can('update_role')) {
-                $edit_icon = '<a href="'.url('/admin/roles/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
-            }
-            if (Auth()->user()->can('delete_role')) {
-                $delete_icon = '<a href="'.url('/admin/roles/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
-            }
+
+            $edit_icon = '<a href="'.url('/admin/roles/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
+            
+            $delete_icon = '<a href="'.url('/admin/roles/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
+            
             return '<div class="action-icon">'.$edit_icon . $delete_icon.'</div>';
         })
         ->rawColumns(['permission','action'])
@@ -55,12 +52,9 @@ class RoleController extends Controller
     
     public function create()
     {
-        if (Auth()->user()->can('create_role')) {
-            $permissions = Permission::all();
-            return view('backend.roles.create', compact('permissions'));
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('role');
+        $permissions = Permission::all();
+        return view('backend.roles.create', compact('permissions'));
     }
 
     public function store(RoleCreate $request)
@@ -78,15 +72,13 @@ class RoleController extends Controller
     
     public function edit($id)
     {
-        if (Auth()->user()->can('update_role')) {
-            $role = Role::findOrFail($id);
-            $permissions = Permission::all();
-            $old_permissions = $role->permissions->pluck('name')->toArray();
+        PermissionChecker::CheckPermission('role');
+        $role = Role::findOrFail($id);
+        $permissions = Permission::all();
+        $old_permissions = $role->permissions->pluck('name')->toArray();
 
-            return view('backend.roles.edit', compact('role', 'permissions', 'old_permissions'));
-        } else {
-            return abort(404);
-        }
+        return view('backend.roles.edit', compact('role', 'permissions', 'old_permissions'));
+        
     }
 
     public function update(RoleEdit $request, $id)

@@ -5,9 +5,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="">
-                    @can('create_league')
                     <a href="{{url('admin/leagues/create')}}" class="btn btn-theme "><i class="fas fa-circle-plus"></i></a>
-                    @endcan
                     <h5 class="float-right pt-1" style="font-weight: 700">League Dashboard</h5>
                 </div>
             </div>

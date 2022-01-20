@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helper\UUIDGenerator;
 use App\Models\User;
 use App\Models\Wallet;
 use App\Models\AdminUser;
 use Illuminate\Http\Request;
+use App\Helper\UUIDGenerator;
+use App\Models\WalletHistory;
 use App\Http\Requests\UserEdit;
 use App\Http\Requests\AdminEdit;
 use App\Http\Requests\WalletAdd;
 use Yajra\Datatables\Datatables;
+use App\Helper\PermissionChecker;
 use App\Http\Requests\UserCreate;
 use App\Http\Requests\AdminCreate;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\WalletSubstract;
-use App\Models\WalletHistory;
 
 class WalletController extends Controller
 {
@@ -28,11 +29,8 @@ class WalletController extends Controller
      */
     public function index()
     {
-        if (Auth()->user()->can('view_balance')) {
-            return view('backend.wallets.index');
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('balance');
+        return view('backend.wallets.index');
     }
 
     public function ssd()
@@ -45,13 +43,11 @@ class WalletController extends Controller
         ->addColumn('action', function ($each) {
             $add_icon = "";
             $substract_icon ="";
-            if (Auth()->user()->can('add_balance')) {
-                $add_icon = '<a href="'.url('admin/wallets/'.$each->user_id.'/add').'" class="text-success"><i class="fas fa-circle-plus"></i></a>';
-            }
 
-            if (Auth()->user()->can('substract_balance')) {
-                $substract_icon = '<a href="'.url('admin/wallets/'.$each->user_id.'/substract').'" class="text-danger" ><i class="fas fa-circle-minus"></i></a>';
-            }
+            $add_icon = '<a href="'.url('admin/wallets/'.$each->user_id.'/add').'" class="text-success"><i class="fas fa-circle-plus"></i></a>';
+            
+            $substract_icon = '<a href="'.url('admin/wallets/'.$each->user_id.'/substract').'" class="text-danger" ><i class="fas fa-circle-minus"></i></a>';
+            
             return '<div class="action-icon">'.$add_icon . $substract_icon.'</div>';
         })
         ->make(true);
@@ -101,12 +97,9 @@ class WalletController extends Controller
 
     public function substract($id)
     {
-        if (Auth()->user()->can('substract_balance')) {
-            $wallet = Wallet::where('user_id', $id)->first();
-            return view('backend.wallets.substract', compact('wallet'));
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('balance');
+        $wallet = Wallet::where('user_id', $id)->first();
+        return view('backend.wallets.substract', compact('wallet'));
     }
 
     public function extract(WalletSubstract $request)

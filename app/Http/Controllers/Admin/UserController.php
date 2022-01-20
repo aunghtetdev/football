@@ -10,6 +10,7 @@ use App\Helper\UUIDGenerator;
 use App\Http\Requests\UserEdit;
 use App\Http\Requests\AdminEdit;
 use Yajra\Datatables\Datatables;
+use App\Helper\PermissionChecker;
 use App\Http\Requests\UserCreate;
 use App\Http\Requests\AdminCreate;
 use Illuminate\Support\Facades\DB;
@@ -25,11 +26,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        if (Auth()->user()->can('view_user')) {
-            return view('backend.users.index');
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('user');
+        return view('backend.users.index');
     }
 
     public function ssd()
@@ -39,13 +37,11 @@ class UserController extends Controller
         ->addColumn('action', function ($each) {
             $edit_icon = "";
             $delete_icon = "";
-            if (Auth()->user()->can('update_user')) {
-                $edit_icon = '<a href="'.url('admin/users/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
-            }
 
-            if (Auth()->user()->can('delete_user')) {
-                $delete_icon = '<a href="'.url('admin/users/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
-            }
+            $edit_icon = '<a href="'.url('admin/users/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
+            
+            $delete_icon = '<a href="'.url('admin/users/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
+            
             return '<div class="action-icon">'.$edit_icon . $delete_icon.'</div>';
         })
         ->make(true);
@@ -57,11 +53,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        if (Auth()->user()->can('create_user')) {
-            return view('backend.users.create');
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('user');
+        return view('backend.users.create');
     }
 
     /**
@@ -115,12 +108,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        if (Auth()->user()->can('update_user')) {
-            $user = User::findOrFail($id);
-            return view('backend.users.edit', compact('user'));
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('user');
+        $user = User::findOrFail($id);
+        return view('backend.users.edit', compact('user'));
     }
 
     /**
@@ -165,11 +155,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if (Auth()->user()->can('delete_user')) {
-            $user = User::findOrFail($id);
-            $user->delete();
+        PermissionChecker::CheckPermission('user');
+        $user = User::findOrFail($id);
+        $user->delete();
 
-            return 'success';
-        }
+        return 'success';
     }
 }

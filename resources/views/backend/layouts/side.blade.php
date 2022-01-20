@@ -24,33 +24,48 @@
         <!-- Add icons to the links using the .nav-icon class
             with font-awesome or any other icon font library -->
         <li class="nav-item">
+            <a href="{{url('/admin/dashboard')}}" class="nav-link  @yield('dashboard')" >
+            <i class="nav-icon text-success fas fa-user"></i>
+            <p>Dashboard</p>
+            </a>
+        </li>
+        @can('admin')
+        <li class="nav-item">
             <a href="{{url('/admin/home')}}" class="nav-link  @yield('admin')" >
             <i class="nav-icon text-success fas fa-user"></i>
             <p>Admin</p>
             </a>
         </li>
+        @endcan
 
+        @can('user')
         <li class="nav-item">
             <a href="{{url('/admin/users')}}" class="nav-link @yield('user')" >
             <i class="nav-icon text-primary fas fa-user"></i>
             <p>User</p>
             </a>
         </li>
+        @endcan
 
+        @can('match')
         <li class="nav-item">
             <a href="{{url('/admin/matches')}}" class="nav-link @yield('match')" >
             <i class="nav-icon text-white fas fa-futbol"></i>
             <p>Match</p>
             </a>
         </li>
+        @endcan
 
+        @can('odds')
         <li class="nav-item">
             <a href="{{url('/admin/odds')}}" class="nav-link @yield('odds')" >
             <i class="nav-icon text-white fas fa-money-bill-alt"></i>
             <p>Odds</p>
             </a>
         </li>
+        @endcan
 
+        @can('role')
         <li class="nav-item">
             <a href="#" class="nav-link">
             <i class="nav-icon fas fa-cog"></i>
@@ -63,35 +78,44 @@
             <p>Role</p>
             </a>
         </li>
+        @endcan
 
+        @can('permission')
         <li class="nav-item">
             <a href="{{url('/admin/permissions')}}" class="nav-link @yield('permission')" >
             <i class="nav-icon text-light fas fa-user-lock"></i>
             <p>Permission</p>
             </a>
         </li>
+        @endcan
 
+        @can('league')
         <li class="nav-item">
             <a href="{{url('/admin/leagues')}}" class="nav-link @yield('league')" >
             <i class="nav-icon text-light fas fa-futbol"></i>
             <p>League</p>
             </a>
         </li>
+        @endcan
 
+        @can('team')
         <li class="nav-item">
             <a href="{{url('/admin/teams')}}" class="nav-link @yield('team')" >
             <i class="nav-icon text-light fas fa-toolbox"></i>
             <p>Team</p>
             </a>
         </li>
+        @endcan
 
+        @can('balance')
         <li class="nav-item">
             <a href="{{url('/admin/wallets')}}" class="nav-link @yield('wallet')" >
             <i class="nav-icon text-light fas fa-wallet"></i>
             <p>Balance</p>
             </a>
         </li>
-
+        @endcan
+        
         @can('view_balance_history')
         <li class="nav-item">
             <a href="{{url('/admin/wallets/history')}}" class="nav-link @yield('history')" >

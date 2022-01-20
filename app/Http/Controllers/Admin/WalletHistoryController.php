@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\WalletHistory;
 use Yajra\Datatables\Datatables;
-use Illuminate\Http\Request;
+use App\Helper\PermissionChecker;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class WalletHistoryController extends Controller
 {
     public function index()
     {
-        if (Auth()->user()->can('view_balance_history')) {
-            return view('backend.history.index');
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('balance_history');
+        return view('backend.history.index');
     }
 
     public function ssd()

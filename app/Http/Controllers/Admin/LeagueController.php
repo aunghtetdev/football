@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserEdit;
 use App\Http\Requests\AdminEdit;
 use Yajra\Datatables\Datatables;
+use App\Helper\PermissionChecker;
 use App\Http\Requests\LeagueEdit;
 use App\Http\Requests\UserCreate;
 use App\Http\Requests\AdminCreate;
@@ -26,11 +27,8 @@ class LeagueController extends Controller
      */
     public function index()
     {
-        if (Auth()->user()->can('view_league')) {
-            return view('backend.leagues.index');
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('league');
+        return view('backend.leagues.index');
     }
 
     public function ssd()
@@ -41,12 +39,10 @@ class LeagueController extends Controller
             $edit_icon = "";
             $delete_icon = "";
 
-            if (Auth()->user()->can('update_league')) {
-                $edit_icon = '<a href="'.url('admin/leagues/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
-            }
-            if (Auth()->user()->can('delete_league')) {
-                $delete_icon = '<a href="'.url('admin/leagues/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
-            }
+            $edit_icon = '<a href="'.url('admin/leagues/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
+            
+            $delete_icon = '<a href="'.url('admin/leagues/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
+            
             return '<div class="action-icon">'.$edit_icon . $delete_icon.'</div>';
         })
         ->editColumn('image', function ($each) {
@@ -65,11 +61,8 @@ class LeagueController extends Controller
      */
     public function create()
     {
-        if (Auth()->user()->can('create_league')) {
-            return view('backend.leagues.create');
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('league');
+        return view('backend.leagues.create');
     }
 
     /**
@@ -133,12 +126,9 @@ class LeagueController extends Controller
      */
     public function edit($id)
     {
-        if (Auth()->user()->can('update_league')) {
-            $league = League::findOrFail($id);
-            return view('backend.leagues.edit', compact('league'));
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('league');
+        $league = League::findOrFail($id);
+        return view('backend.leagues.edit', compact('league'));
     }
 
     /**

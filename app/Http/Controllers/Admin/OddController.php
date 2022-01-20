@@ -7,6 +7,7 @@ use App\Models\Team;
 use App\Models\Match;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use App\Helper\PermissionChecker;
 use App\Http\Requests\OddsCreate;
 use App\Http\Requests\OddsUpdate;
 use App\Http\Controllers\Controller;
@@ -24,6 +25,7 @@ class OddController extends Controller
 
     public function index()
     {
+        PermissionChecker::CheckPermission('odds');
         return view($this->rView.'index');
     }
 
@@ -60,6 +62,7 @@ class OddController extends Controller
      */
     public function create()
     {
+        PermissionChecker::CheckPermission('odds');
         $matches = Match::where('finished', 0)->get();
         $matches = $this->getMatch($matches);
         return view($this->rView . 'create', compact('matches'));
@@ -96,6 +99,7 @@ class OddController extends Controller
      */
     public function edit($id)
     {
+        PermissionChecker::CheckPermission('odds');
         $odds = Odd::findOrFail($id);
         $match = Match::findOrFail($odds->match_id);
         if($match->home_team_id)

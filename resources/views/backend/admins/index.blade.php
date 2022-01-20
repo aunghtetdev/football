@@ -5,9 +5,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="">
-                    @can('create_admin')
                     <a href="{{url('admin/home/create')}}" class="btn btn-theme "><i class="fas fa-user-plus"></i></a>
-                    @endcan
                     <h5 class="float-right pt-1" style="font-weight: 700">Admin Dashboard</h5>
                 </div>
             </div>

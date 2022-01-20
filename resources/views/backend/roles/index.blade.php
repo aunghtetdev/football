@@ -5,9 +5,7 @@
        <div class="card">
            <div class="card-header">
                <div class="">
-                   @can('create_role')
                    <a href="{{url('admin/roles/create')}}" class="btn btn-theme "><i class="fas fa-circle-plus"></i></a>
-                   @endcan
                    <h5 class="float-right pt-1" style="font-weight: 700">Role Dashboard</h5>
                </div>
            </div>

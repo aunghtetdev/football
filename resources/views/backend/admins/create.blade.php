@@ -22,7 +22,7 @@
 
                         <div class="form-group">
                             <label for="">ရာထူး</label>
-                            <select name="roles" class="form-control select-role">
+                            <select name="roles" class="form-control select2">
                                 <option value="">Select Role</option>
                                 @foreach ($roles as $role)
                                 <option value="{{$role->name}}" >{{$role->name}} 

@@ -5,9 +5,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="">
-                    @can('create_team')
                     <a href="{{url('admin/teams/create')}}" class="btn btn-theme "><i class="fas fa-circle-plus"></i></a>
-                    @endcan
                     <h5 class="float-right pt-1" style="font-weight: 700">Team Dashboard</h5>
                 </div>
             </div>

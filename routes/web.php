@@ -3,15 +3,16 @@
 use App\Models\WalletHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\OddController;
-use App\Http\Controllers\Admin\MatchController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\OddController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\MatchController;
 use App\Http\Controllers\Admin\LeagueController;
 use App\Http\Controllers\Admin\WalletController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\WalletHistoryController;
@@ -41,6 +42,7 @@ Route::post('/admin/logout', [AdminLoginController::class,'logout'])->name('admi
 
 
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index']);
     Route::resource('home', AdminUserController::class);
     Route::get('/home/datatables/ssd', [AdminUserController::class,'ssd']);
 
