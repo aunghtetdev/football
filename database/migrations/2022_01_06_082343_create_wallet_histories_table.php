@@ -18,7 +18,7 @@ class CreateWalletHistoriesTable extends Migration
             $table->bigInteger('user_id');
             $table->string('trx_id');
             $table->boolean('is_deposit')->comment('1=>income,0=>expense');
-            $table->string('amount');
+            $table->string('balance');
             $table->date('date');
             $table->timestamps();
         });

@@ -75,13 +75,13 @@ class WalletController extends Controller
         DB::beginTransaction();
         
         try {
-            $add_money->increment('amount', $request->amount);
+            $add_money->increment('balance', $request->amount);
             $add_money->update();
 
             $history = new WalletHistory();
             $history->user_id = $request->user_id;
             $history->trx_id = UUIDGenerator::Trx_id();
-            $history->amount = $request->amount;
+            $history->balance = $request->amount;
             $history->is_deposit = 1;
             $history->date = now()->format('Y-m-d');
             $history->save();
@@ -109,13 +109,13 @@ class WalletController extends Controller
         DB::beginTransaction();
         
         try {
-            $substract_money->decrement('amount', $request->amount);
+            $substract_money->decrement('balance', $request->amount);
             $substract_money->update();
         
             $history = new WalletHistory();
             $history->user_id = $request->user_id;
             $history->trx_id = UUIDGenerator::Trx_id();
-            $history->amount = $request->amount;
+            $history->balance = $request->amount;
             $history->is_deposit = 0;
             $history->date = now()->format('Y-m-d');
             $history->save();

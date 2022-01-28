@@ -34,7 +34,7 @@
                ajax: "/admin/wallets/datatables/ssd",
                columns : [
                    {  data : 'user_id' , name : 'user_id' },
-                   {  data : 'amount' , name : 'amount' },
+                   {  data : 'balance' , name : 'balance' },
                    {  data : 'action' , name : 'action' }
                ]
             });

@@ -194,9 +194,9 @@
             // })
 
             //select 2
-            $('.select-role').select2({
-                theme: 'bootstrap4',
-            });
+            // $('.select-role').select2({
+            //     theme: 'bootstrap4',
+            // });
 
             //Datatables
             $.extend(true, $.fn.dataTable.defaults, {

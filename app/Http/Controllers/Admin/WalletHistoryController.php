@@ -13,7 +13,7 @@ class WalletHistoryController extends Controller
 {
     public function index()
     {
-        PermissionChecker::CheckPermission('balance_history');
+        PermissionChecker::CheckPermission('view_balance_history');
         return view('backend.history.index');
     }
 
@@ -24,17 +24,17 @@ class WalletHistoryController extends Controller
         ->editColumn('user_id', function ($each) {
             return $each->user ? $each->user->username : '';
         })
-        ->editColumn('amount', function ($each) {
+        ->editColumn('balance', function ($each) {
             if ($each->is_deposit) {
-                return '<p class="text-success"> + '.$each->amount.'</p>';
+                return '<p class="text-success"> + '.$each->balance.'</p>';
             } else {
-                return '<p class="text-danger"> - '.$each->amount.'</p>';
+                return '<p class="text-danger"> - '.$each->balance.'</p>';
             }
         })
         ->editColumn('updated_at', function ($each) {
             return $each->updated_at->format('Y-m-d h:i:s A');
         })
-        ->rawColumns(['amount','action'])
+        ->rawColumns(['balance','action'])
         ->make(true);
     }
 }

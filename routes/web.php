@@ -34,11 +34,18 @@ Route::get('/', function () {
 
 Auth::routes(['register'=>false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/admin/login', [AdminLoginController::class,'showLoginForm']);
 Route::post('/admin/login', [AdminLoginController::class,'login'])->name('admin.login');
 Route::post('/admin/logout', [AdminLoginController::class,'logout'])->name('admin.logout');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/history', [App\Http\Controllers\HomeController::class, 'history']);
+    Route::get('/history/thwin_ngwe/{id}/{startDate}/{endDate}', [App\Http\Controllers\HomeController::class, 'thwinNgwe']);
+    Route::get('/history/htote_ngwe/{id}/{startDate}/{endDate}', [App\Http\Controllers\HomeController::class, 'htoteNgwe']);
+});
 
 
 Route::prefix('admin')->middleware('auth:admin')->group(function () {

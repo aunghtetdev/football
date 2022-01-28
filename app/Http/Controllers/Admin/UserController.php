@@ -78,7 +78,7 @@ class UserController extends Controller
                 ],
                 [
                 'user_code' => UUIDGenerator::UserCode(),
-                'amount' => 0
+                'balance' => 0
                 ]
             );
             DB::commit();
@@ -135,7 +135,7 @@ class UserController extends Controller
                 ],
                 [
                 'user_code' => UUIDGenerator::UserCode(),
-                'amount' => 0
+                'balance' => 0
                 ]
             );
             DB::commit();
