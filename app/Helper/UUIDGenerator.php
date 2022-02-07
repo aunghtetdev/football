@@ -2,11 +2,22 @@
 
 namespace App\Helper;
 
+use App\Models\Bet;
 use App\Models\Wallet;
 use App\Models\WalletHistory;
 
 class UUIDGenerator
 {
+    public static function BetID()
+    {
+        $bet_id = 10000000;
+        $exist = Bet::orderBy('bet_id', 'desc')->pluck('bet_id')->first();
+        
+        if ($exist) {
+            return ++$exist;
+        }
+        return $bet_id;
+    }
     public static function UserCode()
     {
         $number = rand('10000000', '99999999');

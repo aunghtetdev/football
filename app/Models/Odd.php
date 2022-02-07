@@ -24,7 +24,7 @@ class Odd extends Model
     {
         if($this->over_team_id)
         {
-            $value = Team::findOrFail($this->over_team_id);
+            $value = Team::findOrFail($this->over_team_id)->name_mm;
         }
         return $value;
     }
@@ -32,7 +32,7 @@ class Odd extends Model
     {
         if($this->underteam_id)
         {
-            $value = Team::findOrFail($this->underteam_id);
+            $value = Team::findOrFail($this->underteam_id)->name_mm;
             return $value;
         }
     }

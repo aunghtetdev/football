@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Wallet;
 use App\Models\AdminUser;
+use App\Helper\WalletHelper;
 use Illuminate\Http\Request;
 use App\Helper\UUIDGenerator;
 use App\Models\WalletHistory;
@@ -60,12 +61,9 @@ class WalletController extends Controller
 
     public function add($id)
     {
-        if (Auth()->user()->can('add_balance')) {
-            $wallet = Wallet::where('user_id', $id)->first();
-            return view('backend.wallets.add', compact('wallet'));
-        } else {
-            return abort(404);
-        }
+        PermissionChecker::CheckPermission('balance');
+        $wallet = Wallet::where('user_id', $id)->first();
+        return view('backend.wallets.add', compact('wallet'));
     }
 
     public function store(WalletAdd $request)
@@ -82,9 +80,11 @@ class WalletController extends Controller
             $history->user_id = $request->user_id;
             $history->trx_id = UUIDGenerator::Trx_id();
             $history->amount = $request->amount;
-            $history->is_deposit = 1;
+            $history->is_deposit = 'deposit';
             $history->date = now()->format('Y-m-d');
             $history->save();
+
+            WalletHelper::monthly_chart($request->amount, 'deposit');
 
             DB::commit();
 
@@ -116,10 +116,12 @@ class WalletController extends Controller
             $history->user_id = $request->user_id;
             $history->trx_id = UUIDGenerator::Trx_id();
             $history->amount = $request->amount;
-            $history->is_deposit = 0;
+            $history->is_deposit = 'withdraw';
             $history->date = now()->format('Y-m-d');
             $history->save();
 
+            WalletHelper::monthly_chart($request->amount, 'withdraw');
+            
             DB::commit();
 
             return redirect('/admin/wallets')->with('create', 'Substracted');

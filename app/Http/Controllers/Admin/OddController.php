@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Odd;
 use App\Models\Team;
 use App\Models\Match;
+use App\Models\LiveOdd;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Helper\PermissionChecker;
 use App\Http\Requests\OddsCreate;
 use App\Http\Requests\OddsUpdate;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class OddController extends Controller
@@ -34,26 +36,50 @@ class OddController extends Controller
         $odd = Odd::query();
         return Datatables::of($odd)
         ->addColumn('action', function ($each) {
-            $edit_icon = '<a href="'.url('admin/odds/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-user-edit"></i></a>';
+            $edit_icon = '<a href="'.url('admin/odds/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-edit"></i></a>';
             $delete_icon = '<a href="'.url('admin/odds/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
-            return '<div class="action-icon">'.$edit_icon . $delete_icon.'</div>';
+            $change_odds = '<a href="'.url('admin/odds/change-odds/'.$each->id).'" class="btn btn-primary">Change Odds</a>';
+            return '<div class="action-icon">'.$change_odds . $edit_icon . $delete_icon.'</div>';
         })
-        ->editColumn('over_team_id', function($each) {
-            if($each->over_team_id)
+        ->editColumn('body_value', function($each) {
+            if($each->id)
             {
-                $value = Team::find($each->over_team_id)->name_mm;
+                $value = LiveOdd::where('odd_id', $each->id)->orderBy('id', 'desc')->first()->body_value;
                 return $value;
             }
         })
-        ->editColumn('underteam_id', function($each) {
+        ->editColumn('goal_total_value', function($each) {
             if($each->underteam_id)
             {
-                $value = Team::find($each->underteam_id)->name_mm;
+                $value = LiveOdd::where('odd_id', $each->id)->orderBy('id', 'desc')->first()->goal_total_value;
                 return $value;
             }
         })
-        ->rawColumns(['finished', 'action'])
         ->make(true);
+    }
+
+    public function changeOdds($odd_id)
+    {
+        $live_odds = LiveOdd::where('odd_id', $odd_id)->orderBy('id', 'desc')->first();
+        return view($this->rView.'change_odds', compact('live_odds'));
+    }
+
+    public function saveChangeOdds(Request $request)
+    {
+        $live_odd = LiveOdd::where('odd_id', $request->odd_id)->orderBy('id', 'desc')->first();
+        $live_odd->live = 0;
+        
+        LiveOdd::create([
+            'odd_id' => $request->odd_id,
+            'body_value' => $request->body_value,
+            'goal_total_value' => $request->goal_total_value,
+            'datetime' => date('Y-m-d H:i:s'),
+            'live' => 1
+        ]);
+        $live_odd->save();
+
+        return redirect('/admin/odds')->with('create', 'Changed Successfully');
+
     }
     /**
      * Show the form for creating a new resource.
@@ -76,8 +102,26 @@ class OddController extends Controller
      */
     public function store(OddsCreate $request)
     {
-        $this->model->create($request->all());
-        return redirect('/admin/odds')->with('create', 'Created Successfully');
+        // dd($request->all());
+        DB::beginTransaction();
+        try {
+            $odd = $this->model->create($request->all());
+            // dd($odd);
+            LiveOdd::create([
+                'odd_id' => $odd->id,
+                'body_value' => $request->body_value,
+                'goal_total_value' => $request->goal_total_value,
+                'datetime' => date('Y-m-d H:i:s'),
+                'live' => 1
+            ]);
+
+            DB::commit();
+            return redirect('/admin/odds')->with('create', 'Created Successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect('admin/odds/create')->withErrors(['fail' => 'Something wrong'.$e->getMessage()]);
+        }
+        
     }
 
     /**

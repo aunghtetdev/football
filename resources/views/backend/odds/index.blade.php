@@ -56,8 +56,8 @@
                 ajax: "/admin/odds/datatables/ssd",
                 columns : [
                     {  data : 'body_value' , name : 'body_value' },
-                    {  data : 'over_team_id' , name : 'over_team_id' },
-                    {  data : 'underteam_id' , name : 'underteam_id' },
+                    {  data : 'over_team_name' , name : 'over_team_name' },
+                    {  data : 'under_team_name' , name : 'under_team_name' },
                     {  data : 'goal_total_value' , name : 'goal_total_value' },
                     {  data : 'action' , name : 'action' }
                 ]

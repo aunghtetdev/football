@@ -116,11 +116,20 @@
         </li>
         @endcan
         
-        @can('view_balance_history')
+        @can('balance')
         <li class="nav-item">
             <a href="{{url('/admin/wallets/history')}}" class="nav-link @yield('history')" >
             <i class="nav-icon text-light fas fa-history"></i>
             <p>Balance History</p>
+            </a>
+        </li>
+        @endcan
+
+        @can('bet')
+        <li class="nav-item">
+            <a href="{{url('/admin/bets')}}" class="nav-link @yield('bet')" >
+            <i class="nav-icon text-light fas fa-dollar-sign"></i>
+            <p>Bet</p>
             </a>
         </li>
         @endcan

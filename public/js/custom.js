@@ -15,12 +15,6 @@ const { Carousel } = require("bootstrap");
 				header.removeClass("scroll-on").addClass('start-style');
 			}
 		});
-	});		
-		
-	//Animation
-	
-	$(document).ready(function() {
-		$('body.hero-anime').removeClass('hero-anime');
 	});
 
 	//Menu On Hover

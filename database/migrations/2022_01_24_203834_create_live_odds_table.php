@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWalletHistoriesTable extends Migration
+class CreateLiveOddsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateWalletHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('wallet_histories', function (Blueprint $table) {
+        Schema::create('live_odds', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->string('trx_id');
-            $table->string('is_deposit')->comment('withdraw,deposit,bet,win');
-            $table->string('amount');
-            $table->date('date');
+            $table->unsignedBigInteger('odd_id');
+            $table->string('body_value')->nullable();
+            $table->string('goal_total_value')->nullable();
+            $table->bool('live')->default(0);
+            $table->timestamp('datetime')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateWalletHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wallet_histories');
+        Schema::dropIfExists('live_odds');
     }
 }

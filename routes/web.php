@@ -3,7 +3,7 @@
 use App\Models\WalletHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\BetController;
 use App\Http\Controllers\Admin\OddController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TeamController;
@@ -11,11 +11,13 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MatchController;
 use App\Http\Controllers\Admin\LeagueController;
 use App\Http\Controllers\Admin\WalletController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\WalletHistoryController;
+use App\Http\Controllers\Frontend\CompensationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +35,18 @@ Route::get('/', function () {
 });
 
 Auth::routes(['register'=>false]);
+Route::middleware('auth')->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::post('/match/bet-match', [CompensationController::class, 'betMatch'])->name('match.bet-match');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/match/moung', [CompensationController::class, 'showMoung'])->name('match.moung');
+    Route::post('/match/bet-moung', [CompensationController::class, 'betMoung'])->name('match.bet-moung');
+
+    Route::get('/match/previous-bet', [CompensationController::class, 'showPreviousBet'])->name('match.previous-bet');
+    Route::post('/match/filter-previous-bet', [CompensationController::class, 'filterPreviousBet'])->name('match.filter-previous-bet');
+    Route::get('/match/active-bet', [CompensationController::class, 'showActiveBet'])->name('match.active-bet');
+
+});
 
 Route::get('/admin/login', [AdminLoginController::class,'showLoginForm']);
 Route::post('/admin/login', [AdminLoginController::class,'login'])->name('admin.login');
@@ -53,6 +65,8 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/matches/datatables/ssd', [MatchController::class,'ssd']);
 
     Route::resource('odds', OddController::class);
+    Route::get('/odds/change-odds/{odd_id}', [OddController::class, 'changeOdds']);
+    Route::post('/odds/save-change-odds', [OddController::class, 'saveChangeOdds'])->name('odds.save-change-odds');
     Route::get('/odds/datatables/ssd', [OddController::class,'ssd']);
     
     Route::post('/match/teams', [OddController::class,'getAjaxMatchTeam']);
@@ -78,4 +92,9 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
     Route::resource('/roles', RoleController::class);
     Route::get('/roles/datatables/ssd', [RoleController::class,'ssd']);
+
+    Route::get('/bets', [BetController::class, 'index']);
+    Route::get('/bets/datatables/ssd', [BetController::class,'ssd']);
+    Route::get('/bets/bet-details/{user_id}', [BetController::class,'betDetails']);
+    Route::post('/bets/bet-details/compensation', [BetController::class,'saveCompensation']);
 });

@@ -1,5 +1,5 @@
 .btn-theme {
-    background-color: #0eb53e !important;
+    background-color: #004d25 !important;
     color: #fefefe;
 }
 /* ==========================  Datatables ================================= */
@@ -68,4 +68,106 @@
     background-image: url("https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX1954415.jpg");
     background-size: cover;
     background-position: bottom;
+}
+
+/* =================== Bet ======================== */
+.outer-bet-card{
+    border: 1px solid #004d25;
+    background:#004d25;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:10px;
+}
+.bet-card{
+    text-align:center; 
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom:10px;
+    background: #004d25;
+    color: #fff;
+}
+.bet-card-inner div{
+    padding: 10px;
+    margin-bottom: 5px;
+}
+.bet-bg{
+    background: #fff;
+    color: #000;
+    border-radius: 10px;
+}
+.non-bet-bg{
+    border: 1px solid #fff;
+    border-radius: 10px;
+}
+.bet-bg,.non-bet-bg{
+    cursor: pointer;
+    transition: all ease .25s;
+}
+.bet-bg,.non-bet-bg:hover{
+    background: #fff;
+    color: #000;
+}
+.win-amount{
+    border-radius: 50px;
+    padding: 7px;
+}
+.win-amount::placeholder {
+    padding-left: 10px;
+}
+.btn-submit{
+    color: #fff;
+    background-color: #004d25;
+    border-color: #004d25;
+    border-radius: 10px;
+}
+.btn-submit:hover{
+    background: rgba(0,77,37, .9);
+    color: #dee2e6;
+}
+
+/* Radio button */
+.switch-field {
+	display: flex;
+	/* margin-bottom: 36px; */
+	overflow: hidden;
+    justify-content: center;
+}
+
+.switch-field input {
+	position: absolute !important;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	width: 1px;
+	border: 0;
+	overflow: hidden;
+}
+
+.switch-field label {
+	background-color: #e4e4e4;
+	color: rgba(0, 0, 0, 0.6);
+	font-size: 14px;
+	line-height: 1;
+	text-align: center;
+	padding: 8px 16px;
+	margin-right: -1px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+	transition: all 0.1s ease-in-out;
+}
+
+.switch-field label:hover {
+	cursor: pointer;
+}
+
+.switch-field input:checked + label {
+	background-color: #a5dc86;
+	box-shadow: none;
+}
+
+.switch-field label:first-of-type {
+	border-radius: 4px 0 0 4px;
+}
+
+.switch-field label:last-of-type {
+	border-radius: 0 4px 4px 0;
 }

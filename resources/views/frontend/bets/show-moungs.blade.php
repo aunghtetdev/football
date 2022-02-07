@@ -1,32 +1,25 @@
 @extends('frontend.layouts.app')
-@section('title', 'Home')
+@section('title', 'Moung')
 @include('frontend.layouts.nav')
 
 @section('content')
 
-<section class="main-content">
-    <div class="main-content-img">
-        <img alt="" src="https://www.footyrenders.com/render/kylian-mbappe-48.png">
-    </div> 
-    <h2 class="main-content-title">ဘောပွဲလောင်းမယ်</h2> 
-    <p class="main-content-text">
-        Promotion များကိုဒီနေရာတွင် ကြေညာနိုင်သည်။
-    </p> 
-</section>
 <section>
     <div class="game-box">
         <div class="card">
+            <div class="card-header">
+                <h3>မောင်းပွဲစဥ်များ</h3>
+            </div>
             <div class="card-body">
                 <div class="match_today container" id="match_today">
-                    <form action="{{ route('match.bet-match') }}" id="bet-form" method="POST">
-                    @csrf
-                    <h3>ဘော်ဒီပွဲစဥ်များ</h3>
-                    <!--matches-->
+                    <form action="{{ route('match.bet-moung') }}" id="bet-form" method="POST">
+                        @csrf
                     @foreach($matches as $match)
+                    <h3>Matches ( {{ $match->match_date }} )</h3>
+                    <!--matches-->
                     <div class="match-content" id="match-content-{{ $match->odd_id }}">
                         {{-- <a class="fullink" href="#"></a> --}}
                         <div class="match-content-inner">
-                            <span class="match-date">06 Feb</span>
                             <div class="mpart1">
                                 <div class="right_match">
                                     <span class="right_tech">
@@ -50,25 +43,28 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="bet-match">
-                                <span>
-                                    <input type="radio" id="over-team-{{ $match->odd_id }}" value="{{ $match->over_team_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
-                                    <label for="over-team-{{ $match->odd_id }}" class="over-team"> အပေါ်ကြေးအသင်း ({{ $match->body_value }})</label>
-                                </span>
-                                <span>
-                                    <input type="radio" id="under-team-{{ $match->odd_id }}" value="{{ $match->underteam_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
-                                    <label for="under-team-{{ $match->odd_id }}" class="under-team">အောက်ကြေးအသင်း</label>
-                                </span>
-                                <span class="over">
-                                    <input type="radio" id="over-goal-{{ $match->odd_id }}" value="over-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
-                                    <label for="over-goal-{{ $match->odd_id }}">ဂိုးပေါ် ({{ $match->goal_total_value }})</label>
-                                </span>
-                                <span class="under">
-                                    <input type="radio" id="under-goal-{{ $match->odd_id }}" value="under-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
-                                    <label for="under-goal-{{ $match->odd_id }}" class="under-goal">ဂိုးအောက်</label>
-                                </span>
-                                
-                            </div>
+                            
+                                <div class="bet-match">
+                                    <input type="hidden" value="{{$match->odd_id}}" name="odd_ids[]">
+                                    <span>
+                                        {{-- sending all needed id in radio value  --}}
+                                        <input type="radio" id="over-team-{{ $match->odd_id }}" value="{{ $match->over_team_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet[{{$match->odd_id}}]">
+                                        <label for="over-team-{{ $match->odd_id }}" id="over-team" class="over-team"> အပေါ်ကြေးအသင်း ({{ $match->body_value }})</label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" id="under-team-{{ $match->odd_id }}" value="{{ $match->underteam_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet[{{$match->odd_id}}]">
+                                        <label for="under-team-{{ $match->odd_id }}" class="under-team">အောက်ကြေးအသင်း</label>
+                                    </span>
+                                    <span class="over">
+                                        <input type="radio" id="over-goal-{{ $match->odd_id }}" value="over-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet[{{$match->odd_id}}]">
+                                        <label for="over-goal-{{ $match->odd_id }}">ဂိုးပေါ် ({{ $match->goal_total_value }})</label>
+                                    </span>
+                                    <span class="under">
+                                        <input type="radio" id="under-goal-{{ $match->odd_id }}" value="under-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet[{{$match->odd_id}}]">
+                                        <label for="under-goal-{{ $match->odd_id }}" class="under-goal">ဂိုးအောက်</label>
+                                    </span>
+                                    
+                                </div>
                         </div>
                     </div>
                     @endforeach
@@ -77,6 +73,7 @@
                         <input type="submit" onclick="betSubmit(event)" value="Bet" class="btn btn-primary bet-submit-btn">
                     </div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -85,19 +82,24 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-        
     //Submit Bet with confirm box
     function betSubmit(event) {
         event.preventDefault();
-        var bet = $("input[name=bet]:checked").val();
         var bet_amount = $("input[name=bet_amount]").val();
         var amount = {!! json_encode((array)auth()->user()->wallet->amount) !!};
-        console.log(amount)
-        if(!bet)
+        var bets = $.map($("input:radio:checked"), function(elem, idx) {
+                return $(elem).attr("name") + "=" + $(elem).val();
+            });
+        if(bets.length == 0)
         {
             Toast.fire({
                 icon: 'info',
                 title: 'လောင်းမည့်အသင်းရွေးပေးပါ။'
+            })
+        }else if(bets.length < 2){
+            Toast.fire({
+                icon: 'info',
+                title: 'အနည်းဆုံး ၂ပွဲနင့်အထက် လောင်းပါ။'
             })
         }else if(bet_amount < 1000){
             Toast.fire({
@@ -127,19 +129,21 @@
                 reverseButtons: true
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    var match_time = bet.split('-')[5];
-                    var current_time = formatAMPM(new Date);
-                    console.log(current_time)
-                    if(match_time < current_time)
-                    {
-                        Toast.fire({
-                        icon: 'error',
-                        title: 'ပွဲစသွားပါပြီ။'
-                        })
-                        location.reload();
-                    }else{
-                        document.getElementById('bet-form').submit();
-                    }
+                    $.each(bets, function(i, bet) {
+                        var split_bet = bet.split('=')[1];
+                        var match_time = split_bet.split('-')[5];
+                        console.log(match_time)
+                        var current_time = formatAMPM(new Date);
+                        if(match_time < current_time)
+                        {
+                            Toast.fire({
+                            icon: 'error',
+                            title: 'ပွဲစသွားပါပြီ။'
+                            })
+                            location.reload();
+                        }
+                    });
+                    document.getElementById('bet-form').submit();
                 }
             })
         }

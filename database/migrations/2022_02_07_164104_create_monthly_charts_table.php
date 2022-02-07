@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWalletHistoriesTable extends Migration
+class CreateMonthlyChartsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateWalletHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('wallet_histories', function (Blueprint $table) {
+        Schema::create('monthly_charts', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->string('trx_id');
-            $table->string('is_deposit')->comment('withdraw,deposit,bet,win');
-            $table->string('amount');
-            $table->date('date');
+            $table->string('month')->nullable();
+            $table->string('year')->nullable();
+            $table->bigInteger('deposit')->default(0);
+            $table->bigInteger('withdraw')->default(0);
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateWalletHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wallet_histories');
+        Schema::dropIfExists('monthly_charts');
     }
 }

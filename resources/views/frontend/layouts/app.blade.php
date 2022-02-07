@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -17,6 +17,8 @@
     
     {{-- bootstrap --}}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    {{-- Juqery --}}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <!-- Styles -->
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     @yield('extra_css')
@@ -28,17 +30,16 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6">
-                    <aside class="content-sidebar">
-                        <h3>Leagues</h3>
-                        <ul>
-                            <li><a href="">ပရီးမီးယားလိခ်</a></li>
-                            <li><a href="">လာလီဂါ</a></li>
-                            <li><a href="">ချန်ပီယံလိခ်</a></li>
-                            <li><a href="">ဘွန်တက်လီဂါ</a></li>
-                            <li><a href="">ယူရိုပါလိခ်</a></li>
-                            <li><a href="">စီးရီးအေ</a></li>
-                        </ul>
-                    </aside>
+                    <div class="web-sidebar-widget account-info">
+                        <div class="widget-head">
+                            <h3>အကောင့်အချက်အလက်</h3>
+                        </div>
+                        <div class="widget-body">
+                            <span>ကုဒ် </span><p style="letter-spacing:2px;">{{ $auth_user->wallet->user_code }}</p>
+                            <span>အမည်</span><p style="letter-spacing:2px;"> {{ $auth_user->username }}</p>
+                            <span>ပမာဏ</span><p style="letter-spacing:2px;"> {{ $auth_user->wallet->amount }}</p>
+                        </div>
+                    </div> 
                 </div>
                 <div class="col-xl-8 col-lg-8 col-md-6 col-sm-6">
                     @yield('content')
@@ -67,15 +68,46 @@
         </div>
     </section>
 
-
     {{-- jquery --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
-       
     <!-- Bootstrap 4 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
+    {{-- Sweet alert --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="{{ asset('js/custom.js') }}" defer></script>
+    @yield('scripts')
+    <script>
+        // Preloader
+        
+        //end preloader
+        const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+                })
+                @if(session('bet'))
+                    Toast.fire({
+                    icon: 'success',
+                    title: '{{session('bet')}}'
+                })
+                @endif
+                @if(session('bet-error'))
+                    Toast.fire({
+                    icon: 'error',
+                    title: '{{session('bet-error')}}'
+                })
+                @endif
+    </script>
 </body>
 </html>
