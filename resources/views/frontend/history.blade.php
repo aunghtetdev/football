@@ -23,8 +23,8 @@
         </p>
         
         <p><a href="{{url('history/thwin_ngwe/'.Auth()->user()->id.'/'.(request()->startDate ? request()->startDate : now()->format('Y-m-d')).'/'.(request()->endDate ? request()->endDate : now()->format('Y-m-d'))) }}"><strong>သွင်းငွေ -</strong> {{$thwin_ngwe ? $thwin_ngwe->total : 0 }}</a></p>
-        <p><strong>ပြန်ရငွေ -</strong> 2870.0</p>
-        <p><strong>လောင်းငွေ -</strong> 3000.0</p>
+        <p><a href="{{url('history/pyan_ya_ngwe/'.Auth()->user()->id.'/'.(request()->startDate ? request()->startDate : now()->format('Y-m-d')).'/'.(request()->endDate ? request()->endDate : now()->format('Y-m-d'))) }}"><strong>ပြန်ရငွေ -</strong></a></p>
+        <p><a href="{{url('history/laung_ngwe/'.Auth()->user()->id.'/'.(request()->startDate ? request()->startDate : now()->format('Y-m-d')).'/'.(request()->endDate ? request()->endDate : now()->format('Y-m-d'))) }}"><strong>လောင်းငွေ -</strong> </a></p>
         <p><a href="{{url('history/htote_ngwe/'.Auth()->user()->id.'/'.(request()->startDate ? request()->startDate : now()->format('Y-m-d')).'/'.(request()->endDate ? request()->endDate : now()->format('Y-m-d')))}}"><strong>ထုတ်ငွေ -</strong> {{$htote_ngwe ? $htote_ngwe->total : 0 }}</a></p>
         <p><strong>လက်ကျန် -</strong> 3870.0</p>
     </div>

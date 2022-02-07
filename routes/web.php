@@ -42,9 +42,13 @@ Route::post('/admin/logout', [AdminLoginController::class,'logout'])->name('admi
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+    Route::post('/home/profile/change-password', [App\Http\Controllers\ProfileController::class, 'changePassword'])->name('change_password');
     Route::get('/history', [App\Http\Controllers\HomeController::class, 'history']);
     Route::get('/history/thwin_ngwe/{id}/{startDate}/{endDate}', [App\Http\Controllers\HomeController::class, 'thwinNgwe']);
     Route::get('/history/htote_ngwe/{id}/{startDate}/{endDate}', [App\Http\Controllers\HomeController::class, 'htoteNgwe']);
+    Route::get('/history/laung_ngwe/{id}/{startDate}/{endDate}', [App\Http\Controllers\HomeController::class, 'laungPyanNgwe']);
+    Route::get('/history/pyan_ya_ngwe/{id}/{startDate}/{endDate}', [App\Http\Controllers\HomeController::class, 'laungPyanNgwe']);
 });
 
 

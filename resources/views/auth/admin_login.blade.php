@@ -18,8 +18,8 @@
     <div class="row justify-content-center align-items-center" style="height: 100vh">
         <div class="col-md-6">
             <div class="text-center mb-3">
-                <a href="{{route('admin.login')}}">
-                    <img src="{{asset('image/logo.png')}}" style="width:60px" alt="">
+                <a href="{{route('login')}}">
+                    <img src="{{asset('image/previous.png')}}" style="width:60px" alt="">
                 </a>
             </div>
             <div class="card">
@@ -27,7 +27,7 @@
                     <form method="POST" action="{{ route('admin.login') }}">
                         @csrf
 
-                        <h5 class="text-center">Please Fill Login Form</h5>
+                        <h5 class="text-center">Admin Login Form</h5>
                         <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="form-group mb-3">
@@ -49,7 +49,7 @@
                                     </span>
                                 @enderror
                         </div>
-                        <button class="btn btn-primary btn-block mt-4">Login</button>
+                        <button class="btn btn-theme btn-block mt-4">Login</button>
                         
                         {{-- <div class="row mb-3">
                             <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('username') }}</label>

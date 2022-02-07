@@ -84,7 +84,52 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
+    {{-- js validation --}}
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    
+    {{-- Sweet alert --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('scripts')
-    <script src="{{ asset('js/custom.js') }}" defer></script>
+
+    <script>
+        const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+                })
+                
+                @if(session('create'))
+                    Toast.fire({
+                    icon: 'success',
+                    title: '{{session('create')}}'
+                    })
+                @endif
+
+                @if(session('update'))
+                    Toast.fire({
+                    icon: 'success',
+                    title: '{{session('update')}}'
+                    })
+                @endif
+
+                @if(session('error'))
+                    Toast.fire({
+                    icon: 'error',
+                    title: '{{session('error')}}'
+                    })
+                @endif
+                
+    </script>
+    <script src="{{ asset('js/custom.js') }}" defer>
+
+        
+
+    </script>
 </body>
 </html>

@@ -51,4 +51,10 @@ class HomeController extends Controller
         $htote_ngwe_detail = WalletHistory::where('user_id', $id)->where('is_deposit', 0)->whereBetween('date', [$startDate,$endDate])->get();
         return view('frontend.htote_ngwe_history_detail', compact('htote_ngwe_detail'));
     }
+
+    public function laungPyanNgwe($id, $startDate, $endDate)
+    {
+        $htote_ngwe_detail = WalletHistory::where('user_id', $id)->where('is_deposit', 0)->whereBetween('date', [$startDate,$endDate])->get();
+        return view('frontend.laung_pyan_ngwe_history_detail', compact('htote_ngwe_detail'));
+    }
 }
