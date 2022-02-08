@@ -21,20 +21,27 @@ class WalletHistoryController extends Controller
     {
         $wallet_hisotry = WalletHistory::query();
         return Datatables::of($wallet_hisotry)
+        ->addColumn('type', function($each) {
+            if ($each->is_deposit == 'deposit' || $each->is_deposit == 'bet') {
+                return '<span class="badge badge-success p-2"> '.$each->is_deposit.'</span>';
+            } else {
+                return '<span class="badge badge-danger p-2"> '.$each->is_deposit.'</span>';
+            }
+        })
         ->editColumn('user_id', function ($each) {
             return $each->user ? $each->user->username : '';
         })
-        ->editColumn('balance', function ($each) {
-            if ($each->is_deposit) {
-                return '<p class="text-success"> + '.$each->balance.'</p>';
+        ->editColumn('amount', function ($each) {
+            if ($each->is_deposit == 'deposit' || $each->is_deposit == 'bet') {
+                return '<p class="text-success"> + '.$each->amount.'</p>';
             } else {
-                return '<p class="text-danger"> - '.$each->balance.'</p>';
+                return '<p class="text-danger"> - '.$each->amount.'</p>';
             }
         })
         ->editColumn('updated_at', function ($each) {
             return $each->updated_at->format('Y-m-d h:i:s A');
         })
-        ->rawColumns(['balance','action'])
+        ->rawColumns(['amount','action', 'type'])
         ->make(true);
     }
 }
