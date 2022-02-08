@@ -44,8 +44,8 @@
 
 .card {
     overflow: auto;
-    border-radius: 10px;
-    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
     box-shadow: 0.3rem 0.7rem 0.3rem rgba(0, 0, 0, 0.15) !important;
 }
 
@@ -170,4 +170,35 @@
 
 .switch-field label:last-of-type {
 	border-radius: 0 4px 4px 0;
+}
+.user-login-card {
+    background-color: #eef;
+    border: 1px solid #ddd;
+}
+.my-check-box[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: #eee !important;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #181717;
+}
+
+.my-check-box[type="checkbox"]:after {
+    font-family: "Font Awesome 6 Free";
+    content: "\f00c";
+    font-size: 17px;
+    font-weight: 900;
+    color: #0eb53e;
+    display: none;
+}
+
+.my-check-box[type="checkbox"]:checked:after {
+    display: block;
 }

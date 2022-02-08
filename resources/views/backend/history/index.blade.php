@@ -31,7 +31,7 @@
                columns : [
                    {  data : 'user_id' , name : 'user_id' },
                    {  data : 'trx_id' , name : 'trx_id' },
-                   {  data : 'amount' , name : 'amount' },
+                   {  data : 'balance' , name : 'balance' },
                    {  data : 'updated_at' , name : 'updated_at' },
                ],
                order : [3,"desc"]

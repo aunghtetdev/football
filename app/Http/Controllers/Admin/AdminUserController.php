@@ -59,6 +59,7 @@ class AdminUserController extends Controller
     {
         PermissionChecker::CheckPermission('admin');
         $roles = Role::all();
+        
         return view('backend.admins.create', compact('roles'));
     }
 
@@ -102,6 +103,7 @@ class AdminUserController extends Controller
         PermissionChecker::CheckPermission('admin');// to check user can edit or not
         $adminuser = AdminUser::findOrFail($id);
         $roles = Role::all();
+        
         $old_roles = $adminuser->roles->pluck('name')->toArray();
         return view('backend.admins.edit', compact('adminuser', 'roles', 'old_roles'));
     }

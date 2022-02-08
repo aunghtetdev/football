@@ -29,6 +29,9 @@
     {{-- Select 2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+    {{-- Datetime Picker --}}
+    <link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.min.css') }}">
+
     <link rel="stylesheet" href="/path/to/select2.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
     
@@ -145,13 +148,11 @@
          <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
          
         <!-- Bootstrap 4 -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     
         {{-- Datatables --}}
-        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
 
@@ -161,17 +162,18 @@
         {{-- Sweet alert --}}
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         
+        {{-- Datetime Picker --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
+        <script src="{{ asset('js/jquery.datetimepicker.full.min.js') }}"></script>
+
         {{-- Select 2 --}}
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
         {{-- js validation --}}
         <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
         <!-- ChartJS -->
         <script src="{{ asset('js/chart.min.js') }}"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
         @yield('scripts')
         
@@ -179,6 +181,9 @@
             $(document).ready(function() {
                 $('.select2').select2();
             });
+            //date picker
+            $.datetimepicker.setLocale('en');
+            $('#datetimepicker').datetimepicker();
             
             let token = document.head.querySelector('meta[name="csrf-token"]');
 
@@ -199,9 +204,9 @@
             // })
 
             //select 2
-            $('.select-role').select2({
-                theme: 'bootstrap4',
-            });
+            // $('.select-role').select2({
+            //     theme: 'bootstrap4',
+            // });
 
             //Datatables
             $.extend(true, $.fn.dataTable.defaults, {

@@ -163,8 +163,8 @@
                         $('#loaderIcon_'+id).hide();
                         $('.bet-result-'+id).show();
                         console.log(data);
-                        $('.bet-result-text-'+id).text("Result : "+data.bet_result);
-                        $('.bet-result-amount-'+id).text("Amount : "+data.win_amount);
+                        $('.bet-result-text-'+id).text("Result : "+bet_result);
+                        $('.bet-result-amount-'+id).text("Amount : "+win_amount);
                         $('#form_'+id).hide();
                     }
                 });

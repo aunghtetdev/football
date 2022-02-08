@@ -17,16 +17,7 @@
                             <input type="text" class="form-control" name="name" value="{{ $permission->name }}">
                         </div>
 
-                        <div class="form-group">
-                            <label for="">ရာထူး</label>
-                            <select name="roles[]" class="form-control select-role" multiple>
-                                <option value="">Select Role</option>
-                                @foreach ($roles as $role)
-                                <option value="{{$role->name}}" @if(in_array($role->name,$old_roles)) selected @endif>{{$role->name}} 
-                                </option>
-                                @endforeach
-                            </select>
-                        </div>
+                      
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-theme" type="submit">Submit</button>

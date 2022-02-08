@@ -81,7 +81,7 @@ class WalletController extends Controller
             $history->trx_id = UUIDGenerator::Trx_id();
             $history->amount = $request->amount;
             $history->is_deposit = 'deposit';
-            $history->date = now()->format('Y-m-d');
+            $history->date = now()->format('Y-m-d H:i:s');
             $history->save();
 
             WalletHelper::monthly_chart($request->amount, 'deposit');
@@ -117,7 +117,7 @@ class WalletController extends Controller
             $history->trx_id = UUIDGenerator::Trx_id();
             $history->amount = $request->amount;
             $history->is_deposit = 'withdraw';
-            $history->date = now()->format('Y-m-d');
+            $history->date = now()->format('Y-m-d H:i:s');
             $history->save();
 
             WalletHelper::monthly_chart($request->amount, 'withdraw');

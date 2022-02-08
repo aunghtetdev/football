@@ -20,7 +20,7 @@ class CreateMatchesTable extends Migration
             $table->bigInteger('home_team_goal')->default(0);
             $table->bigInteger('away_team_goal')->default(0);
             $table->timestamp('date');
-            $table->bool('finished')->default(0);
+            $table->boolean('finished')->default(0);
             $table->timestamps();
         });
     }

@@ -25,8 +25,9 @@
                             <label for="">ရာထူး</label>
                             <select name="roles" class="form-control select-role">
                                 <option value="">Select Role</option>
+                                
                                 @foreach ($roles as $role)
-                                <option value="{{$role->name}}" @if($role->name == $adminuser->role) selected @endif>{{$role->name}} 
+                                <option value="{{$role->name}}" @if(in_array($role->name,$old_roles)) selected @endif>{{$role->name}} 
                                 </option>
                                 @endforeach
                             </select>

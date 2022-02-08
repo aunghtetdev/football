@@ -101,12 +101,13 @@
                 icon: 'info',
                 title: 'အနည်းဆုံး ၂ပွဲနင့်အထက် လောင်းပါ။'
             })
-        }else if(bet_amount < 1000){
+        }else if(parseInt(bet_amount) < 1000){
             Toast.fire({
                 icon: 'info',
                 title: 'အနည်းဆုံး ၁၀၀၀ကျပ် လောင်းပါ။'
             })
-        }else if(amount < bet_amount){
+        }else if(parseInt(amount[0]) < parseInt(bet_amount)){
+            console.log(parseInt(amount[0]) < parseInt(bet_amount))
             Toast.fire({
                 icon: 'info',
                 title: 'လက်ကျန်ငွေမလုံလောက်ပါ။'
@@ -129,21 +130,24 @@
                 reverseButtons: true
                 }).then((result) => {
                 if (result.isConfirmed) {
+                    var over_time = false;
                     $.each(bets, function(i, bet) {
                         var split_bet = bet.split('=')[1];
                         var match_time = split_bet.split('-')[5];
                         console.log(match_time)
                         var current_time = formatAMPM(new Date);
-                        if(match_time < current_time)
-                        {
-                            Toast.fire({
-                            icon: 'error',
-                            title: 'ပွဲစသွားပါပြီ။'
-                            })
-                            location.reload();
-                        }
+                        over_time = true;
                     });
-                    document.getElementById('bet-form').submit();
+                    if(over_time)
+                    {
+                        Toast.fire({
+                        icon: 'error',
+                        title: 'ပွဲစသွားပါပြီ။'
+                        })
+                        location.reload();
+                    }else{
+                        document.getElementById('bet-form').submit();
+                    }
                 }
             })
         }

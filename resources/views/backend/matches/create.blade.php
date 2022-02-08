@@ -28,7 +28,7 @@
                         </div>
                         <div class="form-group">
                             <div class="label">Match Date</div>
-                            <input type="date" class="form-control" name="date">
+                            <input id="datetimepicker" autocomplete="off" class="form-control" name="date" type="text" />
                         </div>
                     </div>
                     <div class="card-footer">
@@ -38,9 +38,10 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 @endsection
 @section('scripts')
 {!! JsValidator::formRequest('App\Http\Requests\MatchCreate', '#match-create'); !!}
-
     
 @endsection

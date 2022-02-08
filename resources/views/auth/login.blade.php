@@ -19,17 +19,17 @@
         <div class="col-md-6">
             <div class="text-center mb-3">
                 <a href="{{route('admin.login')}}">
-                    <img src="{{asset('image/logo.png')}}" style="width:60px" alt="">
+                    <img src="{{asset('image/football.png')}}" style="width:60px" alt="">
                 </a>
             </div>
-            <div class="card">
+            <div class="card user-login-card">
                 <div class="card-body">
-                    <h5 class="text-center">Please Fill Login Form</h5>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="form-group mb-3">
-                            <label for="">Username</label>
-                            <input type="text" class="form-control @error('username') is-invalid @enderror"  name="username" required autocomplete="current-username">
+                           <div class="d-flex align-items-center" >
+                            <i class="fas fa-user" style="font-size : 20px ; padding-right: 10px !important;"></i><input type="text" class="form-control @error('username') is-invalid @enderror"  name="username" required placeholder="username" autocomplete="current-username">
+                           </div>
                             @error('username')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -38,15 +38,21 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Password</label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                            <div class="d-flex align-items-center" >
+                                <i class="fas fa-lock" style="font-size : 20px ; padding-right: 10px !important;"></i><input type="password" class="form-control @error('password') is-invalid @enderror" name="password" required placeholder="password" autocomplete="current-password">
+                            </div>
                             @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                         </div>
-                        <button class="btn btn-primary btn-block mt-4">Login</button>
+                            <div class="d-flex align-items-center">
+                                <div class="check" style="font-size : 20px ; padding-right: 8px !important;">
+                                    <input class="my-check-box"  type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} style="">
+                                </div>
+                                    <button class="btn btn-theme btn-block">Login</button>
+                            </div>
                         
                             {{-- <div class="row mb-3">
                             <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('username') }}</label>
