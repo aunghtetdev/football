@@ -25,7 +25,7 @@
                                     <div class="label">Over Team</div>
                                     <input type="hidden" value="{{ $odds->over_team_id }}" name="over_team_id">
                                     <select name="over_team_id" class="form-control" disabled>
-                                        <option value="{{ $odds->over_team_id }}">{{ $odds->over_team_name->name_mm }}</option>
+                                        <option value="{{ $odds->over_team_id }}">{{ $odds->over_team_name }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                                     <div class="label">Under Team</div>
                                     <input type="hidden" value="{{ $odds->underteam_id }}" name="underteam_id">
                                     <select name="underteam_id" class="form-control" id="under_team" disabled>
-                                        <option value="{{ $odds->underteam_id }}">{{ $odds->under_team_name->name_mm }}</option>
+                                        <option value="{{ $odds->underteam_id }}">{{ $odds->under_team_name }}</option>
                                     </select>
                                 </div>
                             </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Odd;
 use App\Models\Team;
 use App\Models\Match;
+use App\Models\Matchy;
 use App\Models\LiveOdd;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -41,16 +42,14 @@ class OddController extends Controller
             $change_odds = '<a href="'.url('admin/odds/change-odds/'.$each->id).'" class="btn btn-primary">Change Odds</a>';
             return '<div class="action-icon">'.$change_odds . $edit_icon . $delete_icon.'</div>';
         })
-        ->editColumn('body_value', function($each) {
-            if($each->id)
-            {
+        ->editColumn('body_value', function ($each) {
+            if ($each->id) {
                 $value = LiveOdd::where('odd_id', $each->id)->orderBy('id', 'desc')->first()->body_value;
                 return $value;
             }
         })
-        ->editColumn('goal_total_value', function($each) {
-            if($each->underteam_id)
-            {
+        ->editColumn('goal_total_value', function ($each) {
+            if ($each->underteam_id) {
                 $value = LiveOdd::where('odd_id', $each->id)->orderBy('id', 'desc')->first()->goal_total_value;
                 return $value;
             }
@@ -79,7 +78,6 @@ class OddController extends Controller
         $live_odd->save();
 
         return redirect('/admin/odds')->with('create', 'Changed Successfully');
-
     }
     /**
      * Show the form for creating a new resource.
@@ -121,7 +119,6 @@ class OddController extends Controller
             DB::rollBack();
             return redirect('admin/odds/create')->withErrors(['fail' => 'Something wrong'.$e->getMessage()]);
         }
-        
     }
 
     /**
@@ -146,12 +143,10 @@ class OddController extends Controller
         PermissionChecker::CheckPermission('odds');
         $odds = Odd::findOrFail($id);
         $match = Match::findOrFail($odds->match_id);
-        if($match->home_team_id)
-        {
+        if ($match->home_team_id) {
             $home_team_name = Team::find($match->home_team_id)->name_mm;
         }
-        if($match->away_team_id)
-        {
+        if ($match->away_team_id) {
             $away_team_name = Team::find($match->away_team_id)->name_mm;
         }
         $matches = [
@@ -191,27 +186,22 @@ class OddController extends Controller
     protected function getMatch($matches)
     {
         $data = [];
-        if($matches)
-        {
+        if ($matches) {
             foreach ($matches as $query) {
                 $is_odds = Odd::where('match_id', $query->id)->first();
-                if(!$is_odds)
-                {
-                    if($query->home_team_id)
-                    {
+                if (!$is_odds) {
+                    if ($query->home_team_id) {
                         $home_team_name = Team::find($query->home_team_id)->name_mm;
                     }
-                    if($query->away_team_id)
-                    {
+                    if ($query->away_team_id) {
                         $away_team_name = Team::find($query->away_team_id)->name_mm;
                     }
                     $query_data = [
                         'match_name' => $query->match = $home_team_name.' vs '. $away_team_name,
                         'id' => $query->id
                     ];
-                    $data[] = $query_data; 
+                    $data[] = $query_data;
                 }
-                
             }
         }
         return $data;

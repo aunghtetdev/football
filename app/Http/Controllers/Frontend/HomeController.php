@@ -35,7 +35,7 @@ class HomeController extends Controller
             ->where('matches.date', '>', $now)
             ->orderBy('date', 'asc')
             ->get();
-        // return $matches;
+        //return $matches;
         return view('frontend.home', compact('matches'));
     }
 }

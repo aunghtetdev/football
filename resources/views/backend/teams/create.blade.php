@@ -14,7 +14,9 @@
                             <label for="">League</label>
                             <select name="league_id" class="form-control" id="">
                                 <option value="">Select League</option>
-                                <option value="1">Premier League</option>
+                                @foreach($leagues as $league)
+                                <option value="{{$league->id}}">{{$league->name_mm}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">

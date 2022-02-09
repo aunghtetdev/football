@@ -26,7 +26,7 @@
         <p><a href="{{url('history/pyan_ya_ngwe/'.Auth()->user()->id.'/'.(request()->startDate ? request()->startDate : now()->format('Y-m-d')).'/'.(request()->endDate ? request()->endDate : now()->format('Y-m-d'))) }}"><strong>ပြန်ရငွေ -</strong>{{$win_amount ? $win_amount->total : 0 }} ks</a></p>
         <p><a href="{{url('history/laung_ngwe/'.Auth()->user()->id.'/'.(request()->startDate ? request()->startDate : now()->format('Y-m-d')).'/'.(request()->endDate ? request()->endDate : now()->format('Y-m-d'))) }}"><strong>လောင်းငွေ -</strong>{{$bet_amount ? $bet_amount->total : 0 }} ks</a></p>
         <p><a href="{{url('history/htote_ngwe/'.Auth()->user()->id.'/'.(request()->startDate ? request()->startDate : now()->format('Y-m-d')).'/'.(request()->endDate ? request()->endDate : now()->format('Y-m-d')))}}"><strong>ထုတ်ငွေ -</strong> {{$htote_ngwe ? $htote_ngwe->total : 0 }} ks</a></p>
-        <p><strong>လက်ကျန် -</strong> {{$လက်ကျန်}} ks</p>
+        <p><strong>လက်ကျန် -</strong> {{$lat_kyan}} ks</p>
     </div>
 </div> 
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Team;
 use App\Models\Match;
+use App\Models\Matchy;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Helper\PermissionChecker;
@@ -13,7 +14,6 @@ use App\Http\Controllers\Controller;
 
 class MatchController extends Controller
 {
-
     protected $model;
 
     protected $rView = 'backend.matches.';
@@ -38,11 +38,10 @@ class MatchController extends Controller
             $delete_icon = '<a href="'.url('admin/matches/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
             return '<div class="action-icon">'.$edit_icon . $delete_icon.'</div>';
         })
-        ->editColumn('home_team_id', function($each) {
+        ->editColumn('home_team_id', function ($each) {
             $home_team_name = Team::find($each->home_team_id)->name_mm;
             $away_team_name = Team::find($each->away_team_id)->name_mm;
-            if($each->finished == 1)
-            {
+            if ($each->finished == 1) {
                 $finished = '<span class="badge badge-danger p-2">FT</span>';
             } else {
                 $finished = '<span class="badge badge-success p-2">VS</span>';

@@ -17,8 +17,7 @@ class CreateWalletsTable extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->unsignedBigInteger('user_code');
-            $table->string('balance')->default(0);
-            $table->string('old_balance')->default(0);
+            $table->string('amount')->default(0);
             $table->timestamps();
         });
     }

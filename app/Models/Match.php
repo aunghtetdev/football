@@ -14,9 +14,10 @@ class Match extends Model
 
     protected $appends = ['home_team_name', 'away_team_name', 'match_time', 'match_date'];
     protected $hidden = ['date'];
+
     public function getHomeTeamNameAttribute()
     {
-        if($this->home_team_id){
+        if ($this->home_team_id) {
             $value = Team::find($this->home_team_id)->name_mm;
             return $value;
         }
@@ -24,7 +25,7 @@ class Match extends Model
 
     public function getAwayTeamNameAttribute()
     {
-        if($this->away_team_id){
+        if ($this->away_team_id) {
             $value = Team::find($this->away_team_id)->name_mm;
             return $value;
         }
@@ -32,8 +33,7 @@ class Match extends Model
 
     public function getMatchTimeAttribute()
     {
-        if($this->date)
-        {
+        if ($this->date) {
             $value = Carbon::createFromFormat('Y-m-d H:i:s', $this->date)->format('g:i A');
             return $value;
         }
@@ -41,8 +41,7 @@ class Match extends Model
 
     public function getMatchDateAttribute()
     {
-        if($this->date)
-        {
+        if ($this->date) {
             $value = Carbon::createFromFormat('Y-m-d H:i:s', $this->date)->format('d M');
             return $value;
         }

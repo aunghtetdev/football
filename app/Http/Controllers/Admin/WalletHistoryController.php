@@ -24,17 +24,17 @@ class WalletHistoryController extends Controller
         ->editColumn('user_id', function ($each) {
             return $each->user ? $each->user->username : '';
         })
-        ->editColumn('balance', function ($each) {
+        ->editColumn('amount', function ($each) {
             if ($each->is_deposit) {
-                return '<p class="text-success"> + '.$each->balance.'</p>';
+                return '<p class="text-success"> + '.$each->amount.'</p>';
             } else {
-                return '<p class="text-danger"> - '.$each->balance.'</p>';
+                return '<p class="text-danger"> - '.$each->amount.'</p>';
             }
         })
         ->editColumn('updated_at', function ($each) {
             return $each->updated_at->format('Y-m-d h:i:s A');
         })
-        ->rawColumns(['balance','action'])
+        ->rawColumns(['amount','action'])
         ->make(true);
     }
 }

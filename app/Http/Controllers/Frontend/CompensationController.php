@@ -36,10 +36,9 @@ class CompensationController extends Controller
             $bet_team_id = null;
             $user_id = auth()->user()->id;
             //checking user bet is team or total goal
-            if($bet_side == 'over' || $bet_side == 'under')
-            {
+            if ($bet_side == 'over' || $bet_side == 'under') {
                 $bet_goal_total = $bet_side;
-            }else{
+            } else {
                 $bet_team_id = $bet_side;
             }
             $this->model->create([
@@ -105,10 +104,9 @@ class CompensationController extends Controller
                         $bet_goal_total = '';
                         $bet_team_id = null;
                         //checking user bet is team or total goal
-                        if($bet_side == 'over' || $bet_side == 'under')
-                        {
+                        if ($bet_side == 'over' || $bet_side == 'under') {
                             $bet_goal_total = $bet_side;
-                        }else{
+                        } else {
                             $bet_team_id = $bet_side;
                         }
                         // dd($bet->id);
@@ -126,7 +124,7 @@ class CompensationController extends Controller
                         ]);
                     }
                     // dd($moung);
-                }            
+                }
             }
             $wallet = Wallet::where('user_id', $user_id)->first();
             $wallet->amount -= $request->bet_amount;
