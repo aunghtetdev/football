@@ -7,6 +7,7 @@
     --light-green: #48bf53 !important;
     --soft-green: #91f086 !important;
     --white: #fff !important;
+    --warnings: orange;
 }
 /* ==================== #Primary ====================== */
 * {
@@ -47,13 +48,9 @@ a {
     color: var(--white) !important;
 }
 
-/* login card */
-/* .card {
-    overflow: auto;
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 0.3rem 0.7rem 0.3rem rgba(0, 0, 0, 0.15) !important;
-} */
+.card {
+    border-radius: 10px;
+}
 
 /* #Navigation
 ================================================== */
@@ -818,7 +815,7 @@ form .bet-submit-btn {
     /* ================== Nav Start ==================== */
     .nav-item:after,
     .account-info {
-        display: none;
+        display: block;
     }
     .nav-item::before {
         position: absolute;
@@ -1046,4 +1043,29 @@ form .bet-submit-btn {
 
 .daterangepicker .ranges li.active :hover {
     background-color: #eee !important;
+}
+
+/* ======================filter old matches ================= */
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-button,
+html .ui-button.ui-state-disabled:hover,
+html .ui-button.ui-state-disabled:active {
+    color: #454545 !important;
+}
+
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+    border: 1px solid var(--white);
+    background: var(--primary);
+    color: var(--white) !important;
+}
+
+/* ===========================  password change =========================== */
+
+.invalid-feedback {
+    color: var(--warnings);
 }

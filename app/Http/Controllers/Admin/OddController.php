@@ -39,7 +39,7 @@ class OddController extends Controller
         ->addColumn('action', function ($each) {
             $edit_icon = '<a href="'.url('admin/odds/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-edit"></i></a>';
             $delete_icon = '<a href="'.url('admin/odds/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
-            $change_odds = '<a href="'.url('admin/odds/change-odds/'.$each->id).'" class="btn btn-primary">Change Odds</a>';
+            $change_odds = '<a href="'.url('admin/odds/change-odds/'.$each->id).'" class="btn btn-theme">Change Odds</a>';
             return '<div class="action-icon">'.$change_odds . $edit_icon . $delete_icon.'</div>';
         })
         ->editColumn('body_value', function ($each) {

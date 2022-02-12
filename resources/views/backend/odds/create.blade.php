@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ url('admin/odds') }}"><span class="badge badge-primary p-2"><i class="fas fa-arrow-left"></i></span></a>
+                    <a href="{{ url('admin/odds') }}"><span class="badge badge-theme p-2"><i class="fas fa-arrow-left"></i></span></a>
                     Odds Create Page
                 </div>
                 <form action="{{route('odds.store')}}" method="POST" id="odds-create">
@@ -21,7 +21,7 @@
                             </select>
                         </div>
                         <div class="row justify-content-center">
-                            <div id="loaderIcon" class="spinner-border text-primary" style="display:none;" role="status">
+                            <div id="loaderIcon" class="spinner-border text-theme" style="display:none;" role="status">
                                 <span class="sr-only">Loading...</span>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-theme" type="submit">Submit</button>
                     </div>
                 </form>
             </div>

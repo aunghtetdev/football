@@ -43,7 +43,8 @@
                     {  data : 'order' , name : 'order' },
                     {  data : 'active' , name : 'active' },
                     {  data : 'action' , name : 'action' }
-                ]
+                ],
+                order : [3,"aesc"]
              });
             
              $(document).on('change','#toggle-event',function() {

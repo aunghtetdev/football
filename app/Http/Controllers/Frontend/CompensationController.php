@@ -140,6 +140,20 @@ class CompensationController extends Controller
         }
     }
 
+    public function showBody()
+    {
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        $matches = Match::join('odds', 'matches.id', '=', 'odds.match_id')
+            ->join('live_odds', 'odds.id', '=', 'live_odds.odd_id')
+            ->where('live_odds.live', 1)
+            ->where('matches.finished', 0)
+            ->where('matches.date', '>', $now)
+            ->orderBy('date', 'asc')
+            ->get();
+        //return $matches;
+        return view('frontend.bets.show-body', compact('matches'));
+    }
+
     public function showPreviousBet()
     {
         $user_id = auth()->user()->id;

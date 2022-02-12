@@ -1,5 +1,5 @@
  <!-- Main Sidebar Container -->
- <aside class="main-sidebar sidebar-dark-primary elevation-4">
+ <aside class="main-sidebar sidebar-dark-primary elevation-4" >
     <!-- Brand Logo -->
     <a href="{{url('/admin/home')}}" class="brand-link">
     <img src="{{asset('image/football.png')}}" alt="lara Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -25,7 +25,7 @@
             with font-awesome or any other icon font library -->
         <li class="nav-item">
             <a href="{{url('/admin/dashboard')}}" class="nav-link  @yield('dashboard')" >
-            <i class="nav-icon text-success fas fa-user"></i>
+            <i class="nav-icon text-success fas fa-gauge"></i>
             <p>Dashboard</p>
             </a>
         </li>
@@ -38,11 +38,47 @@
         </li>
         @endcan
 
+        @can('role')
+            <li class="nav-item ">
+                <a href="{{url('/admin/roles')}}" class="nav-link @yield('role')" >
+                <i class="nav-icon text-light fab fa-shirtsinbulk"></i>
+                <p>Role</p>
+                </a>
+            </li>
+        @endcan
+
+        @can('permission')
+        <li class="nav-item">
+            <a href="{{url('/admin/permissions')}}" class="nav-link @yield('permission')" >
+            <i class="nav-icon text-light fas fa-user-lock"></i>
+            <p>Permission</p>
+            </a>
+        </li>
+        @endcan
+
         @can('user')
         <li class="nav-item">
             <a href="{{url('/admin/users')}}" class="nav-link @yield('user')" >
             <i class="nav-icon text-primary fas fa-user"></i>
             <p>User</p>
+            </a>
+        </li>
+        @endcan
+
+        @can('league')
+        <li class="nav-item">
+            <a href="{{url('/admin/leagues')}}" class="nav-link @yield('league')" >
+            <i class="nav-icon text-light fas fa-futbol"></i>
+            <p>League</p>
+            </a>
+        </li>
+        @endcan
+
+        @can('team')
+        <li class="nav-item">
+            <a href="{{url('/admin/teams')}}" class="nav-link @yield('team')" >
+            <i class="nav-icon text-light fas fa-toolbox"></i>
+            <p>Team</p>
             </a>
         </li>
         @endcan
@@ -65,47 +101,6 @@
         </li>
         @endcan
 
-        @can('role')
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-cog"></i>
-            <p>
-                Management
-                <i class="right fas fa-angle-left"></i>
-            </p>
-            <a href="{{url('/admin/roles')}}" class="nav-link @yield('role')" >
-            <i class="nav-icon text-light fab fa-shirtsinbulk"></i>
-            <p>Role</p>
-            </a>
-        </li>
-        @endcan
-
-        @can('permission')
-        <li class="nav-item">
-            <a href="{{url('/admin/permissions')}}" class="nav-link @yield('permission')" >
-            <i class="nav-icon text-light fas fa-user-lock"></i>
-            <p>Permission</p>
-            </a>
-        </li>
-        @endcan
-
-        @can('league')
-        <li class="nav-item">
-            <a href="{{url('/admin/leagues')}}" class="nav-link @yield('league')" >
-            <i class="nav-icon text-light fas fa-futbol"></i>
-            <p>League</p>
-            </a>
-        </li>
-        @endcan
-
-        @can('team')
-        <li class="nav-item">
-            <a href="{{url('/admin/teams')}}" class="nav-link @yield('team')" >
-            <i class="nav-icon text-light fas fa-toolbox"></i>
-            <p>Team</p>
-            </a>
-        </li>
-        @endcan
 
         @can('balance')
         <li class="nav-item">
@@ -148,6 +143,8 @@
                 @csrf
             </form>
         </li>
+
+        
         </ul>
     </nav>
     <!-- /.sidebar-menu -->

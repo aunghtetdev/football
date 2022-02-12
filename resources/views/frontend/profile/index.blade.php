@@ -1,9 +1,11 @@
 @extends('frontend.layouts.app')
+@section('display','d-none d-md-block')
+
 @section('content')
 <div class="web-sidebar-widget">
     <div class="widget-head">
         <div class="d-flex justify-content-between">
-            <h3>အကောင့်</h3>
+            <h3>အကောင့် password ပြောင်းရန်</h3>
         </div>
     </div>
     <div class="widget-body">

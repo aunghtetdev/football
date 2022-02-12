@@ -1,4 +1,7 @@
 @extends('frontend.layouts.app')
+
+@section('display','d-none d-md-block')
+
 @section('content')
 <div class="web-sidebar-widget">
     <div class="widget-head">
@@ -8,7 +11,6 @@
                 <i class="fas fa-sort-amount-down-alt" id="date"  style="cursor: pointer; padding : 5px;"></i>
                 <input type="hidden" class="date" >
             </div>
-            
         </div>
     </div>
     <div class="widget-body">

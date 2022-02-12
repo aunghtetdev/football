@@ -1,5 +1,10 @@
 .btn-theme {
-    background-color: #004d25 !important;
+    background-color: #0eb53e !important;
+    color: #fefefe;
+}
+
+.badge-theme {
+    background-color: #0eb53e !important;
     color: #fefefe;
 }
 /* ==========================  Datatables ================================= */
@@ -26,6 +31,12 @@
     border: 1px solid #dee2e6;
 }
 
+.custom-control-input {
+    z-index: 9999 !important;
+    padding: 100px;
+    cursor: pointer;
+}
+
 /* ==========================  general ================================= */
 .action-icon a i {
     font-size: 20px;
@@ -42,12 +53,10 @@
     margin-right: 15px;
 }
 
-/* .card {
+.card,
+.card-header {
     overflow: auto;
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 0.3rem 0.7rem 0.3rem rgba(0, 0, 0, 0.15) !important;
-} */
+}
 
 /* ==========================  sidebar ================================= */
 
@@ -64,10 +73,20 @@
     background-position: bottom;
 }
 
+#app-login .card {
+    padding: 20px;
+    border-radius: 5px;
+}
+
 #app-admin-login {
     background-image: url("https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX1954415.jpg");
     background-size: cover;
     background-position: bottom;
+}
+
+#app-admin-login .card {
+    padding: 20px;
+    border-radius: 5px;
 }
 
 /* =================== Bet ======================== */
@@ -208,4 +227,28 @@
 
 .main-sidebar {
     overflow: hidden;
+}
+
+/* ============================== date range picker ========================= */
+
+.daterangepicker td.active,
+.daterangepicker td.active:hover {
+    background-color: #11823b;
+    border-color: transparent;
+    color: #fff;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #11823b !important;
+    border-color: #11823b !important;
+}
+
+.daterangepicker .ranges li.active {
+    background-color: var(--white) !important;
+    color: #000;
+}
+
+.daterangepicker .ranges li.active :hover {
+    background-color: #eee !important;
 }

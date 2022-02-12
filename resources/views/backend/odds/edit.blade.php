@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ url('admin/odds') }}"><span class="badge badge-primary p-2"><i class="fas fa-arrow-left"></i></span></a>
+                    <a href="{{ url('admin/odds') }}"><span class="badge badge-theme p-2"><i class="fas fa-arrow-left"></i></span></a>
                     Odds Edit Page
                 </div>
                 <form action="{{route('odds.update',$odds->id)}}" method="POST" id="match-edit">
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-theme" type="submit">Submit</button>
                     </div>
                 </form>
             </div>

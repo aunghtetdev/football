@@ -5,7 +5,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="">
-                    <a href="{{url('admin/odds/create')}}" class="btn btn-primary "><i class="fas fa-user-plus"></i></a>
+                    <a href="{{url('admin/odds/create')}}" class="btn btn-theme "><i class="fas fa-user-plus"></i></a>
                     <h5 class="float-right pt-1" style="font-weight: 700">Odds Dashboard</h5>
                 </div>
             </div>

@@ -1,4 +1,7 @@
 @extends('frontend.layouts.app')
+
+@section('display','d-none d-md-block')
+
 @section('content')
 <div class="web-sidebar-widget">
     <div class="widget-head">

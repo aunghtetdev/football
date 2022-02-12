@@ -10,6 +10,7 @@
                        <thead>
                            <th>Username</th>
                            <th>Transaction Id</th>
+                           <th>Type</th>
                            <th>Amount</th>
                            <th>Date</th>
                        </thead>
@@ -31,10 +32,11 @@
                columns : [
                    {  data : 'user_id' , name : 'user_id' },
                    {  data : 'trx_id' , name : 'trx_id' },
+                   {  data : 'type' , name : 'type' },
                    {  data : 'amount' , name : 'amount' },
                    {  data : 'updated_at' , name : 'updated_at' },
                ],
-               order : [3,"desc"]
+               order : [4,"desc"]
             });
 
            

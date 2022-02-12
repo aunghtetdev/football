@@ -3,6 +3,7 @@
 use App\Models\WalletHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\BetController;
 use App\Http\Controllers\Admin\OddController;
 use App\Http\Controllers\Admin\RoleController;
@@ -11,7 +12,6 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MatchController;
 use App\Http\Controllers\Admin\LeagueController;
 use App\Http\Controllers\Admin\WalletController;
-use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\AdminLoginController;
@@ -29,31 +29,25 @@ use App\Http\Controllers\Frontend\CompensationController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes(['register'=>false]);
 Route::middleware('auth')->group(function () {
+    //Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/match/bet-match', [CompensationController::class, 'betMatch'])->name('match.bet-match');
 
     Route::get('/match/moung', [CompensationController::class, 'showMoung'])->name('match.moung');
     Route::post('/match/bet-moung', [CompensationController::class, 'betMoung'])->name('match.bet-moung');
 
+    Route::get('/match/body', [CompensationController::class, 'showBody'])->name('match.body');
+
     Route::get('/match/previous-bet', [CompensationController::class, 'showPreviousBet'])->name('match.previous-bet');
     Route::post('/match/filter-previous-bet', [CompensationController::class, 'filterPreviousBet'])->name('match.filter-previous-bet');
     Route::get('/match/active-bet', [CompensationController::class, 'showActiveBet'])->name('match.active-bet');
 
-});
-
-Route::get('/admin/login', [AdminLoginController::class,'showLoginForm']);
-Route::post('/admin/login', [AdminLoginController::class,'login'])->name('admin.login');
-Route::post('/admin/logout', [AdminLoginController::class,'logout'])->name('admin.logout');
-
-
-Route::middleware('auth')->group(function () {
     Route::get('/home/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
     Route::post('/home/profile/change-password', [App\Http\Controllers\ProfileController::class, 'changePassword'])->name('change_password');
     Route::get('/history', [App\Http\Controllers\HomeController::class, 'history']);
@@ -62,6 +56,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/history/laung_ngwe/{id}/{startDate}/{endDate}', [App\Http\Controllers\HomeController::class, 'laungNgwe']);
     Route::get('/history/pyan_ya_ngwe/{id}/{startDate}/{endDate}', [App\Http\Controllers\HomeController::class, 'pyanYaNgwe']);
 });
+
+Route::get('/admin/login', [AdminLoginController::class,'showLoginForm']);
+Route::post('/admin/login', [AdminLoginController::class,'login'])->name('admin.login');
+Route::post('/admin/logout', [AdminLoginController::class,'logout'])->name('admin.logout');
 
 
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
