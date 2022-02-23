@@ -84,7 +84,7 @@ class TeamController extends Controller
         
         $team->league_id = $request->league_id;
         $team->name_mm = $request->name_mm;
-        $team->name_en = $request->name_en;
+        // $team->name_en = $request->name_en;
         $team->image = $image_name;
         $team->save();
 

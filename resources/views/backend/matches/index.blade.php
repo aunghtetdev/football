@@ -28,6 +28,7 @@
      <script>
          $(document).ready(function(){
              let table = $('#match-table').DataTable({
+                responsive: true,
                 processing: true,
                 serverSide: true,
                 ajax: "/admin/matches/datatables/ssd",

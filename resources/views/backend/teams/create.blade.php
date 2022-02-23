@@ -22,10 +22,10 @@
                             <input type="text" class="form-control" name="name_mm">
                         </div>
                         
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="">Name (EN)</label>
                             <input type="text" class="form-control" name="name_en">
-                        </div>
+                        </div> --}}
 
                         {{-- <div class="form-group">
                             <div class="label">Image</div>

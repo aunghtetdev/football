@@ -133,6 +133,13 @@
             </a>
         </li>
         @endcan
+
+        <li class="nav-item">
+            <a href="{{url('/feedbacks')}}" class="nav-link @yield('feedback')" >
+            <i class="nav-icon text-light fas fa-comment"></i>
+            <p>Feedback</p>
+            </a>
+        </li>
         
         <li class="nav-item">
             <a class="nav-link" href="#"

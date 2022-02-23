@@ -20,6 +20,7 @@
                                         <th>Over Team</th>
                                         <th>Under Team</th>
                                         <th>Total Goal</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </thead>
                                     <tbody>
@@ -51,15 +52,17 @@
      <script>
          $(document).ready(function(){
              let table = $('#odds-table').DataTable({
+                responsive: true,
                 processing: true,
                 serverSide: true,
                 ajax: "/admin/odds/datatables/ssd",
                 columns : [
-                    {  data : 'body_value' , name : 'body_value' },
-                    {  data : 'over_team_name' , name : 'over_team_name' },
-                    {  data : 'under_team_name' , name : 'under_team_name' },
-                    {  data : 'goal_total_value' , name : 'goal_total_value' },
-                    {  data : 'action' , name : 'action' }
+                    {  data : 'body_value' , name : 'body_value', class: 'text-center'},
+                    {  data : 'over_team_name' , name : 'over_team_name', class: 'text-center'},
+                    {  data : 'under_team_name' , name : 'under_team_name', class: 'text-center'},
+                    {  data : 'goal_total_value' , name : 'goal_total_value', class: 'text-center'},
+                    {  data : 'status' , name : 'status', class: 'text-center'},
+                    {  data : 'action' , name : 'action', class: 'text-center'}
                 ]
              });
 

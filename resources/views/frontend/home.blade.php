@@ -26,7 +26,7 @@
                     <div class="match-content" id="match-content-{{ $match->odd_id }}">
                         {{-- <a class="fullink" href="#"></a> --}}
                         <div class="match-content-inner">
-                            <span class="match-date">06 Feb</span>
+                            <span class="match-date">{{ $match->match_date }}</span>
                             <div class="mpart1">
                                 <div class="right_match">
                                     <span class="right_tech">
@@ -52,19 +52,19 @@
                             </div>
                             <div class="bet-match">
                                 <span>
-                                    <input type="radio" id="over-team-{{ $match->odd_id }}" value="{{ $match->over_team_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
+                                    <input type="radio" id="over-team-{{ $match->odd_id }}" value="{{ $match->over_team_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}-{{$match->match_date}}" name="bet">
                                     <label for="over-team-{{ $match->odd_id }}" class="over-team"> အပေါ်ကြေးအသင်း ({{ $match->body_value }})</label>
                                 </span>
                                 <span>
-                                    <input type="radio" id="under-team-{{ $match->odd_id }}" value="{{ $match->underteam_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
+                                    <input type="radio" id="under-team-{{ $match->odd_id }}" value="{{ $match->underteam_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}-{{$match->match_date}}" name="bet">
                                     <label for="under-team-{{ $match->odd_id }}" class="under-team">အောက်ကြေးအသင်း</label>
                                 </span>
                                 <span class="over">
-                                    <input type="radio" id="over-goal-{{ $match->odd_id }}" value="over-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
+                                    <input type="radio" id="over-goal-{{ $match->odd_id }}" value="over-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}-{{$match->match_date}}" name="bet">
                                     <label for="over-goal-{{ $match->odd_id }}">ဂိုးပေါ် ({{ $match->goal_total_value }})</label>
                                 </span>
                                 <span class="under">
-                                    <input type="radio" id="under-goal-{{ $match->odd_id }}" value="under-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
+                                    <input type="radio" id="under-goal-{{ $match->odd_id }}" value="under-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}-{{$match->match_date}}" name="bet">
                                     <label for="under-goal-{{ $match->odd_id }}" class="under-goal">ဂိုးအောက်</label>
                                 </span>
                                 
@@ -92,7 +92,7 @@
         var bet = $("input[name=bet]:checked").val();
         var bet_amount = $("input[name=bet_amount]").val();
         var amount = {!! json_encode((array)auth()->user()->wallet->amount) !!};
-        console.log(amount)
+        amount = parseInt(amount[0]);
         if(!bet)
         {
             Toast.fire({
@@ -128,9 +128,12 @@
                 }).then((result) => {
                 if (result.isConfirmed) {
                     var match_time = bet.split('-')[5];
+                    var match_date = bet.split('-')[6];
+                    // console.log(bet);
+                    var current_date = todayDateFormat();
                     var current_time = formatAMPM(new Date);
                     console.log(current_time)
-                    if(match_time < current_time)
+                    if(match_time < current_time && current_date < match_date)
                     {
                         Toast.fire({
                         icon: 'error',
@@ -144,6 +147,18 @@
             })
         }
     
+    }
+    function todayDateFormat()
+    {
+        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                            ];
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = monthNames[today.getMonth()]; //January is 0!
+
+        today = dd + ' ' + mm;
+        return today;
     }
     function formatAMPM(date) {
         var hours = date.getHours();

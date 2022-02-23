@@ -64,7 +64,7 @@ class BetController extends Controller
             $bet->save();
 
             $compensation = Wallet::where('user_id', $bet->user_id)->first();
-            $compensation->increment('amount', $bet->win_amount+$bet->bet_amount);
+            $compensation->increment('amount', $bet->win_amount);
             $compensation->save();
 
             if($bet->bet_result == 'win')

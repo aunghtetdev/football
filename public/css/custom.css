@@ -803,7 +803,27 @@ form .bet-submit-btn{
     max-width: 100%;
 }
 
-
+@media (max-width: 424px) {
+    form .bet-match{
+        margin-left: -18px;
+    }
+}
+@media (max-width: 374px) {
+    *{
+        font-size: 12px;
+    }
+    .match-content img{
+        width: 40px;
+        height: 40px;
+    }
+    .mpart1 strong{
+        width: 67px;
+    }
+    form .bet-match span label{
+        width: 41% !important;
+        font-size: 9px !important;
+    }
+}
 /* ================= Media Start ===================== */
 @media (max-width: 767px) { 
     /* ================== Nav Start ==================== */
@@ -1003,11 +1023,6 @@ form .bet-submit-btn{
 @media (min-width:1024px) and (max-width:1439px) {
     form .bet-match span label, .total-goal{
         font-size: 10px;
-    }
-}
-@media (max-width: 767px) {
-    .content-sidebar {
-        display: none;
     }
 }
 

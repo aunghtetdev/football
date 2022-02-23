@@ -32,6 +32,7 @@
      <script>
          $(document).ready(function(){
              let table = $('#bet-table').DataTable({
+                responsive: true,
                 processing: true,
                 serverSide: true,
                 ajax: "/admin/bets/datatables/ssd",

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Match;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Odd extends Model
 {
@@ -19,6 +20,11 @@ class Odd extends Model
     ];
 
     protected $appends = ['over_team_name', 'under_team_name'];
+
+    public function match()
+    {
+        return $this->belongsTo(Match::class);
+    }
 
     public function getOverTeamNameAttribute()
     {

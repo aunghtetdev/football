@@ -66,6 +66,25 @@
                             <p><strong>ဆက်သွယ်ရန် နံပါတ် ၂:</strong> 9787654123</p>
                             <p><strong>Email:</strong> youremail@gmail.com</p>
                         </div>
+                    </div>
+                    <div class="web-sidebar-widget">
+                        <div class="widget-head">
+                            <h3>Feedback</h3>
+                        </div>
+                        <div class="widget-body">
+                            <form action="{{ route('feedback.store') }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="">ခေါင်းစဥ်</label>
+                                    <input type="text" class="form-control" name="title" placeholder="ခေါင်းစဥ်...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">အကြောင်းအရာ</label>
+                                    <textarea name="message" class="form-control" placeholder="အကြောင်းအရာ..."></textarea>
+                                </div>
+                                <input type="submit" value="ပို့မည်" class="btn btn-primary btn-block">
+                            </form>
+                        </div>
                     </div>             
                 </div>
             </div>

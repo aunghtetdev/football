@@ -83,7 +83,7 @@ class LeagueController extends Controller
         }
 
         $league->name_mm = $request->name_mm;
-        $league->name_en = $request->name_en;
+        // $league->name_en = $request->name_en;
         $league->order = $request->order;
         $league->image = $image_name;
         $league->save();

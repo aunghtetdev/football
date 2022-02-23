@@ -25,7 +25,7 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>{{ $today_bet_amount }} ks</h3>
+                                <h3>{{ $today_bet_amount ?? '0' }} ks</h3>
 
                                 <p>Today Bet</p>
                             </div>
@@ -36,7 +36,7 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>{{ $total_bet_amount }} ks</h3>
+                                <h3>{{ $total_bet_amount ?? '0' }} ks</h3>
 
                                 <p>Total Bet</p>
                             </div>
@@ -47,7 +47,7 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>{{ $deposit_amount }} ks</h3>
+                                <h3>{{ $deposit_amount ?? '0' }} ks</h3>
 
                                 <p>Deposits</p>
                             </div>
@@ -58,7 +58,7 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>{{ $withdraw_amount }} ks</h3>
+                                <h3>{{ $withdraw_amount ?? '0' }} ks</h3>
 
                                 <p>Withdrawals</p>
                             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Odd;
 use App\Models\Team;
 use App\Models\Match;
@@ -33,8 +34,15 @@ class OddController extends Controller
 
     public function ssd()
     {
-        $odd = Odd::query();
+        $odd = Odd::query()->orderBy('updated_at', 'DESC');
         return Datatables::of($odd)
+        ->addColumn('status', function ($each) {
+            if ($each->match->finished == 1) {
+                return '<span class="badge badge-pill badge-danger p-2">Finished</span>';
+            }else{
+                return '<span class="badge badge-pill badge-success p-2">Live</span>';
+            }
+        })
         ->addColumn('action', function ($each) {
             $edit_icon = '<a href="'.url('admin/odds/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-edit"></i></a>';
             $delete_icon = '<a href="'.url('admin/odds/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
@@ -55,6 +63,7 @@ class OddController extends Controller
                 return $value;
             }
         })
+        ->rawColumns(['status', 'action'])
         ->make(true);
     }
 

@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group">
                             <div class="label">Match Date</div>
-                            <input type="date" class="form-control" value="{{ Carbon\Carbon::parse($match->date)->format('Y-m-d') }}" name="date">
+                            <input type="text" class="form-control" id="single-datepicker" value="{{ Carbon\Carbon::parse($match->date)->format('d/m/Y H:i:s') }}" name="date">
                         </div>
                         <div class="form-group">
                             <div class="label">Match Finished</div>

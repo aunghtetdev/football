@@ -28,7 +28,7 @@
                         </div>
                         <div class="form-group">
                             <div class="label">Match Date</div>
-                            <input id="datetimepicker" autocomplete="off" class="form-control" name="date" type="text" />
+                            <input id="single-datepicker" autocomplete="off" class="form-control" name="date" type="text" />
                         </div>
                     </div>
                     <div class="card-footer">

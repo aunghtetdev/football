@@ -3,6 +3,7 @@
 use App\Models\WalletHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Admin\BetController;
 use App\Http\Controllers\Admin\OddController;
 use App\Http\Controllers\Admin\RoleController;
@@ -45,6 +46,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/match/previous-bet', [CompensationController::class, 'showPreviousBet'])->name('match.previous-bet');
     Route::post('/match/filter-previous-bet', [CompensationController::class, 'filterPreviousBet'])->name('match.filter-previous-bet');
     Route::get('/match/active-bet', [CompensationController::class, 'showActiveBet'])->name('match.active-bet');
+
+    Route::post('feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
 });
 
@@ -108,4 +111,8 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/bets/datatables/ssd', [BetController::class,'ssd']);
     Route::get('/bets/bet-details/{user_id}', [BetController::class,'betDetails']);
     Route::post('/bets/bet-details/compensation', [BetController::class,'saveCompensation']);
+});
+Route::middleware('auth:admin')->group(function () {
+    Route::get('/feedbacks', [FeedbackController::class, 'index'])->name('feedback');
+    Route::get('/feedbacks/datatables/ssd', [FeedbackController::class,'ssd']);
 });
