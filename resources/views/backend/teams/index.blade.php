@@ -17,7 +17,6 @@
                         <thead>
                             <th>League</th>
                             <th>Name MM</th>
-                            <th>Name EN</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
@@ -39,7 +38,6 @@
                 columns : [
                     {  data : 'league_id' , name : 'league_id' },
                     {  data : 'name_mm' , name : 'name_mm' },
-                    {  data : 'name_en' , name : 'name_en' },
                     {  data : 'action' , name : 'action' }
                 ]
              });

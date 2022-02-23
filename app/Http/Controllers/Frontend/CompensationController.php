@@ -36,10 +36,9 @@ class CompensationController extends Controller
             $bet_team_id = null;
             $user_id = auth()->user()->id;
             //checking user bet is team or total goal
-            if($bet_side == 'over' || $bet_side == 'under')
-            {
+            if ($bet_side == 'over' || $bet_side == 'under') {
                 $bet_goal_total = $bet_side;
-            }else{
+            } else {
                 $bet_team_id = $bet_side;
             }
             $this->model->create([
@@ -105,10 +104,9 @@ class CompensationController extends Controller
                         $bet_goal_total = '';
                         $bet_team_id = null;
                         //checking user bet is team or total goal
-                        if($bet_side == 'over' || $bet_side == 'under')
-                        {
+                        if ($bet_side == 'over' || $bet_side == 'under') {
                             $bet_goal_total = $bet_side;
-                        }else{
+                        } else {
                             $bet_team_id = $bet_side;
                         }
                         // dd($bet->id);
@@ -126,7 +124,7 @@ class CompensationController extends Controller
                         ]);
                     }
                     // dd($moung);
-                }            
+                }
             }
             $wallet = Wallet::where('user_id', $user_id)->first();
             $wallet->amount -= $request->bet_amount;
@@ -140,6 +138,20 @@ class CompensationController extends Controller
             DB::rollback();
             return redirect('/match/moung')->with('bet-error', 'တခုခုချို့ယွင်းနေပါသည်။ ပြန်လည်ကြိုးစားပေးပါ။');
         }
+    }
+
+    public function showBody()
+    {
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        $matches = Match::join('odds', 'matches.id', '=', 'odds.match_id')
+            ->join('live_odds', 'odds.id', '=', 'live_odds.odd_id')
+            ->where('live_odds.live', 1)
+            ->where('matches.finished', 0)
+            ->where('matches.date', '>', $now)
+            ->orderBy('date', 'asc')
+            ->get();
+        //return $matches;
+        return view('frontend.bets.show-body', compact('matches'));
     }
 
     public function showPreviousBet()

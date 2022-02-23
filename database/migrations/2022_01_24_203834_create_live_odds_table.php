@@ -18,7 +18,7 @@ class CreateLiveOddsTable extends Migration
             $table->unsignedBigInteger('odd_id');
             $table->string('body_value')->nullable();
             $table->string('goal_total_value')->nullable();
-            $table->bool('live')->default(0);
+            $table->boolean('live')->default(0);
             $table->timestamp('datetime')->nullable();
             $table->timestamps();
         });

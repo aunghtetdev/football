@@ -33,22 +33,22 @@
     <section id="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6">
+                <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 @yield("display") ">
                     <div class="web-sidebar-widget account-info">
                         <div class="widget-head">
                             <h3>အကောင့်အချက်အလက်</h3>
                         </div>
                         <div class="widget-body">
-                            <span>ကုဒ် </span><p style="letter-spacing:2px;">{{ $auth_user->wallet->user_code }}</p>
-                            <span>အမည်</span><p style="letter-spacing:2px;"> {{ $auth_user->username }}</p>
-                            <span>ပမာဏ</span><p style="letter-spacing:2px;"> {{ $auth_user->wallet->amount }}</p>
+                            <span style="font-weight: 900">ကုဒ် </span><p style="letter-spacing:2px;">{{ $auth_user->wallet->user_code }}</p>
+                            <span style="font-weight: 900">အမည်</span><p style="letter-spacing:2px;"> {{ $auth_user->username }}</p>
+                            <span style="font-weight: 900">ငွေပမာဏ</span><p style="letter-spacing:2px;"> {{ $auth_user->wallet->amount }}</p>
                         </div>
                     </div> 
                 </div>
                 <div class="col-xl-8 col-lg-8 col-md-6 col-sm-6">
                     @yield('content')
                 </div>
-                <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6">
+                <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 @yield("display")">
                     <div class="web-sidebar-widget">
                         <div class="widget-head">
                             <h3>ကြော်ညာများ</h3>

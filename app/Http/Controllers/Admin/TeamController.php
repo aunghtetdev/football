@@ -48,6 +48,10 @@ class TeamController extends Controller
             
             return '<div class="action-icon">'.$edit_icon . $delete_icon.'</div>';
         })
+        ->editColumn('league_id', function ($each) {
+            $league_name = League::find($each->league_id)->name_mm;
+            return $league_name;
+        })
         ->editColumn('image', function ($each) {
             return '<img src="'.$each->teamImage().'" style="width: 30px; height:30px; border-radius:100%;" >';
         })
@@ -62,7 +66,8 @@ class TeamController extends Controller
     public function create()
     {
         PermissionChecker::CheckPermission('team');
-        return view('backend.teams.create');
+        $leagues = League::all();
+        return view('backend.teams.create', compact('leagues'));
     }
 
     /**
@@ -111,8 +116,9 @@ class TeamController extends Controller
     public function edit($id)
     {
         PermissionChecker::CheckPermission('team');
+        $leagues = League::all();
         $team = Team::findOrFail($id);
-        return view('backend.teams.edit', compact('team'));
+        return view('backend.teams.edit', compact('team', 'leagues'));
     }
 
     /**

@@ -7,6 +7,8 @@
                 <div class="card-header">
                     User Create Page
                 </div>
+            @include('backend.layouts.flash')
+
                 <form action="{{route('users.store')}}" method="POST" id="user-create">
                     @csrf
                     <div class="card-body">

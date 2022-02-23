@@ -37,7 +37,7 @@
                     {  data : 'amount' , name : 'amount' },
                     {  data : 'updated_at' , name : 'updated_at' },
                 ],
-                order : [3,"desc"]
+                order : [4,"desc"]
             });
 
            

@@ -1,5 +1,5 @@
-<div class="card-body">
-    <h2 class="text-center bg-dark text-white p-1">ဘော်ဒီ</h2>
+<div class="card-body ">
+    <h2 class="text-center bg-dark text-white p-1 mb-2 rounded">ဘော်ဒီ</h2>
     @foreach($bets as $bet)
     @if($bet->type == 'body')
     <div class="bet-card">
@@ -41,7 +41,7 @@
     @endforeach
 </div>
 <div class="card-body">
-    <h2 class="text-center bg-dark text-white p-1">မောင်း</h2>
+    <h2 class="text-center bg-dark text-white p-1 mb-2 rounded">မောင်း</h2>
     @foreach($bets as $bet)
     @if($bet->type == 'moung')
     <div class="outer-bet-card">

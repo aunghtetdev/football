@@ -25,7 +25,7 @@
                         </div>
                         <div class="form-group">
                             <div class="label">Away Team</div>
-                            <select name="away_team_id" class="form-control select2">
+                            <select name="away_team_id" class="form-control select-role">
                                 @foreach($teams as $team)
                                 <option value="{{$team->id}}" {{$match->away_team_id == $team->id ? "selected" : "" }}>{{ $team->name_mm }}</option>
                                 @endforeach
@@ -37,18 +37,18 @@
                         </div>
                         <div class="form-group">
                             <div class="label">Match Date</div>
-                            <input type="text" class="form-control" id="single-datepicker" value="{{ Carbon\Carbon::parse($match->date)->format('d/m/Y H:i:s') }}" name="date">
+                            <input type="text" class="form-control" id="daterangepicker" value="{{ Carbon\Carbon::parse($match->date)->format('Y-m-d H:i:s') }}" name="date">
                         </div>
                         <div class="form-group">
                             <div class="label">Match Finished</div>
-                            <select name="finished" class="form-control">
+                            <select name="finished" class="form-control select-role">
                                 <option value="1" {{$match->finished == 1 ? "selected" : "" }}>Yes</option>
                                 <option value="0" {{$match->finished == 0 ? "selected" : "" }}>No</option>
                             </select>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-theme" type="submit">Submit</button>
                     </div>
                 </form>
             </div>

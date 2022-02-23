@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <div class="label">Home Team</div>
-                            <select name="home_team_id" class="form-control select2">
+                            <select name="home_team_id" class="form-control select-role">
                                 @foreach($teams as $team)
                                 <option value="{{ $team->id }}">{{ $team->name_mm }}</option>
                                 @endforeach
@@ -20,7 +20,7 @@
                         </div>
                         <div class="form-group">
                             <div class="label">Away Team</div>
-                            <select name="away_team_id" class="form-control select2">
+                            <select name="away_team_id" class="form-control select-role">
                                 @foreach($teams as $team)
                                 <option value="{{ $team->id }}">{{ $team->name_mm }}</option>
                                 @endforeach
@@ -28,11 +28,11 @@
                         </div>
                         <div class="form-group">
                             <div class="label">Match Date</div>
-                            <input id="single-datepicker" autocomplete="off" class="form-control" name="date" type="text" />
+                            <input id="daterangepicker" autocomplete="off" class="form-control" name="date" type="text" />
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-theme" type="submit">Submit</button>
                     </div>
                 </form>
             </div>
@@ -44,4 +44,5 @@
 @section('scripts')
 {!! JsValidator::formRequest('App\Http\Requests\MatchCreate', '#match-create'); !!}
     
+
 @endsection

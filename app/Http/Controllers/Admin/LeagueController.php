@@ -49,8 +49,19 @@ class LeagueController extends Controller
             return '<img src="'.$each->leagueImage().'" style="width: 30px; height:30px; border-radius:100%;" >';
         })
         ->editColumn('active', function ($each) {
-            return '<input type="checkbox" checked data-toggle="toggle" data-size="xs" id="toggle-event" data-id="'.$each->id.'" data-active="'.$each->active.'">';
+            if ($each->active == 1) {
+                return '<div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" checked id="toggle-event" data-id="'.$each->id.'" data-active="'.$each->active.'">
+                <label class="custom-control-label" for="customSwitch1"></label>
+              </div>';
+            } else {
+                return '<div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input"  id="toggle-event" data-id="'.$each->id.'" data-active="'.$each->active.'">
+                <label class="custom-control-label" for="customSwitch1"></label>
+              </div>';
+            }
         })
+       
         ->rawColumns(['image','active','action'])
         ->make(true);
     }

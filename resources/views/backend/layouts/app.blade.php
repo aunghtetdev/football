@@ -33,6 +33,9 @@
     {{-- Datetime Picker --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+    {{-- Date range picker --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
     <link rel="stylesheet" href="/path/to/select2.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
     
@@ -46,7 +49,7 @@
     </style>
 </head>
 <body>
-    <div id="app">
+    <div id="app" >
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -103,7 +106,7 @@
             </div>
         </nav> --}}
 
-        <main class="py-0">
+        <main class="py-0" >
             <!-- Navbar -->
                 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
                     <!-- Left navbar links -->
@@ -120,7 +123,7 @@
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <!-- Main content -->
-                <div class="content">
+                <div class="content" >
                     @yield('content')
                     <!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -177,12 +180,24 @@
         <!-- ChartJS -->
         <script src="{{ asset('js/chart.min.js') }}"></script>
 
+        {{-- Date range picker --}}
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" integrity="sha512-CEiA+78TpP9KAIPzqBvxUv8hy41jyI3f2uHi7DGp/Y/Ka973qgSdybNegWFciqh6GrN2UePx2KkflnQUbUhNIA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js" integrity="sha512-d8F1J2kyiRowBB/8/pAWsqUl0wSEOkG5KATkVV4slfblq9VRQ6MyDZVxWl2tWd+mPhuCbpTB4M7uU/x9FlgQ9Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
         @yield('scripts')
         
         <script>
             $(document).ready(function() {
-                $('.select2').select2();
+                // select 2
+            $('.select-role').select2({
+                theme: 'bootstrap4',
             });
+            });
+
             //date picker
             $('#single-datepicker').daterangepicker({
                 "singleDatePicker": true,
@@ -195,6 +210,16 @@
             console.log('New date range selected: ' + start.format('YYYY-MM-DD H:i:s') + ' to ' + end.format('YYYY-MM-DD H:i:s') + ' (predefined range: ' + label + ')');
             });
             
+            //date range picker
+            $('#daterangepicker').daterangepicker({
+                    "timePicker": true,
+                    "singleDatePicker": true,
+                    "timePicker24Hour": true,
+                    "locale" : {
+                        format : "YYYY-MM-DD HH:mm:ss"
+                    }
+                });
+
             let token = document.head.querySelector('meta[name="csrf-token"]');
 
             if(token){
@@ -205,18 +230,13 @@
                 })
             }
 
+            $('.counter').counterUp({
+                delay: 10,
+                time: 1000
+            });
             
-            // document.addEventListener('click',function(event){
-            //     if(document.getElementById('show-sidebar').contains(event.target)){
-            //         $("#show-sidebar").addClass("sidebar-closed");
-            //         $("#show-sidebar").addClass("sidebar-collapse");
-            //     }
-            // })
-
-            //select 2
-            // $('.select-role').select2({
-            //     theme: 'bootstrap4',
-            // });
+           
+            
 
             //Datatables
             $.extend(true, $.fn.dataTable.defaults, {

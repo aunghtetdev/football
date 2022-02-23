@@ -16,7 +16,6 @@
                     <table class="table table-bordered table-hover" id="league-table" style="width: 100%">
                         <thead>
                             <th>Name MM</th>
-                            <th>Name EN</th>
                             <th>Order</th>
                             <th>Active</th>
                             <th>Action</th>
@@ -39,11 +38,11 @@
                 ajax: "/admin/leagues/datatables/ssd",
                 columns : [
                     {  data : 'name_mm' , name : 'name_mm' },
-                    {  data : 'name_en' , name : 'name_en' },
                     {  data : 'order' , name : 'order' },
                     {  data : 'active' , name : 'active' },
                     {  data : 'action' , name : 'action' }
-                ]
+                ],
+                order : [3,"aesc"]
              });
             
              $(document).on('change','#toggle-event',function() {

@@ -1,12 +1,15 @@
 @extends('frontend.layouts.app')
 @section('title', 'Previous Bet')
 @include('frontend.layouts.nav')
+
+@section('display','d-none d-md-block')
+
 @section('content')
 
 <div class="card">
     <div class="card-header">
         <div class="row justify-content-between ml-2">
-            <span>ငွေစာရင်း</span>
+            <span style="font-size:16px;font-weight: 900 !important;">ငွေစာရင်းအသေးစိတ်</span>
         </div>
     </div>
     <div class="card-body">
