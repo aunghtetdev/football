@@ -129,7 +129,6 @@
                 if (result.isConfirmed) {
                     var match_time = bet.split('-')[5];
                     var match_date = bet.split('-')[6];
-                    // console.log(bet);
                     var current_date = todayDateFormat();
                     var current_time = formatAMPM(new Date);
                     console.log(current_time)
@@ -162,7 +161,7 @@
     }
     function formatAMPM(date) {
         var hours = date.getHours();
-        var minutes = date.getMinutes();
+        var minutes = date.getMinutes() - 5;
         var ampm = hours >= 12 ? 'pm' : 'am';
         hours = hours % 12;
         hours = hours ? hours : 12; // the hour '0' should be '12'
