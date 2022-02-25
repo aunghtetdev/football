@@ -25,14 +25,14 @@
             with font-awesome or any other icon font library -->
         <li class="nav-item">
             <a href="{{url('/admin/dashboard')}}" class="nav-link  @yield('dashboard')" >
-            <i class="nav-icon text-success fas fa-gauge"></i>
+            <i class="nav-icon fas fa-gauge"></i>
             <p>Dashboard</p>
             </a>
         </li>
         @can('admin')
         <li class="nav-item">
             <a href="{{url('/admin/home')}}" class="nav-link  @yield('admin')" >
-            <i class="nav-icon text-success fas fa-user"></i>
+            <i class="nav-icon  fas fa-user"></i>
             <p>Admin</p>
             </a>
         </li>
@@ -41,7 +41,7 @@
         @can('role')
             <li class="nav-item ">
                 <a href="{{url('/admin/roles')}}" class="nav-link @yield('role')" >
-                <i class="nav-icon text-light fab fa-shirtsinbulk"></i>
+                <i class="nav-icon  fab fa-shirtsinbulk"></i>
                 <p>Role</p>
                 </a>
             </li>
@@ -50,7 +50,7 @@
         @can('permission')
         <li class="nav-item">
             <a href="{{url('/admin/permissions')}}" class="nav-link @yield('permission')" >
-            <i class="nav-icon text-light fas fa-user-lock"></i>
+            <i class="nav-icon  fas fa-user-lock"></i>
             <p>Permission</p>
             </a>
         </li>
@@ -59,7 +59,7 @@
         @can('user')
         <li class="nav-item">
             <a href="{{url('/admin/users')}}" class="nav-link @yield('user')" >
-            <i class="nav-icon text-primary fas fa-user"></i>
+            <i class="nav-icon  fas fa-user"></i>
             <p>User</p>
             </a>
         </li>

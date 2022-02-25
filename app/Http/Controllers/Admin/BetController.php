@@ -67,8 +67,7 @@ class BetController extends Controller
             $compensation->increment('amount', $bet->win_amount);
             $compensation->save();
 
-            if($bet->bet_result == 'win')
-            {
+            if ($bet->bet_result == 'win') {
                 WalletHelper::storeHistory($bet->user_id, $bet->win_amount, 'win');
             }
 

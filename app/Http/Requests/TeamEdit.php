@@ -26,7 +26,6 @@ class TeamEdit extends FormRequest
         return [
             'league_id' => 'required',
             'name_mm' => 'required',
-            'name_en' => 'required',
         ];
     }
 

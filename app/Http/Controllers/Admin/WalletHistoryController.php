@@ -21,6 +21,11 @@ class WalletHistoryController extends Controller
     {
         $wallet_hisotry = WalletHistory::query();
         return Datatables::of($wallet_hisotry)
+        ->filterColumn('user_id', function ($query, $keyword) {
+            $query->whereHas('user', function ($q1) use ($keyword) {
+                $q1->where('username', 'like', '%'.$keyword.'%');
+            });
+        })
         ->addColumn('type', function ($each) {
             if ($each->is_deposit == 'deposit' || $each->is_deposit == 'bet') {
                 return '<span class="badge badge-success p-2"> '.$each->is_deposit.'</span>';

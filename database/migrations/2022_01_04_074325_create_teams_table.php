@@ -17,7 +17,7 @@ class CreateTeamsTable extends Migration
             $table->id();
             $table->bigInteger('league_id');
             $table->string('name_mm');
-            $table->string('name_en');
+            $table->string('name_en')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

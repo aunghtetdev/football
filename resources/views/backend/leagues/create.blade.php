@@ -3,6 +3,7 @@
 @section('content')
     <div class="container pt-3">
         <div class="col-md-12">
+            @include('backend.layouts.flash')
             <div class="card">
                 <div class="card-header">
                     League Create Page

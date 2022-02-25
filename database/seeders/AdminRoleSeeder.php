@@ -49,12 +49,13 @@ class AdminRoleSeeder extends Seeder
         $role1->givePermissionTo('add_balance');
         $role1->givePermissionTo('substract_balance');
         $role1->givePermissionTo('view_balance_history');
+        $role1->givePermissionTo('bet');
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // firstOrCreate demo users
         $user = AdminUser::firstOrCreate([
-            'username' => 'kaungchit',
-            'password' => Hash::make('1234567890'),
+            'username' => 'admin',
+            'password' => Hash::make('password'),
         ]);
         $user->assignRole($role1);
     }
