@@ -44,7 +44,7 @@
                     <div class="compensation-card">
                         <div class="row justify-content-between"><span>BetID </span><span>{{ $bet->bet_id }}</span></div>
                         <div class="row justify-content-between"><span>လောင်းငွေ </span><span>{{ $bet->bet_amount }}</span></div>
-                        <div class="row justify-content-between"><span>ပြန်ရငွေ </span><span>{{ $bet->bet_result == 'win' ? $bet->bet_amount + $bet->win_amount:0 }}</span></div>
+                        <div class="row justify-content-between"><span>ပြန်ရငွေ </span><span>{{ $bet->bet_result == 'win' ? $bet->win_amount:0 }}</span></div>
                         <div class="row justify-content-between"><span>အနိုင်/အရှုံး </span><span>{{ $bet->bet_result == null ? 'pending' : $bet->bet_result }}</span></div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                         <div class="row justify-content-between"><span>BetID </span><span>{{ $bet->bet_id }}</span></div>
                         <div class="row justify-content-between"><span>မောင်း </span><span>{{ $bet->moungs->count() }}</span></div>
                         <div class="row justify-content-between"><span>လောင်းငွေ </span><span>{{ $bet->bet_amount }}</span></div>
-                        <div class="row justify-content-between"><span>ပြန်ရငွေ </span><span>{{ $bet->bet_result == 'win' ? $bet->bet_amount + $bet->win_amount:0 }}</span></div>
+                        <div class="row justify-content-between"><span>ပြန်ရငွေ </span><span>{{ $bet->bet_result == 'win' ? $bet->win_amount:0 }}</span></div>
                         <div class="row justify-content-between"><span>အနိုင်/အရှုံး </span><span>{{ $bet->bet_result == null ? 'pending' : $bet->bet_result }}</span></div>
                     </div>
                 </div>

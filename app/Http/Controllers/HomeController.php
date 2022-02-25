@@ -39,7 +39,8 @@ class HomeController extends Controller
             ->orderBy('date', 'asc')
             ->get();
         // return $matches;
-        return view('frontend.home', compact('matches'));       }
+        return view('frontend.home', compact('matches'));       
+    }
 
     public function history(Request $request)
     {
@@ -51,7 +52,7 @@ class HomeController extends Controller
         $htote_ngwe = WalletHistory::select('user_id', DB::raw('SUM(amount) as total'))->groupBy('user_id')->where('user_id', $user_id)->where('is_deposit', 'withdraw')->whereBetween('date', [ $startDate , $endDate])->first();
         $bet_amount = WalletHistory::select('user_id', DB::raw('SUM(amount) as total'))->groupBy('user_id')->where('user_id', $user_id)->where('is_deposit', 'bet')->whereBetween('date', [ $startDate , $endDate])->first();
         $win_amount = WalletHistory::select('user_id', DB::raw('SUM(amount) as total'))->groupBy('user_id')->where('user_id', $user_id)->where('is_deposit', 'win')->whereBetween('date', [ $startDate , $endDate])->first();
-        $win_amount = Bet::select('user_id', DB::raw('SUM(bet_amount+win_amount) as total'))->groupBy('user_id')->where('user_id', $user_id)->where('bet_result', 'win')->whereBetween('date', [$startDate.' 00:00:00',$endDate.' 23:59:00'])->first();
+        // $win_amount = Bet::select('user_id', DB::raw('SUM(win_amount) as total'))->groupBy('user_id')->where('user_id', $user_id)->where('bet_result', 'win')->whereBetween('date', [$startDate.' 00:00:00',$endDate.' 23:59:00'])->first();
         $lat_kyan = Wallet::where('user_id', $user_id)->first()->amount;
         return view('frontend.history', compact('thwin_ngwe', 'htote_ngwe', 'bet_amount', 'win_amount', 'lat_kyan'));
     }
