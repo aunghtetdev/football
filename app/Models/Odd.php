@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Match;
+use App\Models\Fixture;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -23,7 +23,7 @@ class Odd extends Model
 
     public function match()
     {
-        return $this->belongsTo(Match::class);
+        return $this->belongsTo(Fixture::class, 'match_id');
     }
 
     public function getOverTeamNameAttribute()

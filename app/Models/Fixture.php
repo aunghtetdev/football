@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Match extends Model
+class Fixture extends Model
 {
     use HasFactory;
 

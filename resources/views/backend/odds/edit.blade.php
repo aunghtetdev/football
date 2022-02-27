@@ -24,7 +24,7 @@
                                 <div class="form-group">
                                     <div class="label">Over Team</div>
                                     <input type="hidden" value="{{ $odds->over_team_id }}" name="over_team_id">
-                                    <select name="over_team_id" class="form-control" disabled>
+                                    <select name="over_team_id" class="form-control">
                                         <option value="{{ $odds->over_team_id }}">{{ $odds->over_team_name }}</option>
                                     </select>
                                 </div>
@@ -33,7 +33,7 @@
                                 <div class="form-group">
                                     <div class="label">Under Team</div>
                                     <input type="hidden" value="{{ $odds->underteam_id }}" name="underteam_id">
-                                    <select name="underteam_id" class="form-control" id="under_team" disabled>
+                                    <select name="underteam_id" class="form-control" id="under_team">
                                         <option value="{{ $odds->underteam_id }}">{{ $odds->under_team_name }}</option>
                                     </select>
                                 </div>
@@ -43,13 +43,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="label">Body</div>
-                                    <input type="text" class="form-control" value="{{ $odds->body_value }}" name="body_value">
+                                    <input type="text" class="form-control" value="{{ $odds->body_value }}" disabled name="body_value">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="label">Goal Total</div>
-                                    <input type="text" class="form-control" value="{{ $odds->goal_total_value }}" name="goal_total_value">
+                                    <input type="text" class="form-control" value="{{ $odds->goal_total_value }}" disabled name="goal_total_value">
                                 </div>
                             </div>
                         </div>

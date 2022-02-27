@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Team;
-use App\Models\Match;
-use App\Models\Matchy;
+use App\Models\Fixture;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Helper\PermissionChecker;
@@ -18,7 +17,7 @@ class MatchController extends Controller
 
     protected $rView = 'backend.matches.';
 
-    public function __construct(Match $model)
+    public function __construct(Fixture $model)
     {
         return $this->model = $model;
     }
@@ -31,7 +30,7 @@ class MatchController extends Controller
 
     public function ssd()
     {
-        $match = Match::query();
+        $match = Fixture::query()->orderBy('finished', 'asc');
         return Datatables::of($match)
         ->addColumn('action', function ($each) {
             $edit_icon = '<a href="'.url('admin/matches/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-edit"></i></a>';
@@ -104,7 +103,7 @@ class MatchController extends Controller
     public function edit($id)
     {
         PermissionChecker::CheckPermission('match');
-        $match = Match::findOrFail($id);
+        $match = Fixture::findOrFail($id);
         $teams = Team::select('name_mm', 'id')->get();
         return view($this->rView.'edit', compact('match', 'teams'));
     }
@@ -130,7 +129,7 @@ class MatchController extends Controller
      */
     public function destroy($id)
     {
-        $match = Match::findOrFail($id);
+        $match = Fixture::findOrFail($id);
         $match->delete();
 
         return 'success';

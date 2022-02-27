@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Frontend;
 
 use Carbon\Carbon;
 use App\Models\Bet;
-use App\Models\Match;
 use App\Models\Moung;
 use App\Models\Wallet;
+use App\Models\Fixture;
 use App\Helper\WalletHelper;
 use Illuminate\Http\Request;
 use App\Helper\UUIDGenerator;
@@ -70,8 +70,8 @@ class CompensationController extends Controller
     
     public function showMoung()
     {
-        $now = Carbon::now()->format('Y-m-d H:i:s');
-        $matches = Match::join('odds', 'matches.id', '=', 'odds.match_id')
+        $now = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
+        $matches = Fixture::join('odds', 'matches.id', '=', 'odds.match_id')
             ->join('live_odds', 'odds.id', '=', 'live_odds.odd_id')
             ->where('live_odds.live', 1)
             ->where('matches.finished', 0)
@@ -142,8 +142,8 @@ class CompensationController extends Controller
 
     public function showBody()
     {
-        $now = Carbon::now()->format('Y-m-d H:i:s');
-        $matches = Match::join('odds', 'matches.id', '=', 'odds.match_id')
+        $now = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
+        $matches = Fixture::join('odds', 'matches.id', '=', 'odds.match_id')
             ->join('live_odds', 'odds.id', '=', 'live_odds.odd_id')
             ->where('live_odds.live', 1)
             ->where('matches.finished', 0)

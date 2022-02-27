@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Bet;
-use App\Models\Match;
 use App\Models\Wallet;
+use App\Models\Fixture;
 use Illuminate\Http\Request;
 use App\Models\WalletHistory;
 use Illuminate\Support\Facades\DB;
@@ -30,12 +30,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $now = Carbon::now()->format('Y-m-d H:i:s');
-        $matches = Match::join('odds', 'matches.id', '=', 'odds.match_id')
+        $now = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
+        $matches = Fixture::join('odds', 'fixtures.id', '=', 'odds.match_id')
             ->join('live_odds', 'odds.id', '=', 'live_odds.odd_id')
             ->where('live_odds.live', 1)
-            ->where('matches.finished', 0)
-            ->where('matches.date', '>', $now)
+            ->where('fixtures.finished', 0)
+            ->where('fixtures.date', '>', $now)
             ->orderBy('date', 'asc')
             ->get();
         // return $matches;

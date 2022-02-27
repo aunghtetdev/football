@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Carbon\Carbon;
 use App\Models\Odd;
 use App\Models\Team;
-use App\Models\Match;
-use App\Models\Matchy;
+use App\Models\Fixture;
 use App\Models\LiveOdd;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -96,7 +95,7 @@ class OddController extends Controller
     public function create()
     {
         PermissionChecker::CheckPermission('odds');
-        $matches = Match::where('finished', 0)->get();
+        $matches = Fixture::where('finished', 0)->get();
         $matches = $this->getMatch($matches);
         return view($this->rView . 'create', compact('matches'));
     }
@@ -151,7 +150,7 @@ class OddController extends Controller
     {
         PermissionChecker::CheckPermission('odds');
         $odds = Odd::findOrFail($id);
-        $match = Match::findOrFail($odds->match_id);
+        $match = Fixture::findOrFail($odds->match_id);
         if ($match->home_team_id) {
             $home_team_name = Team::find($match->home_team_id)->name_mm;
         }
@@ -218,7 +217,7 @@ class OddController extends Controller
 
     public function getAjaxMatchTeam(Request $request)
     {
-        $match = Match::select('home_team_id', 'away_team_id')->findOrFail($request->match_id);
+        $match = Fixture::select('home_team_id', 'away_team_id')->findOrFail($request->match_id);
         $team = Team::select('name_mm', 'id')
                 ->whereIn('id', $match)
                 ->get();

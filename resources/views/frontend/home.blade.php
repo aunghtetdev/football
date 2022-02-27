@@ -131,7 +131,7 @@
                     var match_date = bet.split('-')[6];
                     var current_date = todayDateFormat();
                     var current_time = formatAMPM(new Date);
-                    console.log(current_time)
+                    console.log('current time '+current_time, 'match time '+match_time)
                     if(match_time < current_time && current_date < match_date)
                     {
                         Toast.fire({
@@ -161,7 +161,7 @@
     }
     function formatAMPM(date) {
         var hours = date.getHours();
-        var minutes = date.getMinutes() - 5;
+        var minutes = date.getMinutes();
         var ampm = hours >= 12 ? 'pm' : 'am';
         hours = hours % 12;
         hours = hours ? hours : 12; // the hour '0' should be '12'

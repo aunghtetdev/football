@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Moung;
+use App\Models\Fixture;
 use App\Models\LiveOdd;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -86,7 +87,7 @@ class Bet extends Model
 
     protected function getGoalResult($match_id, $team_id)
     {
-        $match = Match::findOrFail($match_id);
+        $match = Fixture::findOrFail($match_id);
         if($match)
         {
             // checking home team or away team
