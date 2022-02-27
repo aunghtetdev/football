@@ -44,6 +44,10 @@
                                 <div id="loaderIcon_{{ $bet->id }}" class="spinner-border text-primary" style="display:none;" role="status">
                                     <span class="sr-only">Loading...</span>
                                 </div>
+                                <div class="mb-1 mt-1">
+                                    <span>Bet Amount : </span>
+                                    <span> {{ $bet->bet_amount }}</span>
+                                </div>
                                 <form action="" id="form_{{ $bet->id }}">
                                     @csrf
                                     <input type="hidden" value="{{ $bet->id }}" name="bet_id">
@@ -102,6 +106,10 @@
                                 </div>
                                 <div id="loaderIcon_{{ $bet->id }}" class="spinner-border text-primary" style="display:none;" role="status">
                                     <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="mb-1 mt-1">
+                                    <span>Bet Amount : </span>
+                                    <span> {{ $bet->bet_amount }}</span>
                                 </div>
                                 <form action="" id="form_{{ $bet->id }}">
                                     @csrf
