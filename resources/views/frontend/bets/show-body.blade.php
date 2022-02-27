@@ -84,6 +84,7 @@
         var bet = $("input[name=bet]:checked").val();
         var bet_amount = $("input[name=bet_amount]").val();
         var amount = {!! json_encode((array)auth()->user()->wallet->amount) !!};
+        amount = parseInt(amount[0]);
         console.log(amount)
         if(!bet)
         {
