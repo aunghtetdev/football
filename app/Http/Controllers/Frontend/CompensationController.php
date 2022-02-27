@@ -71,11 +71,11 @@ class CompensationController extends Controller
     public function showMoung()
     {
         $now = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
-        $matches = Fixture::join('odds', 'matches.id', '=', 'odds.match_id')
+        $matches = Fixture::join('odds', 'fixtures.id', '=', 'odds.match_id')
             ->join('live_odds', 'odds.id', '=', 'live_odds.odd_id')
             ->where('live_odds.live', 1)
-            ->where('matches.finished', 0)
-            ->where('matches.date', '>', $now)
+            ->where('fixtures.finished', 0)
+            ->where('fixtures.date', '>', $now)
             ->orderBy('date', 'asc')
             ->get();
 
@@ -143,11 +143,11 @@ class CompensationController extends Controller
     public function showBody()
     {
         $now = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
-        $matches = Fixture::join('odds', 'matches.id', '=', 'odds.match_id')
+        $matches = Fixture::join('odds', 'fixtures.id', '=', 'odds.match_id')
             ->join('live_odds', 'odds.id', '=', 'live_odds.odd_id')
             ->where('live_odds.live', 1)
-            ->where('matches.finished', 0)
-            ->where('matches.date', '>', $now)
+            ->where('fixtures.finished', 0)
+            ->where('fixtures.date', '>', $now)
             ->orderBy('date', 'asc')
             ->get();
         //return $matches;
