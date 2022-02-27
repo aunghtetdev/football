@@ -91,10 +91,10 @@
                 icon: 'info',
                 title: 'လောင်းမည့်အသင်းရွေးပေးပါ။'
             })
-        }else if(bet_amount < 1000){
+        }else if(bet_amount < 500){
             Toast.fire({
                 icon: 'info',
-                title: 'အနည်းဆုံး ၁၀၀၀ကျပ် လောင်းပါ။'
+                title: 'အနည်းဆုံး ၅၀၀ကျပ် လောင်းပါ။'
             })
         }else if(amount < bet_amount){
             Toast.fire({

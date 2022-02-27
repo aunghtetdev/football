@@ -101,10 +101,10 @@
                 icon: 'info',
                 title: 'အနည်းဆုံး ၂ပွဲနင့်အထက် လောင်းပါ။'
             })
-        }else if(parseInt(bet_amount) < 1000){
+        }else if(parseInt(bet_amount) < 500){
             Toast.fire({
                 icon: 'info',
-                title: 'အနည်းဆုံး ၁၀၀၀ကျပ် လောင်းပါ။'
+                title: 'အနည်းဆုံး ၅၀၀ကျပ် လောင်းပါ။'
             })
         }else if(parseInt(amount[0]) < parseInt(bet_amount)){
             console.log(parseInt(amount[0]) < parseInt(bet_amount))
