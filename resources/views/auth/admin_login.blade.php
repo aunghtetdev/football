@@ -22,14 +22,14 @@
                     <img src="{{asset('image/previous.png')}}" style="width:60px" alt="">
                 </a>
             </div>
+            @include('backend.layouts.flash')
             <div class="card">
                 <div class="card-body">
                     <form method="POST" action="{{ route('admin.login') }}">
                         @csrf
 
                         <h5 class="text-center">Admin Login Form</h5>
-                        <form method="POST" action="{{ route('login') }}">
-                        @csrf
+                        
                         <div class="form-group mb-3">
                             <label for="">Username</label>
                             <input type="text" class="form-control @error('username') is-invalid @enderror"  name="username" required autocomplete="current-username">

@@ -34,6 +34,7 @@ class AdminRoleSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'add_balance', 'guard_name' => 'admin']);
         Permission::firstOrCreate(['name' => 'substract_balance', 'guard_name' => 'admin']);
         Permission::firstOrCreate(['name' => 'view_balance_history', 'guard_name' => 'admin']);
+        Permission::firstOrCreate(['name' => 'bet', 'guard_name' => 'admin']);
 
         // firstOrCreate roles and assign existing permissions
         $role1 = Role::firstOrCreate(['name' => 'Admin', 'guard_name' => 'admin']);
@@ -49,12 +50,13 @@ class AdminRoleSeeder extends Seeder
         $role1->givePermissionTo('add_balance');
         $role1->givePermissionTo('substract_balance');
         $role1->givePermissionTo('view_balance_history');
+        $role1->givePermissionTo('bet');
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // firstOrCreate demo users
         $user = AdminUser::firstOrCreate([
-            'username' => 'kaungchit',
-            'password' => Hash::make('1234567890'),
+            'username' => 'admin',
+            'password' => Hash::make('password'),
         ]);
         $user->assignRole($role1);
     }

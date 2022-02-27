@@ -25,7 +25,6 @@ class LeagueCreate extends FormRequest
     {
         return [
             'name_mm' => 'required',
-            'name_en' => 'required',
             'order' => 'required',
         ];
     }

@@ -38,6 +38,11 @@ class WalletController extends Controller
     {
         $wallet = Wallet::query();
         return Datatables::of($wallet)
+        ->filterColumn('user_id', function ($query, $keyword) {
+            $query->whereHas('user', function ($q1) use ($keyword) {
+                $q1->where('username', 'like', '%'.$keyword.'%');
+            });
+        })
         ->editColumn('user_id', function ($each) {
             return $each->user ? $each->user->username : '';
         })

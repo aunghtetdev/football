@@ -16,7 +16,7 @@ class CreateLeaguesTable extends Migration
         Schema::create('leagues', function (Blueprint $table) {
             $table->id();
             $table->string('name_mm');
-            $table->string('name_en');
+            $table->string('name_en')->nullable();
             $table->string('order')->nullable();
             $table->string('image')->nullable();
             $table->boolean('active')->default(1);
