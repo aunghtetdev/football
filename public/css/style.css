@@ -12,6 +12,7 @@ body:not(.layout-fixed) .main-sidebar {
     position: fixed;
     height: -webkit-fill-available;
 }
+
 /* ==========================  Datatables ================================= */
 table.dataTable > tbody > tr.child ul.dtr-details {
     width: 100%;
@@ -233,10 +234,6 @@ table.dataTable > tbody > tr.child ul.dtr-details > li {
 
 .my-check-box[type="checkbox"]:checked:after {
     display: block;
-}
-
-.main-sidebar {
-    overflow: hidden;
 }
 
 /* ============================== date range picker ========================= */

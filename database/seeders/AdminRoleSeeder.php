@@ -34,6 +34,7 @@ class AdminRoleSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'add_balance', 'guard_name' => 'admin']);
         Permission::firstOrCreate(['name' => 'substract_balance', 'guard_name' => 'admin']);
         Permission::firstOrCreate(['name' => 'view_balance_history', 'guard_name' => 'admin']);
+        Permission::firstOrCreate(['name' => 'bet', 'guard_name' => 'admin']);
 
         // firstOrCreate roles and assign existing permissions
         $role1 = Role::firstOrCreate(['name' => 'Admin', 'guard_name' => 'admin']);

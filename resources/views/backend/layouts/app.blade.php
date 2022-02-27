@@ -295,5 +295,6 @@
                 
 
         </script>
+        <script src="{{asset('js/sidescroll.js')}}"></script>
     </body>
 </html>

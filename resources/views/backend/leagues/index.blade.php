@@ -10,7 +10,7 @@
                 </div>
             </div>
 
-            @include('backend.layouts.flash')
+            
             <div class="card-body">
                 <div class="col-md-12">
                     <table class="table table-bordered table-hover" id="league-table" style="width: 100%">
