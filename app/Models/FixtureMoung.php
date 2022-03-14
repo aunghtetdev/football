@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\Bet;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Fixture extends Model
+class FixtureMoung extends Model
 {
     use HasFactory;
 
@@ -69,6 +70,4 @@ class Fixture extends Model
         }
         return $value;
     }
-
-
 }

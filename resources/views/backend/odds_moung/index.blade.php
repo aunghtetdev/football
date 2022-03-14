@@ -1,11 +1,11 @@
  @extends('backend.layouts.app')
- @section('odds','active')
+ @section('odds-moung','active')
  @section('content')
     <div class="container pt-3">
         <div class="card">
             <div class="card-header">
                 <div class="">
-                    <a href="{{url('admin/odds/create')}}" class="btn btn-theme "><i class="fas fa-user-plus"></i></a>
+                    <a href="{{url('admin/odds-moung/create')}}" class="btn btn-theme "><i class="fas fa-user-plus"></i></a>
                     <h5 class="float-right pt-1" style="font-weight: 700">Odds Dashboard</h5>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                 responsive: true,
                 processing: true,
                 serverSide: true,
-                ajax: "/admin/odds/datatables/ssd",
+                ajax: "/admin/odds-moung/datatables/ssd",
                 columns : [
                     {  data : 'body_value' , name : 'body_value', class: 'text-center'},
                     {  data : 'over_team_name' , name : 'over_team_name', class: 'text-center'},
@@ -91,7 +91,7 @@
                                 }).then((result) => {
                                 if (result.isConfirmed) {
                                     $.ajax({
-                                        url : "/admin/odds/"+id,
+                                        url : "/admin/odds-moung/"+id,
                                         type : "DELETE",
                                         success : function(){
                                             table.ajax.reload();
