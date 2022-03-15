@@ -1,0 +1,15 @@
+[27-Feb-2022 10:07:13 America/New_York] PHP Warning:  require(/home/vstamrif/footballtest.1star2d.com/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/vstamrif/footballtest.1star2d.com/public/index.php on line 34
+[27-Feb-2022 10:07:13 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/vstamrif/footballtest.1star2d.com/public/../vendor/autoload.php' (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/vstamrif/footballtest.1star2d.com/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/vstamrif/footballtest.1star2d.com/public/index.php on line 34
+[27-Feb-2022 10:07:23 America/New_York] PHP Warning:  require(/home/vstamrif/footballtest.1star2d.com/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/vstamrif/footballtest.1star2d.com/public/index.php on line 34
+[27-Feb-2022 10:07:23 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/vstamrif/footballtest.1star2d.com/public/../vendor/autoload.php' (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/vstamrif/footballtest.1star2d.com/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/vstamrif/footballtest.1star2d.com/public/index.php on line 34
+[27-Feb-2022 10:07:25 America/New_York] PHP Warning:  require(/home/vstamrif/footballtest.1star2d.com/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/vstamrif/footballtest.1star2d.com/public/index.php on line 34
+[27-Feb-2022 10:07:25 America/New_York] PHP Fatal error:  Uncaught Error: Failed opening required '/home/vstamrif/footballtest.1star2d.com/public/../vendor/autoload.php' (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/vstamrif/footballtest.1star2d.com/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/vstamrif/footballtest.1star2d.com/public/index.php on line 34

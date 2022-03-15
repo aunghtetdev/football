@@ -37,7 +37,7 @@ class OddController extends Controller
         $odd = Odd::query()->orderBy('updated_at', 'DESC');
         return Datatables::of($odd)
         ->addColumn('status', function ($each) {
-            if ($each->match->finished == 1) {
+            if ($each->match ?$each->match->finished : 1 == 1) {
                 return '<span class="badge badge-pill badge-danger p-2">Finished</span>';
             }else{
                 return '<span class="badge badge-pill badge-success p-2">Live</span>';
