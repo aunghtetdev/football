@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Bet;
 use App\Models\Team;
 use App\Models\Fixture;
 use App\Models\LiveOdd;
@@ -16,7 +17,7 @@ class Moung extends Model
     protected $fillable = [
         'bet_id',
         'user_id',
-        'live_odd_id',
+        'odd_moung_id',
         'match_id',
         'over_team_id',
         'under_team_id',
@@ -27,6 +28,14 @@ class Moung extends Model
 
     protected $appends = ['over_team_name', 'under_team_name', 'bet_team_name', 'over_team_goal', 'under_team_goal'];
     protected $hidden = ['over_team_id', 'under_team_id', 'bet_team_id', 'created_at', 'updated_at'];
+
+    public function bets(){
+        return $this->hasMany(Bet::class,'bet_id');
+    }
+
+    public function odd_moungs(){
+        return $this->belongsTo(OddMoung::class,'odd_moung_id');
+    }
 
     public function live_odd()
     {

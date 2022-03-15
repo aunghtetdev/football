@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Team;
-use App\Models\Fixture;
+use App\Models\FixtureMoung;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Helper\PermissionChecker;
@@ -11,13 +11,13 @@ use App\Http\Requests\MatchCreate;
 use App\Http\Requests\MatchUpdate;
 use App\Http\Controllers\Controller;
 
-class MatchController extends Controller
+class MatchMoungController extends Controller
 {
     protected $model;
 
-    protected $rView = 'backend.matches.';
+    protected $rView = 'backend.matches_moung.';
 
-    public function __construct(Fixture $model)
+    public function __construct(FixtureMoung $model)
     {
         return $this->model = $model;
     }
@@ -25,16 +25,16 @@ class MatchController extends Controller
     public function index()
     {
         PermissionChecker::CheckPermission('match');
-
+        
         return view($this->rView.'index');
     }
 
     public function ssd()
     {
-        $match = Fixture::query()->orderBy('finished', 'asc');
+        $match = FixtureMoung::query()->orderBy('finished', 'asc');
         return Datatables::of($match)
         ->addColumn('action', function ($each) {
-            $edit_icon = '<a href="'.url('admin/matches/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-edit"></i></a>';
+            $edit_icon = '<a href="'.url('admin/moung/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-edit"></i></a>';
             
             return '<div class="action-icon">'.$edit_icon .'</div>';
         })
@@ -81,7 +81,7 @@ class MatchController extends Controller
     public function store(MatchCreate $request)
     {
         $this->model->create($request->all());
-        return redirect('/admin/matches')->with('create', 'Created Successfully');
+        return redirect('/admin/moung')->with('create', 'Created Successfully');
     }
 
     /**
@@ -104,7 +104,7 @@ class MatchController extends Controller
     public function edit($id)
     {
         PermissionChecker::CheckPermission('match');
-        $match = Fixture::findOrFail($id);
+        $match = FixtureMoung::findOrFail($id);
         $teams = Team::select('name_mm', 'id')->get();
         return view($this->rView.'edit', compact('match', 'teams'));
     }
@@ -120,7 +120,7 @@ class MatchController extends Controller
     {
         //return $request->all();
         $this->model->find($id)->update($request->all());
-        return redirect('/admin/matches')->with('update', 'Updated Successfully');
+        return redirect('/admin/moung')->with('update', 'Updated Successfully');
     }
 
     /**
@@ -131,7 +131,7 @@ class MatchController extends Controller
      */
     public function destroy($id)
     {
-        $match = Fixture::findOrFail($id);
+        $match = FixtureMoung::findOrFail($id);
         $match->delete();
 
         return 'success';

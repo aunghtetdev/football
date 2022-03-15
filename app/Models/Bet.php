@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Moung;
 use App\Models\Fixture;
 use App\Models\LiveOdd;
+use App\Models\OddMoung;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -38,11 +39,20 @@ class Bet extends Model
         return $this->hasMany(Moung::class);
     }
 
+    public function odd_moungs()
+    {
+        return $this->hasMany(OddMoung::class,'match_id');
+    }
+
     public function live_odd()
     {
         return $this->belongsTo(LiveOdd::class, 'live_odd_id');
     }
 
+    public function fixture(){
+        return $this->belongsTo(Fixture::class,'match_id');
+    }
+   
     public function getOverTeamNameAttribute()
     {
         if($this->over_team_id)

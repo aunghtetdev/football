@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Carbon\Carbon;
-use App\Models\Odd;
 use App\Models\Team;
 use App\Models\Fixture;
-use App\Models\LiveOdd;
+use App\Models\OddMoung;
+use App\Models\FixtureMoung;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Helper\PermissionChecker;
@@ -15,13 +14,13 @@ use App\Http\Requests\OddsUpdate;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-class OddController extends Controller
+class OddMoungController extends Controller
 {
     protected $model;
 
-    protected $rView = 'backend.odds.';
+    protected $rView = 'backend.odds_moung.';
 
-    public function __construct(Odd $model)
+    public function __construct(OddMoung $model)
     {
         return $this->model = $model;
     }
@@ -34,59 +33,37 @@ class OddController extends Controller
 
     public function ssd()
     {
-        $odd = Odd::query()->orderBy('updated_at', 'DESC');
+        $odd = OddMoung::query()->orderBy('updated_at', 'DESC');
         return Datatables::of($odd)
         ->addColumn('status', function ($each) {
-            if ($each->match ?$each->match->finished : 1 == 1) {
+            if ($each->match->finished == 1) {
                 return '<span class="badge badge-pill badge-danger p-2">Finished</span>';
             }else{
                 return '<span class="badge badge-pill badge-success p-2">Live</span>';
             }
         })
         ->addColumn('action', function ($each) {
-            $edit_icon = '<a href="'.url('admin/odds/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-edit"></i></a>';
-            //$delete_icon = '<a href="'.url('admin/odds/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
-            $change_odds = '<a href="'.url('admin/odds/change-odds/'.$each->id).'" class="btn btn-theme font-weight-bolder">ကြေးပြောင်းရန်</a>';
-            return '<div class="action-icon">'.$change_odds . $edit_icon . '</div>';
+            $edit_icon = '<a href="'.url('admin/odds-moung/'.$each->id.'/edit').'" class="text-warning"><i class="fas fa-edit"></i></a>';
+            //$delete_icon = '<a href="'.url('admin/odds-moung/'.$each->id).'" data-id="'.$each->id.'" class="text-danger" id="delete"><i class="fas fa-trash"></i></a>';
+            
+            return '<div class="action-icon">'. $edit_icon .'</div>';
         })
-        ->editColumn('body_value', function ($each) {
-            if ($each->id) {
-                $value = LiveOdd::where('odd_id', $each->id)->orderBy('id', 'desc')->first()->body_value;
-                return $value;
-            }
-        })
-        ->editColumn('goal_total_value', function ($each) {
-            if ($each->underteam_id) {
-                $value = LiveOdd::where('odd_id', $each->id)->orderBy('id', 'desc')->first()->goal_total_value;
-                return $value;
-            }
-        })
+        // ->editColumn('body_value', function ($each) {
+        //     if ($each->id) {
+        //         $value = OddMoung::orderBy('id', 'desc')->first()->body_value;
+        //         return $value;
+        //     }
+        // })
+        // ->editColumn('goal_total_value', function ($each) {
+        //     if ($each->underteam_id) {
+        //         $value = OddMoung::orderBy('id', 'desc')->first()->goal_total_value;
+        //         return $value;
+        //     }
+        // })
         ->rawColumns(['status', 'action'])
         ->make(true);
     }
 
-    public function changeOdds($odd_id)
-    {
-        $live_odds = LiveOdd::where('odd_id', $odd_id)->orderBy('id', 'desc')->first();
-        return view($this->rView.'change_odds', compact('live_odds'));
-    }
-
-    public function saveChangeOdds(Request $request)
-    {
-        $live_odd = LiveOdd::where('odd_id', $request->odd_id)->orderBy('id', 'desc')->first();
-        $live_odd->live = 0;
-        
-        LiveOdd::create([
-            'odd_id' => $request->odd_id,
-            'body_value' => $request->body_value,
-            'goal_total_value' => $request->goal_total_value,
-            'datetime' => date('Y-m-d H:i:s'),
-            'live' => 1
-        ]);
-        $live_odd->save();
-
-        return redirect('/admin/odds')->with('create', 'Changed Successfully');
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -95,7 +72,7 @@ class OddController extends Controller
     public function create()
     {
         PermissionChecker::CheckPermission('odds');
-        $matches = Fixture::where('finished', 0)->get();
+        $matches = FixtureMoung::where('finished', 0)->get();
         $matches = $this->getMatch($matches);
         return view($this->rView . 'create', compact('matches'));
     }
@@ -112,20 +89,13 @@ class OddController extends Controller
         DB::beginTransaction();
         try {
             $odd = $this->model->create($request->all());
-            // dd($odd);
-            LiveOdd::create([
-                'odd_id' => $odd->id,
-                'body_value' => $request->body_value,
-                'goal_total_value' => $request->goal_total_value,
-                'datetime' => date('Y-m-d H:i:s'),
-                'live' => 1
-            ]);
+            // dd($odd)
 
             DB::commit();
-            return redirect('/admin/odds')->with('create', 'Created Successfully');
+            return redirect('/admin/odds-moung')->with('create', 'Created Successfully');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect('admin/odds/create')->withErrors(['fail' => 'Something wrong'.$e->getMessage()]);
+            return redirect('admin/odds-moung/create')->withErrors(['fail' => 'Something wrong'.$e->getMessage()]);
         }
     }
 
@@ -149,8 +119,8 @@ class OddController extends Controller
     public function edit($id)
     {
         PermissionChecker::CheckPermission('odds');
-        $odds = Odd::findOrFail($id);
-        $match = Fixture::findOrFail($odds->match_id);
+        $odds = OddMoung::findOrFail($id);
+        $match = FixtureMoung::findOrFail($odds->match_id);
         if ($match->home_team_id) {
             $home_team_name = Team::find($match->home_team_id)->name_mm;
         }
@@ -174,7 +144,7 @@ class OddController extends Controller
     public function update(OddsUpdate $request, $id)
     {
         $this->model->find($id)->update($request->all());
-        return redirect('/admin/odds')->with('update', 'Updated Successfully');
+        return redirect('/admin/odds-moung')->with('update', 'Updated Successfully');
     }
 
     /**
@@ -185,7 +155,7 @@ class OddController extends Controller
      */
     public function destroy($id)
     {
-        $odd = Odd::findOrFail($id);
+        $odd = OddMoung::findOrFail($id);
         $odd->delete();
 
         return 'success';
@@ -196,7 +166,7 @@ class OddController extends Controller
         $data = [];
         if ($matches) {
             foreach ($matches as $query) {
-                $is_odds = Odd::where('match_id', $query->id)->first();
+                $is_odds = OddMoung::where('match_id', $query->id)->first();
                 if (!$is_odds) {
                     if ($query->home_team_id) {
                         $home_team_name = Team::find($query->home_team_id)->name_mm;
@@ -217,7 +187,7 @@ class OddController extends Controller
 
     public function getAjaxMatchTeam(Request $request)
     {
-        $match = Fixture::select('home_team_id', 'away_team_id')->findOrFail($request->match_id);
+        $match = FixtureMoung::select('home_team_id', 'away_team_id')->findOrFail($request->match_id);
         $team = Team::select('name_mm', 'id')
                 ->whereIn('id', $match)
                 ->get();

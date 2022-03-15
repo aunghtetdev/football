@@ -5,6 +5,7 @@
 @section('display','d-none d-md-block')
 
 @section('content')
+@include('backend.layouts.flash')
 <section>
     <div class="game-box">
         <div class="card">
@@ -18,7 +19,7 @@
                     <div class="match-content" id="match-content-{{ $match->odd_id }}">
                         {{-- <a class="fullink" href="#"></a> --}}
                         <div class="match-content-inner">
-                            <span class="match-date">06 Feb</span>
+                            <span class="match-date">{{ $match->match_date }}</span>
                             <div class="mpart1">
                                 <div class="right_match">
                                     <span class="right_tech">

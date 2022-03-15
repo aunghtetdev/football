@@ -32,7 +32,7 @@
                             <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{route('profile')}}"><i class="fas fa-user-cog p-1"></i> အကောင့်password</a>
+                                    <a class="dropdown-item" href="{{route('profile')}}"><i class="fas fa-user-cog p-1"></i>အကောင့်password</a>
                                     <a class="dropdown-item" href="{{url('history')}}"><i class="fas fa-dollar-sign p-1"></i>&nbsp; ငွေစာရင်း</a>
                                     {{-- <a class="dropdown-item" href="#"><i class="fas fa-money-bill-wave p-1"></i> ငွေသွင်း/ငွေထုတ်</a> --}}
                                     <a class="dropdown-item text-light" onclick="

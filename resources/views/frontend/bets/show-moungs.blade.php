@@ -16,7 +16,7 @@
                         <h3 class="mb-2">မောင်းပွဲစဥ်များ</h3>
                     @foreach($matches as $match)
                     <!--matches-->
-                    <div class="match-content" id="match-content-{{ $match->odd_id }}">
+                    <div class="match-content" id="match-content-{{ $match->odd_moungs_id }}">
                         {{-- <a class="fullink" href="#"></a> --}}
                         <div class="match-content-inner">
                             <span class="match-date">{{ $match->match_date }}</span>
@@ -45,23 +45,23 @@
                             </div>
                             
                                 <div class="bet-match">
-                                    <input type="hidden" value="{{$match->odd_id}}" name="odd_ids[]">
+                                    <input type="hidden" value="{{$match->odd_moungs_id}}" name="odd_ids[]">
                                     <span>
                                         {{-- sending all needed id in radio value  --}}
-                                        <input type="radio" id="over-team-{{ $match->odd_id }}" value="{{ $match->over_team_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}-{{$match->match_date}}" name="bet[{{$match->odd_id}}]">
-                                        <label for="over-team-{{ $match->odd_id }}" id="over-team" class="over-team"> အပေါ်ကြေးအသင်း ({{ $match->body_value }})</label>
+                                        <input type="radio" id="over-team-{{ $match->odd_moungs_id }}" value="{{ $match->over_team_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}-{{$match->match_date}}" name="bet[{{$match->odd_moungs_id}}]">
+                                        <label for="over-team-{{ $match->odd_moungs_id }}" id="over-team" class="over-team"> အပေါ်ကြေးအသင်း ({{ $match->body_value }})</label>
                                     </span>
                                     <span>
-                                        <input type="radio" id="under-team-{{ $match->odd_id }}" value="{{ $match->underteam_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}-{{$match->match_date}}" name="bet[{{$match->odd_id}}]">
-                                        <label for="under-team-{{ $match->odd_id }}" class="under-team">အောက်ကြေးအသင်း</label>
+                                        <input type="radio" id="under-team-{{ $match->odd_moungs_id }}" value="{{ $match->underteam_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}-{{$match->match_date}}" name="bet[{{$match->odd_moungs_id}}]">
+                                        <label for="under-team-{{ $match->odd_moungs_id }}" class="under-team">အောက်ကြေးအသင်း</label>
                                     </span>
                                     <span class="over">
-                                        <input type="radio" id="over-goal-{{ $match->odd_id }}" value="over-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}-{{$match->match_date}}" name="bet[{{$match->odd_id}}]">
-                                        <label for="over-goal-{{ $match->odd_id }}">ဂိုးပေါ် ({{ $match->goal_total_value }})</label>
+                                        <input type="radio" id="over-goal-{{ $match->odd_moungs_id }}" value="over-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}-{{$match->match_date}}" name="bet[{{$match->odd_moungs_id}}]">
+                                        <label for="over-goal-{{ $match->odd_moungs_id }}">ဂိုးပေါ် ({{ $match->goal_total_value }})</label>
                                     </span>
                                     <span class="under">
-                                        <input type="radio" id="under-goal-{{ $match->odd_id }}" value="under-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}-{{$match->match_date}}" name="bet[{{$match->odd_id}}]">
-                                        <label for="under-goal-{{ $match->odd_id }}" class="under-goal">ဂိုးအောက်</label>
+                                        <input type="radio" id="under-goal-{{ $match->odd_moungs_id }}" value="under-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}-{{$match->match_date}}" name="bet[{{$match->odd_moungs_id}}]">
+                                        <label for="under-goal-{{ $match->odd_moungs_id }}" class="under-goal">ဂိုးအောက်</label>
                                     </span>
                                     
                                 </div>

@@ -30,6 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         $now = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
         $matches = Fixture::join('odds', 'fixtures.id', '=', 'odds.match_id')
             ->join('live_odds', 'odds.id', '=', 'live_odds.odd_id')
