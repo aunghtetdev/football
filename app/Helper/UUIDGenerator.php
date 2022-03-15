@@ -8,7 +8,7 @@ use App\Models\WalletHistory;
 
 class UUIDGenerator
 {
-    public static function BetID()
+     public static function BetID()
     {
         $bet_id = 10000000;
         $exist = Bet::orderBy('bet_id', 'desc')->pluck('bet_id')->first();

@@ -17,7 +17,7 @@ class CreateMoungsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('bet_id');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('live_odd_id')->nullable();
+            $table->unsignedBigInteger('odd_moung_id')->nullable();
             $table->unsignedBigInteger('match_id')->nullable();
             $table->unsignedBigInteger('over_team_id')->nullable();
             $table->unsignedBigInteger('under_team_id')->nullable();
@@ -26,6 +26,7 @@ class CreateMoungsTable extends Migration
             $table->timestamp('date')->nullable();
             $table->timestamps();
         });
+
     }
 
     /**

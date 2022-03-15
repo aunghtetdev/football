@@ -28,6 +28,9 @@ class BetController extends Controller
         return view($this->rView.'index');
     }
 
+    
+    
+
     public function ssd()
     {
         $users = DB::table('users')
@@ -36,6 +39,8 @@ class BetController extends Controller
             ->groupBy('username', 'users.id')
             ->where('bets.is_finished', 0)
             ->get();
+
+        
         return Datatables::of($users)
         ->addColumn('action', function ($each) {
             $detail_icon = '<a href="'.url('admin/bets/bet-details/'.$each->id).'" class="btn btn-primary">Details</a>';
@@ -52,6 +57,7 @@ class BetController extends Controller
             ->get();
         return view($this->rView.'bet-details', compact('bets'));
     }
+    
     public function saveCompensation(Request $request)
     {
         DB::beginTransaction();
