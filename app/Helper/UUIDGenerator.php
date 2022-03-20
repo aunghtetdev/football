@@ -10,7 +10,7 @@ class UUIDGenerator
 {
      public static function BetID()
     {
-        $bet_id = 10000000;
+        $bet_id = 111999000;
         $exist = Bet::orderBy('bet_id', 'desc')->pluck('bet_id')->first();
         
         if ($exist) {
