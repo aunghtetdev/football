@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Bet;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use App\Helper\PermissionChecker;
 use App\Http\Controllers\Controller;
 
 class TotalBetBodyHistoryController extends Controller
 {
     public function index(Request $request){
+        PermissionChecker::CheckPermission('total_body_history');
         return view('backend.total_bet_body_history.index');
     }
 
@@ -19,6 +21,7 @@ class TotalBetBodyHistoryController extends Controller
         $bet_body_history = Bet::whereDate('bets.updated_at',$date)->with('live_odd')
                             ->join('fixtures','bets.match_id','=','fixtures.id')
                             ->whereNotNull('bet_result')
+                            ->where('type','body')
                             ->get();
         return Datatables::of($bet_body_history)
         ->editColumn('over_team_id',function($each){

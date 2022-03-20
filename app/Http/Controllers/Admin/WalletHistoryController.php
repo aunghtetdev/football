@@ -13,7 +13,7 @@ class WalletHistoryController extends Controller
 {
     public function index()
     {
-        PermissionChecker::CheckPermission('balance');
+        PermissionChecker::CheckPermission('balance_history');
         return view('backend.history.index');
     }
 

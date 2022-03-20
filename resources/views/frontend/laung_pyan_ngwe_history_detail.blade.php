@@ -68,8 +68,8 @@
                         <div>{{$moung->over_team_goal}}</div>
                     </div>
                     <div class="col-md-2 bet-card-inner bet-card-mv3">
-                        <div>{{ $moung->live_odd->body_value }}</div>
-                        <div>{{ $moung->live_odd->goal_total_value }}</div>
+                        <div>{{ $moung->odd_moungs->body_value }}</div>
+                        <div>{{ $moung->odd_moungs->goal_total_value }}</div>
                     </div>
                     <div class="col-md-1 bet-card-inner bet-card-mv2">
                         <div>{{$moung->under_team_goal}}</div>

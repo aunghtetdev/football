@@ -83,7 +83,7 @@
         </li>
         @endcan
 
-        @can('match')
+        @can('match_body')
         <li class="nav-item">
             <a href="{{url('/admin/matches')}}" class="nav-link @yield('match')" >
             <i class="nav-icon text-white fas fa-futbol"></i>
@@ -92,7 +92,7 @@
         </li>
         @endcan
 
-        @can('match')
+        @can('match_moung')
         <li class="nav-item">
             <a href="{{url('/admin/moung')}}" class="nav-link @yield('match-moung')" >
             <i class="nav-icon text-white fas fa-futbol"></i>
@@ -101,7 +101,7 @@
         </li>
         @endcan
 
-        @can('odds')
+        @can('odds_body')
         <li class="nav-item">
             <a href="{{url('/admin/odds')}}" class="nav-link @yield('odds')" >
             <i class="nav-icon text-white fas fa-money-bill-alt"></i>
@@ -110,7 +110,7 @@
         </li>
         @endcan
 
-        @can('odds')
+        @can('odds_moung')
         <li class="nav-item">
             <a href="{{url('/admin/odds-moung')}}" class="nav-link @yield('odds-moung')" >
             <i class="nav-icon text-white fas fa-money-bill-alt"></i>
@@ -129,7 +129,7 @@
         </li>
         @endcan
         
-        @can('balance')
+        @can('balance_history')
         <li class="nav-item">
             <a href="{{url('/admin/wallets/history')}}" class="nav-link @yield('history')" >
             <i class="nav-icon text-light fas fa-history"></i>
@@ -147,34 +147,60 @@
         </li>
         @endcan --}}
 
+        @can('total_body')
         <li class="nav-item">
             <a href="{{url('/admin/bets/total-body')}}" class="nav-link @yield('totalbet-body')" >
             <i class="nav-icon text-light fas fa-dollar-sign"></i>
             <p class="font-weight-bolder">စုပေါင်းဘော်ဒီ</p>
             </a>
         </li>
+        @endcan
 
+        @can('total_body_history')
         <li class="nav-item">
             <a href="{{url('/admin/bets-history/total-body')}}" class="nav-link @yield('totalbet-body-history')" >
             <i class="nav-icon text-light fas fa-dollar-sign"></i>
             <p class="font-weight-bolder">စုပေါင်းဘော်ဒီမှတ်တမ်း</p>
             </a>
         </li>
+        @endcan
 
+        @can('total_moung')
         <li class="nav-item">
             <a href="{{url('/admin/bets/total-moung')}}" class="nav-link @yield('totalbet-moung')" >
             <i class="nav-icon text-light fas fa-dollar-sign"></i>
             <p class="font-weight-bolder">စုပေါင်းမောင်း</p>
             </a>
         </li>
+        @endcan
 
+        @can('total_moung_history')
+        <li class="nav-item">
+            <a href="{{url('/admin/bets-history/total-moung')}}" class="nav-link @yield('totalbet-moung-history')" >
+            <i class="nav-icon text-light fas fa-dollar-sign"></i>
+            <p class="font-weight-bolder">စုပေါင်းမောင်းမှတ်တမ်း</p>
+            </a>
+        </li>
+        @endcan
+
+        @can('feedback')
         <li class="nav-item">
             <a href="{{url('/feedbacks')}}" class="nav-link @yield('feedback')" >
             <i class="nav-icon text-light fas fa-comment"></i>
             <p>Feedback</p>
             </a>
         </li>
-        
+        @endcan
+
+        @can('ads')
+        <li class="nav-item">
+            <a href="{{url('/admin/ads')}}" class="nav-link @yield('ad')" >
+            <i class="nav-icon text-light fas fa-comment"></i>
+            <p class="font-weight-bolder">ကြော်ငြာ</p>
+            </a>
+        </li>
+        @endcan
+
         <li class="nav-item">
             <a class="nav-link" href="#"
                 onclick="

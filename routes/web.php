@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Admin\BetController;
 use App\Http\Controllers\Admin\OddController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\Admin\TotalBetMoungController;
 use App\Http\Controllers\Admin\WalletHistoryController;
 use App\Http\Controllers\Frontend\CompensationController;
 use App\Http\Controllers\Admin\TotalBetBodyHistoryController;
+use App\Http\Controllers\Admin\TotalBetMoungHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -140,6 +142,13 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/bets/total-moung',[TotalBetMoungController::class,'index']);
     Route::get('/bets-moung',[TotalBetMoungController::class,'betting']);
 
+
+    Route::get('/bets-history/total-moung',[TotalBetMoungHistoryController::class,'index']);
+    Route::get('/bets-history/total-moung/datatables/ssd',[TotalBetMoungHistoryController::class,'ssd']);
+    
+    Route::get('/bets-history/total-moung/detail/{bet_id}',[TotalBetMoungHistoryController::class,'moungDetails']);
+    
+
     Route::get('/bets', [BetController::class, 'index']);
     Route::get('/bets/datatables/ssd', [BetController::class,'ssd']);
     Route::get('/bets/bet-details/{user_id}', [BetController::class,'betDetails']);
@@ -150,6 +159,10 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
 
 Route::middleware('auth:admin')->group(function () {
+
+    Route::resource('admin/ads', AdController::class);
+    Route::get('/admin/ads/datatables/ssd', [AdController::class,'ssd']);
+    
     Route::get('/feedbacks', [FeedbackController::class, 'index'])->name('feedback');
     Route::get('/feedbacks/datatables/ssd', [FeedbackController::class,'ssd']);
 });

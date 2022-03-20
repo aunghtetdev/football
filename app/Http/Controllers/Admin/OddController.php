@@ -28,7 +28,7 @@ class OddController extends Controller
 
     public function index()
     {
-        PermissionChecker::CheckPermission('odds');
+        PermissionChecker::CheckPermission('odds_body');
         return view($this->rView.'index');
     }
 
@@ -94,7 +94,7 @@ class OddController extends Controller
      */
     public function create()
     {
-        PermissionChecker::CheckPermission('odds');
+        PermissionChecker::CheckPermission('odds_body');
         $matches = Fixture::where('finished', 0)->get();
         $matches = $this->getMatch($matches);
         return view($this->rView . 'create', compact('matches'));
@@ -148,7 +148,7 @@ class OddController extends Controller
      */
     public function edit($id)
     {
-        PermissionChecker::CheckPermission('odds');
+        PermissionChecker::CheckPermission('odds_body');
         $odds = Odd::findOrFail($id);
         $match = Fixture::findOrFail($odds->match_id);
         if ($match->home_team_id) {

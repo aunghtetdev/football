@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Ad;
 use Carbon\Carbon;
 use App\Models\Bet;
 use App\Models\Moung;
@@ -107,7 +108,9 @@ class CompensationController extends Controller
             ->where('fixture_moungs.date', '>', $now)
             ->orderBy('date', 'asc')
             ->get();
-        return view($this->rView.'show-moungs', compact('matches'));
+        // dd($matches);
+            $ads = Ad::latest()->first();
+        return view($this->rView.'show-moungs', compact('matches','ads'));
     }
 
     public function betMoung(Request $request)
@@ -203,7 +206,8 @@ class CompensationController extends Controller
             ->orderBy('date', 'asc')
             ->get();
         //return $matches;
-        return view('frontend.bets.show-body', compact('matches'));
+        $ads = Ad::latest()->first();
+        return view('frontend.bets.show-body', compact('matches','ads'));
     }
 
     public function showPreviousBet()
@@ -218,8 +222,10 @@ class CompensationController extends Controller
             ->where('is_finished', 1)
             ->whereDate('date', $last_date)
             ->get();
+
+            $ads = Ad::latest()->first();
         
-        return view($this->rView.'previous-bet', compact('bets'));
+        return view($this->rView.'previous-bet', compact('bets','ads'));
     }
 
     public function filterPreviousBet(Request $request)
@@ -231,7 +237,8 @@ class CompensationController extends Controller
             ->whereDate('date', $request->date)
             ->get();
             //dd($bets);
-        return view($this->rView.'filter-previous-bet', compact('bets'));
+            $ads = Ad::latest()->first();
+        return view($this->rView.'filter-previous-bet', compact('bets','ads'));
     }
 
     public function showActiveBet()
@@ -241,6 +248,7 @@ class CompensationController extends Controller
             ->where('is_finished', 0)
             ->get();
         
-        return view($this->rView.'active-bet', compact('bets'));
+            $ads = Ad::latest()->first();
+        return view($this->rView.'active-bet', compact('bets','ads'));
     }
 }

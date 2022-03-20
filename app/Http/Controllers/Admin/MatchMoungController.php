@@ -24,7 +24,7 @@ class MatchMoungController extends Controller
 
     public function index()
     {
-        PermissionChecker::CheckPermission('match');
+        PermissionChecker::CheckPermission('match_moung');
         
         return view($this->rView.'index');
     }
@@ -66,7 +66,7 @@ class MatchMoungController extends Controller
      */
     public function create()
     {
-        PermissionChecker::CheckPermission('match');
+        PermissionChecker::CheckPermission('match_moung');
         $teams = Team::select('name_mm', 'id')->get();
         
         return view($this->rView . 'create', compact('teams'));
@@ -103,7 +103,7 @@ class MatchMoungController extends Controller
      */
     public function edit($id)
     {
-        PermissionChecker::CheckPermission('match');
+        PermissionChecker::CheckPermission('match_moung');
         $match = FixtureMoung::findOrFail($id);
         $teams = Team::select('name_mm', 'id')->get();
         return view($this->rView.'edit', compact('match', 'teams'));

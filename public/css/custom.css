@@ -5,9 +5,11 @@
     --primary: #004d25 !important;
     --secondary: #11823b !important;
     --light-green: #48bf53 !important;
-    --soft-green: #91f086 !important;
+    --soft-green: #ded6d6 !important;
     --white: #fff !important;
     --warnings: orange;
+    --active : #E28C00 !important;
+    --select : #515252 !important;
 }
 /* ==================== #Primary ====================== */
 * {
@@ -514,16 +516,17 @@ div#match_today h3 {
 form .bet-match {
     padding: 0 20px;
     font-size: 14px;
+    position: relative !important;
 }
 form .bet-match span label,
 .total-goal {
     position: relative;
-    font-weight: 300;
+    font-weight: 700;
     height: 36px;
     z-index: 9;
     cursor: pointer;
     /* -webkit-transition: all .3s linear; */
-    background-color: var(--primary);
+    background-color: var(--select);
     border-left: 1px solid var(--white);
     color: var(--white);
     float: left;
@@ -537,14 +540,29 @@ form .bet-match span label,
     background-color: var(--white);
 }
 
+
+form .bet-match .goal-total-odd {
+       
+        
+    position: absolute !important;
+    left: 126px !important;
+    bottom: -75px !important;
+    z-index: 9 !important;
+    font-size: 12px;
+    padding: 3px !important;
+    font-weight: bolder !important;
+}
+
+
+
 form .bet-match span:hover label {
     color: var(--soft-green);
 }
 
-form input[type="radio"]:checked ~ label {
+input[type="radio"]:checked ~ label {
     font-weight: bold;
-    color: var(--dark);
-    background-color: var(--soft-green) !important;
+    color: var(--white);
+    background: var(--active);
 }
 .details_match {
     padding: 0 100px;
@@ -614,6 +632,20 @@ form input[type="radio"]:checked ~ label {
         left: -12px;
         border-radius: 0 0 0 8px;
     }
+
+    form .bet-match .goal-total-odd {
+       
+        
+        position: absolute !important;
+        left: 136px !important;
+        bottom: -77px !important;
+        z-index: 9 !important;
+        font-size: 12px;
+        padding: 3px !important;
+        font-weight: bolder !important;
+
+    }
+
 }
 
 @media screen and (max-width: 500px) {
@@ -622,6 +654,21 @@ form input[type="radio"]:checked ~ label {
         width: 106%;
         background: var(--white);
     }
+
+
+    form .bet-match .goal-total-odd {
+       
+        
+        position: absolute !important;
+        left: 136px !important;
+        bottom: -77px !important;
+        z-index: 9 !important;
+        font-size: 12px;
+        padding: 3px !important;
+        font-weight: bolder !important;
+
+    }
+
 }
 /* .bet-match span{
     position: relative;
@@ -814,6 +861,19 @@ form .bet-submit-btn {
     form .bet-match{
         margin-left: -18px;
     }
+
+    form .bet-match .goal-total-odd {
+       
+        
+        position: absolute !important;
+        left: 136px !important;
+        bottom: -77px !important;
+        z-index: 9 !important;
+        font-size: 12px;
+        padding: 3px !important;
+        font-weight: bolder !important;
+
+    }
 }
 @media (max-width: 374px) {
     *{
@@ -829,6 +889,17 @@ form .bet-submit-btn {
     form .bet-match span label{
         width: 41% !important;
         font-size: 9px !important;
+    }
+
+    form .bet-match .goal-total-odd {
+       
+        position: absolute !important;
+        left: 113px !important;
+        bottom: -75px !important;
+        z-index: 9 !important;
+        font-size: 12px;
+        padding: 3px !important;
+        font-weight: bolder !important;
     }
 }
 /* ================= Media Start ===================== */
@@ -1010,7 +1081,7 @@ form .bet-submit-btn {
 @media (min-width: 1024px) {
     form .over-team::before,
     .under-goal::before {
-        background-color: var(--primary);
+        background-color: var(--select);
         content: "";
         height: 34px;
         position: absolute;
@@ -1029,11 +1100,50 @@ form .bet-submit-btn {
         left: -12px;
         border-radius: 0 0 0 8px;
     }
+
+
+    form .bet-match .goal-total-odd {
+        
+            
+        position: absolute !important;
+        left: 403px !important;
+        bottom: -75px !important;
+        z-index: 9 !important;
+        font-size: 12px;
+        padding: 3px !important;
+        font-weight: bolder !important;
+    }
 }
-@media (min-width: 1024px) and (max-width: 1439px) {
+@media (min-width: 1024px) and (max-width: 1440px) {
     form .bet-match span label,
     .total-goal {
         font-size: 10px;
+    }
+
+    form .bet-match .goal-total-odd {
+        
+            
+        position: absolute !important;
+        left: 570px !important;
+        bottom: -75px !important;
+        z-index: 9 !important;
+        font-size: 12px;
+        padding: 3px !important;
+        font-weight: bolder !important;
+    }
+}
+
+@media screen and (min-width : 2500px) {
+    form .bet-match .goal-total-odd {
+        
+            
+        position: absolute !important;
+        left: 800px !important;
+        bottom: -75px !important;
+        z-index: 9 !important;
+        font-size: 12px;
+        padding: 3px !important;
+        font-weight: bolder !important;
     }
 }
 

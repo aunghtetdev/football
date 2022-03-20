@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ad;
 use Carbon\Carbon;
 use App\Models\Bet;
 use App\Models\Wallet;
@@ -39,8 +40,9 @@ class HomeController extends Controller
             ->where('fixtures.date', '>', $now)
             ->orderBy('date', 'asc')
             ->get();
+            $ads = Ad::latest()->first();
         // return $matches;
-        return view('frontend.home', compact('matches'));       
+        return view('frontend.home', compact('matches','ads'));       
     }
 
     public function history(Request $request)
@@ -55,21 +57,25 @@ class HomeController extends Controller
         $win_amount = WalletHistory::select('user_id', DB::raw('SUM(amount) as total'))->groupBy('user_id')->where('user_id', $user_id)->where('is_deposit', 'win')->whereBetween('date', [ $startDate , $endDate])->first();
         // $win_amount = Bet::select('user_id', DB::raw('SUM(win_amount) as total'))->groupBy('user_id')->where('user_id', $user_id)->where('bet_result', 'win')->whereBetween('date', [$startDate.' 00:00:00',$endDate.' 23:59:00'])->first();
         $lat_kyan = Wallet::where('user_id', $user_id)->first()->amount;
-        return view('frontend.history', compact('thwin_ngwe', 'htote_ngwe', 'bet_amount', 'win_amount', 'lat_kyan'));
+
+        $ads = Ad::latest()->first();
+        return view('frontend.history', compact('thwin_ngwe', 'htote_ngwe', 'bet_amount', 'win_amount', 'lat_kyan','ads'));
     }
 
     public function thwinNgwe($id, $startDate, $endDate)
     {
+        $ads = Ad::latest()->first();
         $thwin_ngwe_detail = WalletHistory::where('user_id', $id)->where('is_deposit', 'deposit')->whereBetween('date', [$startDate,$endDate])->get();
         // dd($thwin_ngwe_detail);
-        return view('frontend.thwin_ngwe_history_detail', compact('thwin_ngwe_detail'));
+        return view('frontend.thwin_ngwe_history_detail', compact('thwin_ngwe_detail','ads'));
     }
 
     public function htoteNgwe($id, $startDate, $endDate)
     {
         $htote_ngwe_detail = WalletHistory::where('user_id', $id)->where('is_deposit', 'withdraw')->whereBetween('date', [$startDate,$endDate])->get();
         // dd($htote_ngwe_detail);
-        return view('frontend.htote_ngwe_history_detail', compact('htote_ngwe_detail'));
+        $ads = Ad::latest()->first();
+        return view('frontend.htote_ngwe_history_detail', compact('htote_ngwe_detail','ads'));
     }
 
     public function pyanYaNgwe($id, $startDate, $endDate)
@@ -80,8 +86,9 @@ class HomeController extends Controller
             ->whereBetween('date', [$startDate.' 00:00:00',$endDate.' 23:59:00'])
             ->get();
         // dd($bets);
+        $ads = Ad::latest()->first();
         $htote_ngwe_detail = WalletHistory::where('user_id', $id)->where('is_deposit', 0)->whereBetween('date', [$startDate,$endDate])->get();
-        return view('frontend.laung_pyan_ngwe_history_detail', compact('htote_ngwe_detail', 'bets'));
+        return view('frontend.laung_pyan_ngwe_history_detail', compact('htote_ngwe_detail', 'bets','ads'));
     }
 
     public function laungNgwe($id, $startDate, $endDate)
@@ -90,7 +97,9 @@ class HomeController extends Controller
             ->orderBy('date', 'asc')
             ->whereBetween('date', [$startDate.' 00:00:00',$endDate.' 23:59:00'])
             ->get();
+        
+            $ads = Ad::latest()->first();
         $htote_ngwe_detail = WalletHistory::where('user_id', $id)->where('is_deposit', 0)->whereBetween('date', [$startDate,$endDate])->get();
-        return view('frontend.laung_pyan_ngwe_history_detail', compact('htote_ngwe_detail', 'bets'));
+        return view('frontend.laung_pyan_ngwe_history_detail', compact('htote_ngwe_detail', 'bets','ads'));
     }
 }

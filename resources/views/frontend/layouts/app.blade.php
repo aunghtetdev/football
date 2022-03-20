@@ -54,7 +54,7 @@
                             <h3>ကြော်ညာများ</h3>
                         </div>
                         <div class="widget-body p-0">
-                            <a href=""><img class="w-100" src="{{ asset('image/slider.jpg') }}" alt=""></a>
+                            <a href=""><img class="w-100" src="{{ $ads ? asset('storage/ads/'.$ads->image) : asset('image/slider.jpg')}}" alt=""></a>
                         </div>
                     </div>
                     <div class="web-sidebar-widget">
@@ -62,9 +62,9 @@
                             <h3>Agent အချက်အလက်များ</h3>
                         </div>
                         <div class="widget-body">
-                            <p><strong>ဆက်သွယ်ရန် နံပါတ်:</strong> 9776541234</p>
-                            <p><strong>ဆက်သွယ်ရန် နံပါတ် ၂:</strong> 9787654123</p>
-                            <p><strong>Email:</strong> youremail@gmail.com</p>
+                            <p><strong>ဆက်သွယ်ရန် နံပါတ်:</strong> {{$ads ? $ads->phone1 : '09123456789'}}</p>
+                            <p><strong>ဆက်သွယ်ရန် နံပါတ် ၂:</strong> {{$ads ? $ads->phone2 : '09123456789'}}</p>
+                            <p><strong>Email:</strong> {{$ads ? $ads->email : 'abcd@gmail.com'}}</p>
                         </div>
                     </div>
                     <div class="web-sidebar-widget">

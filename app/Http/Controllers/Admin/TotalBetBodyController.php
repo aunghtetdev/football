@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Bet;
 use App\Models\Fixture;
 use Illuminate\Http\Request;
+use App\Helper\PermissionChecker;
 use App\Http\Controllers\Controller;
 
 class TotalBetBodyController extends Controller
@@ -13,6 +14,7 @@ class TotalBetBodyController extends Controller
 
     public function index(Request $request){
         
+        PermissionChecker::CheckPermission('total_body');
         $date = $request->date ?? now()->format('Y-m-d');
         
        

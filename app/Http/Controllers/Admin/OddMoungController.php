@@ -27,7 +27,7 @@ class OddMoungController extends Controller
 
     public function index()
     {
-        PermissionChecker::CheckPermission('odds');
+        PermissionChecker::CheckPermission('odds_moung');
         return view($this->rView.'index');
     }
 
@@ -71,7 +71,7 @@ class OddMoungController extends Controller
      */
     public function create()
     {
-        PermissionChecker::CheckPermission('odds');
+        PermissionChecker::CheckPermission('odds_moung');
         $matches = FixtureMoung::where('finished', 0)->get();
         $matches = $this->getMatch($matches);
         return view($this->rView . 'create', compact('matches'));
@@ -118,7 +118,7 @@ class OddMoungController extends Controller
      */
     public function edit($id)
     {
-        PermissionChecker::CheckPermission('odds');
+        PermissionChecker::CheckPermission('odds_moung');
         $odds = OddMoung::findOrFail($id);
         $match = FixtureMoung::findOrFail($odds->match_id);
         if ($match->home_team_id) {

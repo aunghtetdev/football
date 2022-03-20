@@ -58,8 +58,8 @@ class Bet extends Model
         if($this->over_team_id)
         {
             $value = Team::findOrFail($this->over_team_id)->name_mm;
+            return $value;
         }
-        return $value;
     }
 
     public function getUnderTeamNameAttribute()
@@ -67,8 +67,8 @@ class Bet extends Model
         if($this->under_team_id)
         {
             $value = Team::findOrFail($this->under_team_id)->name_mm;
+            return $value;
         }
-        return $value;
     }
 
     public function getBetTeamNameAttribute()

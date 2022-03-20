@@ -25,9 +25,9 @@
                                     <span class="right_tech">
                                         <img src="{{ asset('image/football.png') }}">
                                         @if($match->away_team_id == $match->underteam_id)
-                                        <div class="fname">{{ $match->away_team_name }}</div>
+                                        <div class="fname" id="under-team-{{$match->id}}"  data-name="{{ $match->away_team_name }}">{{ $match->away_team_name }}</div>
                                         @elseif($match->home_team_id == $match->underteam_id)
-                                        <div class="fname">{{ $match->home_team_name }}(H)</div>
+                                        <div class="fname" id="under-team-{{$match->id}}"  data-name="{{ $match->home_team_name }}">{{ $match->home_team_name }}(H)</div>
                                         @endif
                                     </span>
                                 </div>
@@ -36,37 +36,38 @@
                                     <span class="left_tech">
                                         <img src="{{ asset('image/football.png') }}">
                                         @if($match->home_team_id == $match->over_team_id)
-                                        <div class="fname">{{ $match->home_team_name }}(H)</div>
+                                        <div class="fname" id="over-team-{{$match->id}}" data-name="{{ $match->home_team_name }}">{{ $match->home_team_name }}(H)</div>
                                         @elseif($match->away_team_id == $match->over_team_id)
-                                        <div class="fname">{{ $match->away_team_name }}</div>
+                                        <div class="fname" id="over-team-{{$match->id}}" data-name="{{ $match->away_team_name }}">{{ $match->away_team_name }}</div>
                                         @endif
                                     </span>
                                 </div>
                             </div>
                             <div class="bet-match">
                                 <span>
-                                    <input type="radio" id="over-team-{{ $match->odd_id }}" value="{{ $match->over_team_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
-                                    <label for="over-team-{{ $match->odd_id }}" class="over-team"> အပေါ်ကြေးအသင်း ({{ $match->body_value }})</label>
+                                    <input type="radio" id="over-team-{{ $match->odd_id }}" data-id="{{ $match->odd_id }}" data-name="အပေါ်သင်း" value="{{ $match->over_team_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
+                                    <label for="over-team-{{ $match->odd_id }}"  class="over-team"> အပေါ်သင်း <span class="bg-light text-dark rounded p-2 font-weight-bold">{{ $match->body_value }}</span></label>
                                 </span>
                                 <span>
-                                    <input type="radio" id="under-team-{{ $match->odd_id }}" value="{{ $match->underteam_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
-                                    <label for="under-team-{{ $match->odd_id }}" class="under-team">အောက်ကြေးအသင်း</label>
+                                    <input type="radio" id="under-team-{{ $match->odd_id }}" data-name="အောက်အသင်း" value="{{ $match->underteam_id }}-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
+                                    <label for="under-team-{{ $match->odd_id }}" class="under-team">အောက်အသင်း</label>
                                 </span>
                                 <span class="over">
-                                    <input type="radio" id="over-goal-{{ $match->odd_id }}" value="over-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
-                                    <label for="over-goal-{{ $match->odd_id }}">ဂိုးပေါ် ({{ $match->goal_total_value }})</label>
+                                    <input type="radio" id="over-goal-{{ $match->odd_id }}" data-name="ဂိုးပေါ်" value="over-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
+                                    <label for="over-goal-{{ $match->odd_id }}">ဂိုးပေါ် </label>
                                 </span>
                                 <span class="under">
-                                    <input type="radio" id="under-goal-{{ $match->odd_id }}" value="under-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
+                                    <input type="radio" id="under-goal-{{ $match->odd_id }}" data-name="ဂိုးအောက်" value="under-{{$match->id}}-{{$match->match_id}}-{{$match->over_team_id}}-{{$match->underteam_id}}-{{$match->match_time}}" name="bet">
                                     <label for="under-goal-{{ $match->odd_id }}" class="under-goal">ဂိုးအောက်</label>
                                 </span>
                                 
+                                <span class="goal-total-odd bg-light text-dark rounded p-2 font-weight-bolder">{{ $match->goal_total_value }}</span>
                             </div>
                         </div>
                     </div>
                     @endforeach
                     <div class="bet-submit">
-                        <input type="text" class="bet-submit-amount" name="bet_amount" placeholder="လောင်းကြေး...">
+                        <input type="number" class="bet-submit-amount" name="bet_amount" placeholder="လောင်းကြေး...">
                         <input type="submit" onclick="betSubmit(event)" value="Bet" class="btn btn-primary bet-submit-btn">
                     </div>
                     </form>
@@ -82,11 +83,25 @@
     //Submit Bet with confirm box
     function betSubmit(event) {
         event.preventDefault();
+
+        let inputId = $("input[name=bet]:checked")[0].getAttribute('id');
+        let betname = document.getElementById(inputId);
+        let bet_team = betname.dataset.name;
+
+        let match = $("input[name=bet]:checked").val();
+        let match_id = match.split('-')[1];
+
+        let getmatch_over = document.getElementById('over-team-'+match_id);
+        let getmatch_under = document.getElementById('under-team-'+match_id);
+        
+        let over_team = getmatch_over.dataset.name;
+        let under_team = getmatch_under.dataset.name;
+
         var bet = $("input[name=bet]:checked").val();
         var bet_amount = $("input[name=bet_amount]").val();
         var amount = {!! json_encode((array)auth()->user()->wallet->amount) !!};
         amount = parseInt(amount[0]);
-        console.log(amount)
+
         if(!bet)
         {
             Toast.fire({
@@ -115,6 +130,22 @@
                 title: 'လောင်းမည်',
                 text: 'လောင်းမည်သေချာပါသလား!',
                 icon: 'warning',
+                html : `<div class="d-flex justify-content-center">
+                            <table class="table m-3">
+                                    <tr>
+                                        <th class="font-weight-bolder" style="width:150px">ပွဲစဉ်</th>
+                                        <th class="font-weight-bolder">ရွေးထားသောပွဲ</th>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="font-weight-bold h6">${over_team} Vs ${under_team}</td>
+                                        <td class="font-weight-bold">${bet_team}</td>
+                                    </tr>
+                            </table>    
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <p><span class="font-weight-bold">လောင်းငွေ : </span>${bet_amount} Ks</p>
+                        </div>`,
                 showCancelButton: true,
                 confirmButtonText: 'သေချာသည်',
                 cancelButtonText: 'မသေချာပါ',

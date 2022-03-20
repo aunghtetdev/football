@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\Models\Ad;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ChangePassword;
-use Auth;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        return view('frontend.profile.index');
+        $ads = Ad::latest()->first();
+        return view('frontend.profile.index',compact('ads'));
     }
 
     public function changePassword(ChangePassword $request)
