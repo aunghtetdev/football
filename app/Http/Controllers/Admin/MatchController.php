@@ -24,7 +24,7 @@ class MatchController extends Controller
 
     public function index()
     {
-        PermissionChecker::CheckPermission('match');
+        PermissionChecker::CheckPermission('match_body');
 
         return view($this->rView.'index');
     }
