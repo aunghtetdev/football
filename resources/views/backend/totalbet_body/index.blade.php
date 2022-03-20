@@ -30,28 +30,28 @@
                     <td>
                         <div class="d-flex justify-content-between">
                          <span>{{$bet_body->overteam_amount}}</span>
-                         <a href="{{url('admin/bets-body/'.$bet_body->id.'/'.$bet_body->over_team_id)}}"><i class="fas fa-eye text-success"></i></a>
+                         <a href="{{url('admin/bets-body/'.$bet_body->match_id.'/'.$bet_body->over_team_id)}}"><i class="fas fa-eye text-success"></i></a>
                         </div>
                      </td>
  
                      <td>
                          <div class="d-flex justify-content-between">
                           <span>{{$bet_body->underteam_amount}}</span>
-                          <a href="{{url('admin/bets-body/'.$bet_body->id.'/'.$bet_body->underteam_id)}}"><i class="fas fa-eye text-success"></i></a>
+                          <a href="{{url('admin/bets-body/'.$bet_body->match_id.'/'.$bet_body->underteam_id)}}"><i class="fas fa-eye text-success"></i></a>
                          </div>
                       </td>
  
                       <td>
                          <div class="d-flex justify-content-between">
                           <span>{{$bet_body->over_goal_amount}}</span>
-                          <a href="{{url('admin/'.$bet_body->id.'/'.'over-goal')}}"><i class="fas fa-eye text-success"></i></a>
+                          <a href="{{url('admin/'.$bet_body->match_id.'/'.'over-goal')}}"><i class="fas fa-eye text-success"></i></a>
                          </div>
                       </td>
  
                       <td>
                          <div class="d-flex justify-content-between">
                           <span>{{$bet_body->under_goal_amount}}</span>
-                          <a href="{{url('admin/'.$bet_body->id.'/'.'under-goal')}}"><i class="fas fa-eye text-success"></i></a>
+                          <a href="{{url('admin/'.$bet_body->match_id.'/'.'under-goal')}}"><i class="fas fa-eye text-success"></i></a>
                          </div>
                       </td>
                    </tr>

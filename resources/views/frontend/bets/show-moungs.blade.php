@@ -179,11 +179,11 @@
                     $.each(bets, function(i, bet) {
                         var split_bet = bet.split('=')[1];
                         var match_time = split_bet.split('-')[5];
-                        var match_date = bet.split('-')[6];
-                        var current_date = todayDateFormat();
-                        console.log(match_time)
-                        var current_time = formatAMPM(new Date);
-                        if(match_time > current_time && current_date > match_date)
+                            var match_date = bet.split('-')[6];
+                            var current_date = todayDateFormat();
+                            console.log(match_time)
+                            var current_time = formatAMPM(new Date);
+                        if(match_time < current_time && current_date > match_date)
                         {
                             over_time = true;
                         }

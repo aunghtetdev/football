@@ -25,9 +25,9 @@
                                     <span class="right_tech">
                                         <img src="{{ asset('image/football.png') }}">
                                         @if($match->away_team_id == $match->underteam_id)
-                                        <div class="fname" id="under-team-{{$match->id}}"  data-name="{{ $match->away_team_name }}">{{ $match->away_team_name }}</div>
+                                        <div class="fname under-team-{{$match->id}}"   data-name="{{ $match->away_team_name }}">{{ $match->away_team_name }}</div>
                                         @elseif($match->home_team_id == $match->underteam_id)
-                                        <div class="fname" id="under-team-{{$match->id}}"  data-name="{{ $match->home_team_name }}">{{ $match->home_team_name }}(H)</div>
+                                        <div class="fname under-team-{{$match->id}}"   data-name="{{ $match->home_team_name }}">{{ $match->home_team_name }}(H)</div>
                                         @endif
                                     </span>
                                 </div>
@@ -36,9 +36,9 @@
                                     <span class="left_tech">
                                         <img src="{{ asset('image/football.png') }}">
                                         @if($match->home_team_id == $match->over_team_id)
-                                        <div class="fname" id="over-team-{{$match->id}}" data-name="{{ $match->home_team_name }}">{{ $match->home_team_name }}(H)</div>
+                                        <div class="fname over-team-{{$match->id}}" data-name="{{ $match->home_team_name }}">{{ $match->home_team_name }}(H)</div>
                                         @elseif($match->away_team_id == $match->over_team_id)
-                                        <div class="fname" id="over-team-{{$match->id}}" data-name="{{ $match->away_team_name }}">{{ $match->away_team_name }}</div>
+                                        <div class="fname over-team-{{$match->id}}" data-name="{{ $match->away_team_name }}">{{ $match->away_team_name }}</div>
                                         @endif
                                     </span>
                                 </div>
@@ -90,9 +90,9 @@
 
         let match = $("input[name=bet]:checked").val();
         let match_id = match.split('-')[1];
-
-        let getmatch_over = document.getElementById('over-team-'+match_id);
-        let getmatch_under = document.getElementById('under-team-'+match_id);
+       
+        let getmatch_over = document.querySelector('.over-team-'+match_id);
+        let getmatch_under = document.querySelector('.under-team-'+match_id);
         
         let over_team = getmatch_over.dataset.name;
         let under_team = getmatch_under.dataset.name;
@@ -153,9 +153,11 @@
                 }).then((result) => {
                 if (result.isConfirmed) {
                     var match_time = bet.split('-')[5];
+                    var match_date = bet.split('-')[6];
+                    var current_date = todayDateFormat();
                     var current_time = formatAMPM(new Date);
-                    console.log(current_time)
-                    if(match_time < current_time)
+
+                    if(match_time < current_time && current_date > match_date)
                     {
                         Toast.fire({
                         icon: 'error',
@@ -180,5 +182,18 @@
         var strTime = hours + ':' + minutes + ' ' + ampm;
         return strTime;
     }
-</script>
+
+    function todayDateFormat()
+    {
+        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                            ];
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = monthNames[today.getMonth()]; //January is 0!
+
+        today = dd + ' ' + mm;
+        return today;
+    }
+</script>   
 @endsection

@@ -34,7 +34,7 @@ class TotalBetMoungController extends Controller
         PermissionChecker::CheckPermission('total_moung');
         $bets = Bet::with(['moungs'])
                 ->where('bets.type','moung')
-                ->where('is_finished',0)
+                ->whereNull('bet_result')
                 ->get();
         
         return view($this->rView.'betting',compact('bets'));

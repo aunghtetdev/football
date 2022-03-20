@@ -21,7 +21,7 @@ class TotalBetBodyController extends Controller
         $bet_bodys =Fixture::join('odds','fixtures.id','=','odds.match_id')
                     ->whereDate('date',$date)
                     ->get();
-        //return $bet_bodys;
+         //dd($bet_bodys);
         
         return view($this->rView.'index',\compact('bet_bodys'));
     }
@@ -31,10 +31,9 @@ class TotalBetBodyController extends Controller
         $bets = Bet::where('match_id',$match_id)
                 ->where('bet_team_id', $bet_team_id)
                 ->where('type','body')
-                ->where('is_finished', 0)
+                ->whereNull('bet_result')
                 ->get();
         //dd($bets);
-
         return view($this->rView.'body_total_bet',compact('bets'));
     }
 
@@ -43,7 +42,7 @@ class TotalBetBodyController extends Controller
 
         $bets = Bet::where('bet_total_goal','over')
                 ->where('type','body')
-                ->where('is_finished', 0)   
+                ->whereNull('bet_result')  
                 ->where('match_id',$match_id)->get();
         return view($this->rView.'body_total_bet',compact('bets'));
     }
@@ -52,8 +51,8 @@ class TotalBetBodyController extends Controller
 
         $bets = Bet::where('bet_total_goal','under')
                 ->where('type','body')
-                ->where('is_finished', 0)
+                ->whereNull('bet_result')
                 ->where('match_id',$match_id)->get();
         return view($this->rView.'body_total_bet',compact('bets'));
     }
-}
+}   
