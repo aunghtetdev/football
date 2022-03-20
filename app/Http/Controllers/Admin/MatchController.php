@@ -66,7 +66,7 @@ class MatchController extends Controller
      */
     public function create()
     {
-        PermissionChecker::CheckPermission('match');
+        PermissionChecker::CheckPermission('match_body');
         $teams = Team::select('name_mm', 'id')->get();
         
         return view($this->rView . 'create', compact('teams'));
@@ -103,7 +103,7 @@ class MatchController extends Controller
      */
     public function edit($id)
     {
-        PermissionChecker::CheckPermission('match');
+        PermissionChecker::CheckPermission('match_body');
         $match = Fixture::findOrFail($id);
         $teams = Team::select('name_mm', 'id')->get();
         return view($this->rView.'edit', compact('match', 'teams'));
